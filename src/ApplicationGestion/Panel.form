@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="_menuBar">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="_atelierMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atelier"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="_aPrevoirMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="A pr&#xe9;voir "/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_aPrevoirMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_priseEnChargeMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Prise en charge"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_priseEnChargeMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_terminerMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Terminer"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_terminerMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_listesMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_listesMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="_materielMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mat&#xe9;riel"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="_clientMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clients"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="_factureMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Factures"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Garage HEPL"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="_menuBar"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="_atelierLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="_bureauLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="_bureauComLabelFixe" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="_bureauComptaLabel" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_pont1Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_pont2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_pont3Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_solLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_diversLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_bureauCliLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_diversTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_solTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_bureauCliTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_pont1TextField" min="-2" pref="510" max="-2" attributes="0"/>
+                          <Component id="_pont2TextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_pont3TextField" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_patronDispoCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_pauseMidiCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_certainAbsentsRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="_toutLeMondeRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="_dateHeureLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_dateHeureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_atelierLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_pont1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_pont1TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_pont2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_pont2TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="_pont3TextField" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="_pont3Label" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_solLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_solTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_diversTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_diversLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="_bureauLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_bureauCliLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_toutLeMondeRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_bureauCliTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_patronDispoCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="_bureauComLabelFixe" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_certainAbsentsRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_bureauComptaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="_pauseMidiCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JTextField" name="_diversTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="DDEFAUT" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="_patronDispoCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Patron Disponible"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_diversLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Divers :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="_pauseMidiCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pause-Midi"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_bureauLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Bureau"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_bureauCliLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bureau Client:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_bureauComLabelFixe">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bureau Comptabilit&#xe9;: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="_toutLeMondeRadioButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tout le monde est pr&#xe9;sent"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="_certainAbsentsRadioButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Certains Absents"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_bureauCliTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="--Libre--"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_bureauComptaLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel10"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_atelierLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Atelier"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_pont1Label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pont N&#xb0;1:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_pont1TextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="PDEFAUT" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_pont2Label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pont N&#xb0;2:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_pont2TextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="PDEFAUT" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_pont3TextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="PDEFAUT" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_pont3Label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pont N&#xb0;3:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_solLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sol :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_dateHeureLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Date Heure"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_solTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="PDEFAUT" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

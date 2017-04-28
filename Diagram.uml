@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Activités</OriginalElement>
+  <nodes>
+    <node x="207.8882837592518" y="515.0">ApplicationGestion.Panel</node>
+    <node x="353.1676136363637" y="394.0">ApplicationGestion.Valider</node>
+    <node x="470.1676136363637" y="394.0">Activités.Entretien</node>
+    <node x="1030.1595534841506" y="121.0">People.TechnicienExtérieur</node>
+    <node x="354.6676136363637" y="303.0">Activités.Travail</node>
+    <node x="76.7129590839271" y="596.0">ApplicationGestion.Login</node>
+    <node x="868.3262201508171" y="515.0">People.PersonnelGarage</node>
+    <node x="902.1595534841506" y="394.0">Authenticate.AValider</node>
+    <node x="10.5" y="394.0">ApplicationGestion.PlaceUtilisee</node>
+    <node x="897.8262201508171" y="596.0">People.Employé</node>
+    <node x="603.1676136363637" y="394.0">ApplicationGestion.PriseCharge</node>
+    <node x="441.2291928501609" y="121.0">Vehicules.TypeVoiture</node>
+    <node x="435.81756214215915" y="222.0">Vehicules.Voiture</node>
+    <node x="235.38636363636368" y="0.0">Authenticate.Identifiable</node>
+    <node x="950.3342803030305" y="0.0">People.Personne</node>
+    <node x="698.1676136363637" y="121.0">People.Client</node>
+    <node x="722.8342803030304" y="222.0">ApplicationGestion.NewWork</node>
+    <node x="889.161958001676" y="677.0">Main.Main</node>
+    <node x="402.0363121421592" y="0.0">Vehicules.MissingTradeMarkException</node>
+    <node x="314.2291928501609" y="121.0">Vehicules.Vehicule</node>
+    <node x="209.16761363636368" y="394.0">Activités.Reparation</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="People.PersonnelGarage" target="Authenticate.Identifiable">
+      <point x="-55.33333333333326" y="-15.5" />
+      <point x="895.9928868174838" y="495.0" />
+      <point x="871.3108548037986" y="495.0" />
+      <point x="871.3108548037986" y="71.0" />
+      <point x="338.5738636363637" y="71.0" />
+      <point x="39.6875" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Login" target="ApplicationGestion.Panel">
+      <point x="21.75" y="-15.5" />
+      <point x="141.9629590839271" y="571.0" />
+      <point x="250.8882837592518" y="571.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="People.Client" target="Authenticate.Identifiable">
+      <point x="-22.0" y="-15.5" />
+      <point x="720.1676136363637" y="81.0" />
+      <point x="322.6988636363637" y="81.0" />
+      <point x="23.8125" y="15.5" />
+    </edge>
+    <edge source="Activités.Travail" target="Vehicules.Voiture">
+      <point x="23.5" y="-15.5" />
+      <point x="425.1676136363637" y="278.0" />
+      <point x="460.81756214215915" y="278.0" />
+      <point x="-25.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="Vehicules.Voiture">
+      <point x="31.272727272727252" y="-15.5" />
+      <point x="282.16101103197906" y="485.0" />
+      <point x="758.8418560606061" y="485.0" />
+      <point x="758.8418560606061" y="278.0" />
+      <point x="510.81756214215915" y="278.0" />
+      <point x="25.0" y="15.5" />
+    </edge>
+    <edge source="Main.Main" target="People.Employé">
+      <point x="10.25" y="-15.5" />
+      <point x="940.411958001676" y="657.0" />
+      <point x="951.3262201508171" y="657.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Activités.Travail" target="Authenticate.Identifiable">
+      <point x="-23.5" y="-15.5" />
+      <point x="378.1676136363637" y="278.0" />
+      <point x="303.7291928501609" y="278.0" />
+      <point x="303.7291928501609" y="101.0" />
+      <point x="290.9488636363637" y="101.0" />
+      <point x="-7.9375" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="Activités.Reparation">
+      <point x="0.0" y="-15.5" />
+      <point x="250.8882837592518" y="445.0" />
+      <point x="271.1676136363637" y="445.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="ApplicationGestion.NewWork">
+      <point x="39.090909090909065" y="-15.5" />
+      <point x="289.97919285016087" y="495.0" />
+      <point x="780.8342803030304" y="495.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Vehicules.Vehicule" target="Authenticate.Identifiable">
+      <point x="0.0" y="-15.5" />
+      <point x="367.7291928501609" y="91.0" />
+      <point x="306.8238636363637" y="91.0" />
+      <point x="7.9375" y="15.5" />
+    </edge>
+    <edge source="Vehicules.Voiture" target="Vehicules.TypeVoiture">
+      <point x="0.0" y="-15.5" />
+      <point x="485.81756214215915" y="172.0" />
+      <point x="540.2291928501609" y="172.0" />
+      <point x="32.99999999999994" y="15.5" />
+    </edge>
+    <edge source="People.PersonnelGarage" target="Authenticate.AValider">
+      <point x="1.1368683772161603E-13" y="-15.5" />
+      <point x="951.3262201508172" y="495.0" />
+      <point x="955.6595534841506" y="495.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Main.Main" target="People.TechnicienExtérieur">
+      <point x="30.75" y="-15.5" />
+      <point x="960.911958001676" y="657.0" />
+      <point x="1122.6595534841506" y="657.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Valider" target="Activités.Travail">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="ApplicationGestion.PriseCharge">
+      <point x="23.45454545454544" y="-15.5" />
+      <point x="274.34282921379724" y="475.0" />
+      <point x="668.6676136363637" y="475.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.NewWork" target="People.Client">
+      <point x="-38.66666666666663" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="People.TechnicienExtérieur" target="People.Personne">
+      <point x="46.25" y="-15.5" />
+      <point x="1168.9095534841506" y="51.0" />
+      <point x="1044.5009469696972" y="51.0" />
+      <point x="37.66666666666674" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Login" target="Authenticate.Identifiable">
+      <point x="-21.75" y="-15.5" />
+      <point x="98.4629590839271" y="571.0" />
+      <point x="0.0" y="571.0" />
+      <point x="0.0" y="81.0" />
+      <point x="243.32386363636368" y="81.0" />
+      <point x="-55.5625" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.PriseCharge" target="Activités.Travail">
+      <point x="-43.66666666666663" y="-15.5" />
+      <point x="625.0009469696971" y="364.0" />
+      <point x="428.5247564935065" y="364.0" />
+      <point x="26.857142857142833" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="ApplicationGestion.PlaceUtilisee">
+      <point x="-39.090909090909065" y="-15.5" />
+      <point x="211.79737466834274" y="495.0" />
+      <point x="78.0" y="495.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Activités.Entretien" target="Activités.Travail">
+      <point x="0.0" y="-15.5" />
+      <point x="526.6676136363637" y="374.0" />
+      <point x="415.09618506493507" y="374.0" />
+      <point x="13.428571428571388" y="15.5" />
+    </edge>
+    <edge source="People.PersonnelGarage" target="People.Personne">
+      <point x="55.333333333333485" y="-15.5" />
+      <point x="1006.6595534841506" y="495.0" />
+      <point x="1019.6595534841506" y="495.0" />
+      <point x="1019.6595534841506" y="101.0" />
+      <point x="1006.8342803030305" y="101.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Main.Main" target="People.Client">
+      <point x="-10.25" y="-15.5" />
+      <point x="919.911958001676" y="647.0" />
+      <point x="849.3342803030304" y="647.0" />
+      <point x="849.3342803030304" y="182.0" />
+      <point x="779.8818993506495" y="182.0" />
+      <point x="37.71428571428578" y="15.5" />
+    </edge>
+    <edge source="People.Client" target="People.Personne">
+      <point x="22.0" y="-15.5" />
+      <point x="764.1676136363637" y="101.0" />
+      <point x="969.1676136363639" y="101.0" />
+      <point x="-37.66666666666663" y="15.5" />
+    </edge>
+    <edge source="Vehicules.TypeVoiture" target="Vehicules.MissingTradeMarkException">
+      <point x="-5.6843418860808015E-14" y="-15.5" />
+      <point x="507.22919285016087" y="101.0" />
+      <point x="524.0363121421592" y="101.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.PriseCharge" target="People.Client">
+      <point x="43.66666666666663" y="-15.5" />
+      <point x="712.3342803030304" y="374.0" />
+      <point x="681.9125776776988" y="374.0" />
+      <point x="681.9125776776988" y="202.0" />
+      <point x="729.5961850649352" y="202.0" />
+      <point x="-12.571428571428555" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="Activités.Travail">
+      <point x="-15.636363636363626" y="-15.5" />
+      <point x="235.25192012288818" y="465.0" />
+      <point x="190.84943181818187" y="465.0" />
+      <point x="190.84943181818187" y="354.0" />
+      <point x="361.3818993506494" y="354.0" />
+      <point x="-40.28571428571428" y="15.5" />
+    </edge>
+    <edge source="Main.Main" target="ApplicationGestion.Login">
+      <point x="-30.75" y="-15.5" />
+      <point x="899.411958001676" y="657.0" />
+      <point x="120.2129590839271" y="657.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Vehicules.Voiture" target="Vehicules.Vehicule">
+      <point x="-40.0" y="-15.5" />
+      <point x="445.81756214215915" y="202.0" />
+      <point x="367.7291928501609" y="202.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="Activités.Entretien">
+      <point x="15.636363636363626" y="-15.5" />
+      <point x="266.52464739561543" y="465.0" />
+      <point x="526.6676136363637" y="465.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="ApplicationGestion.Valider">
+      <point x="7.818181818181813" y="-15.5" />
+      <point x="258.7064655774336" y="455.0" />
+      <point x="401.6676136363637" y="455.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Activités.Reparation" target="Activités.Travail">
+      <point x="0.0" y="-15.5" />
+      <point x="271.1676136363637" y="374.0" />
+      <point x="388.23904220779224" y="374.0" />
+      <point x="-13.428571428571445" y="15.5" />
+    </edge>
+    <edge source="ApplicationGestion.Panel" target="Authenticate.Identifiable">
+      <point x="-31.272727272727252" y="-15.5" />
+      <point x="219.61555648652455" y="485.0" />
+      <point x="156.0" y="485.0" />
+      <point x="156.0" y="91.0" />
+      <point x="259.1988636363637" y="91.0" />
+      <point x="-39.6875" y="15.5" />
+    </edge>
+    <edge source="People.Employé" target="People.PersonnelGarage">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="People.TechnicienExtérieur" target="Authenticate.Identifiable">
+      <point x="-46.25" y="-15.5" />
+      <point x="1076.4095534841506" y="61.0" />
+      <point x="354.4488636363637" y="61.0" />
+      <point x="55.5625" y="15.5" />
+    </edge>
+    <edge source="Vehicules.Voiture" target="People.Client">
+      <point x="20.0" y="-15.5" />
+      <point x="505.81756214215915" y="182.0" />
+      <point x="704.4533279220781" y="182.0" />
+      <point x="-37.714285714285666" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="608.0" y="354.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
