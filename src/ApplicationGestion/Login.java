@@ -7,7 +7,7 @@ package ApplicationGestion;
 
 import Authenticate.Identifiable;
 import People.Client;
-import People.TechnicienExtérieur;
+import People.TechnicienExterieur;
 
 import javax.swing.*;
 import java.util.Hashtable;
@@ -165,9 +165,9 @@ public class Login extends javax.swing.JFrame {
                         if (temp instanceof Client) {
                             JOptionPane.showMessageDialog(this,"Vous n'êtes pas habilité à rentrer dans cette application.","Erreur",JOptionPane.ERROR_MESSAGE);
                             return;
-                        } else if (temp instanceof TechnicienExtérieur && !ehRadioButton.isSelected())
+                        } else if (temp instanceof TechnicienExterieur && !ehRadioButton.isSelected())
                             JOptionPane.showMessageDialog(this, "Vous n'êtes pas un Membre du personnel,\nmais un extérieur habilité.", "Information", JOptionPane.INFORMATION_MESSAGE);
-                        else if (!(temp instanceof TechnicienExtérieur) && ehRadioButton.isSelected())
+                        else if (!(temp instanceof TechnicienExterieur) && ehRadioButton.isSelected())
                             JOptionPane.showMessageDialog(this, "Vous n'êtes pas un extréieur habilité,\nmais un membre du personnel", "Information", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     }

@@ -10,7 +10,7 @@ import Activités.Reparation;
 import Activités.Travail;
 import Authenticate.Identifiable;
 import People.Client;
-import People.Employé;
+import People.Employe;
 import People.Mecanicien;
 import People.PersonnelGarage;
 import Vehicules.MissingTradeMarkException;
@@ -51,7 +51,7 @@ public class Panel extends javax.swing.JFrame {
             _atelierMenu.setEnabled(true);
             _factureMenu.setEnabled(true);
             _materielMenu.setEnabled(true);
-            if (_logged instanceof Employé) {
+            if (_logged instanceof Employe) {
                 _priseEnChargeMenuItem.setEnabled(false); //Un employé ne peut pas prendre un travail à charge
             }
         }

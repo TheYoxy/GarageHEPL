@@ -9,6 +9,9 @@ public abstract class PersonnelGarage extends Personne implements AValider, Iden
 
     private String _id; //Numero de matricule ou membre du personnel
     private String _pass;
+
+    protected PersonnelGarage(){}
+
     protected PersonnelGarage (String nom, String prenom, String adresse, String numeroTelephone, String id,String pass) {
         super(nom, prenom, adresse, numeroTelephone);
         _id = id;
@@ -35,5 +38,13 @@ public abstract class PersonnelGarage extends Personne implements AValider, Iden
     @Override
     public void setId(String id) {
         _id = id;
+    }
+
+    public String getPass() {
+        return _pass;
+    }
+
+    public void setPass(String pass) {
+        _pass = pass;
     }
 }

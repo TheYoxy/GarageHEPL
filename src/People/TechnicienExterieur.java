@@ -9,6 +9,8 @@ public class TechnicienExterieur
         extends Personne implements Identifiable, AValider {
     private String _id;
     private String _pass;
+    public TechnicienExterieur(){}
+
     public TechnicienExterieur (String nom, String prenom, String adresse, String numeroTelephone, String id, String pass) {
         super(nom, prenom, adresse, numeroTelephone);
         _id = id;
@@ -23,6 +25,14 @@ public class TechnicienExterieur
     @Override
     public void setId(String id) {
         _id = id;
+    }
+
+    public String getPass() {
+        return _pass;
+    }
+
+    public void setPass(String pass) {
+        _pass = pass;
     }
 
     @Override
