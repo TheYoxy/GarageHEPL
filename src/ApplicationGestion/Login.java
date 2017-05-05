@@ -6,7 +6,7 @@
 package ApplicationGestion;
 
 import Authenticate.Identifiable;
-import People.Client;
+import People.APersonne;
 import People.TechnicienExterieur;
 
 import javax.swing.*;
@@ -25,7 +25,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private LinkedList<Identifiable> _tableid;
+    private LinkedList<Identifiable> _tableId;
+    private LinkedList<APersonne> _aPersonnes;
     private Properties _p;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -42,16 +43,20 @@ public class Login extends javax.swing.JFrame {
      * @param ptableid Bla bal
      * @param p Bla bla
      */
-    public Login(LinkedList<Identifiable> ptableid,Properties p)
-    {
-        try{
+    public Login(LinkedList<Identifiable> ptableid,Properties p) {
+        try {
             if (p.isEmpty())
                 p.load(new FileInputStream("user.properties"));
-        }
-        catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(null,"Imposssible de trouver le fichier user.properties.\nFin de l'application","Erreur",JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Imposssible de trouver le fichier user.properties.\nFin de l'application", "Erreur", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        _tableId = ptableid;
+        _aPersonnes = new LinkedList<>();
+        for (Identifiable temp : _tableId)
+        {
+            if (temp instanceof APersonne)
+                _aPersonnes.add((APersonne) temp);
         }
         _p = p;
     }
@@ -185,24 +190,17 @@ public class Login extends javax.swing.JFrame {
         for(Map.Entry<Object, Object> entry : _p.entrySet()) {
             if(entry.getKey().equals(utilisateurTextField.getText()))
                 if(entry.getValue().equals(String.valueOf(mdpTextField.getPassword()))){
-                Identifiable temp = null;
-                    for (final Identifiable a_tableid : _tableid) {
-                        temp = a_tableid;
-                        if (temp.getId().equals(utilisateurTextField.getText())) {
-                            if (temp instanceof Client) {
-                                JOptionPane.showMessageDialog(this, "Vous n'êtes pas habilité à rentrer dans cette application.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                                return;
-                            }
-                            else if (temp instanceof TechnicienExterieur && ! ehRadioButton.isSelected())
+                    for (final APersonne id : _aPersonnes) {
+                        if (id.getId().equals(utilisateurTextField.getText())) {
+                            if (id instanceof TechnicienExterieur && ! ehRadioButton.isSelected())
                                 JOptionPane.showMessageDialog(this, "Vous n'êtes pas un Membre du personnel,\nmais un extérieur habilité.", "Information", JOptionPane.INFORMATION_MESSAGE);
-                            else if (! (temp instanceof TechnicienExterieur) && ehRadioButton.isSelected())
+                            else if (! (id instanceof TechnicienExterieur) && ehRadioButton.isSelected())
                                 JOptionPane.showMessageDialog(this, "Vous n'êtes pas un extréieur habilité,\nmais un membre du personnel", "Information", JOptionPane.INFORMATION_MESSAGE);
-                            break;
+                            new Panel(_tableId, id).setVisible(true);
+                            setVisible(false);
+                            return;
                         }
                     }
-                new Panel(_tableid, temp).setVisible(true);
-                setVisible(false);
-                return;
                 } else {
                     JOptionPane.showMessageDialog(this,"La combinaison utilisateur|mot de passe est incorrecte","Information",JOptionPane.INFORMATION_MESSAGE);
                     return;

@@ -112,7 +112,7 @@ public class Panel extends javax.swing.JFrame {
      * @param list Liste des personnes identifiables
      * @param log Utilisateur reconnu qui s'identifie pour l'application
      */
-    public Panel(LinkedList<Identifiable> list,Identifiable log){
+    public Panel(LinkedList<Identifiable> list, Identifiable log){
         this();
         _listePersonnes = list;
         _logged = log;
