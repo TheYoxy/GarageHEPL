@@ -28,15 +28,6 @@ public class Login extends javax.swing.JFrame {
     private LinkedList<Identifiable> _tableId;
     private LinkedList<APersonne> _aPersonnes;
     private Properties _p;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JRadioButton ehRadioButton;
-    private javax.swing.JLabel mdpLabel;
-    private javax.swing.JRadioButton mdpRadioButton;
-    private javax.swing.JPasswordField mdpTextField;
-    private javax.swing.JButton okButton;
-    private javax.swing.JLabel utilisateurLabel;
-    private javax.swing.JTextField utilisateurTextField;
 
     /**
      *
@@ -233,5 +224,14 @@ public class Login extends javax.swing.JFrame {
         setVisible(false);
         dispose();
     }//GEN-LAST:event_formWindowClosed
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JRadioButton ehRadioButton;
+    private javax.swing.JLabel mdpLabel;
+    private javax.swing.JRadioButton mdpRadioButton;
+    private javax.swing.JPasswordField mdpTextField;
+    private javax.swing.JButton okButton;
+    private javax.swing.JLabel utilisateurLabel;
+    private javax.swing.JTextField utilisateurTextField;
     // End of variables declaration//GEN-END:variables
 }
