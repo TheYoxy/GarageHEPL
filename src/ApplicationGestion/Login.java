@@ -38,6 +38,7 @@ public class Login extends javax.swing.JFrame {
      * @param p Bla bla
      */
     public Login(LinkedList<Personne> ptableid,Properties p) {
+        initComponents();
         try {
             if (p.isEmpty())
                 p.load(new FileInputStream("user.properties"));
@@ -57,6 +58,7 @@ public class Login extends javax.swing.JFrame {
 
     public static void main(String args[])
     {
+
         Properties p = new Properties();
         FilesOperations xmlfile = new FilesOperations();
         try {
