@@ -17,6 +17,7 @@ public class FilesOperations {
         //encoder.close();
     }
 
+    //Load XML file
     public LinkedList<Identifiable> loadUsers() throws FileNotFoundException {
         XMLDecoder decoder = null;
         decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("personne.xml")));
@@ -26,5 +27,14 @@ public class FilesOperations {
         return list;
     }
 
+    //Save to binary file
+    public void saveToBinaryFile(Serializable object, String filename) throws IOException {
+
+        ObjectOutputStream objstream = new ObjectOutputStream( new FileOutputStream(filename));
+        objstream.writeObject(object);
+        objstream.close();
+    }
+
+    //Load from binary file
 
 }
