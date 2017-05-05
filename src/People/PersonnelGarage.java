@@ -3,28 +3,37 @@ package People;
 import Authenticate.AValider;
 import Authenticate.Identifiable;
 
+import java.util.Map;
+
 public abstract class PersonnelGarage extends Personne implements AValider, Identifiable {
 
-    protected String Id; //Numero de matricule ou membre du personnel
-
-    public PersonnelGarage(String nom, String prenom, String adresse, String numeroTelephone, String id) {
+    private String _id; //Numero de matricule ou membre du personnel
+    private String _pass;
+    protected PersonnelGarage (String nom, String prenom, String adresse, String numeroTelephone, String id,String pass) {
         super(nom, prenom, adresse, numeroTelephone);
-        Id = id;
+        _id = id;
+        _pass = pass;
     }
 
     @Override
-    public abstract boolean isValid();
+    public boolean isValid()
+    {
+        return false;
+    }
 
     @Override
-    public abstract boolean validate();
+    public boolean validate(Map.Entry<String,String> entry)
+    {
+        return entry.getKey().equals(_id) && entry.getValue().equals(_pass);
+    }
 
     @Override
     public String getId() {
-        return Id;
+        return _id;
     }
 
     @Override
     public void setId(String id) {
-        Id = id;
+        _id = id;
     }
 }

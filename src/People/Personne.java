@@ -1,10 +1,10 @@
 package People;
 
 public class Personne {
-    protected String _nom;
-    protected String _prenom;
-    protected String _adresse;
-    protected String _numeroTelephone;
+    private String _nom;
+    private String _prenom;
+    private String _adresse;
+    private String _numeroTelephone;
 
     public Personne() {
     }
@@ -25,31 +25,31 @@ public class Personne {
         return _numeroTelephone;
     }
 
-    public void set_numeroTelephone(String _numeroTelephone) {
-        this._numeroTelephone = _numeroTelephone;
+    public void set_numeroTelephone(String numeroTelephone) {
+        this._numeroTelephone = numeroTelephone;
     }
 
     public String get_prenom() {
         return _prenom;
     }
 
-    public void set_prenom(String _prenom) {
-        this._prenom = _prenom;
+    public void set_prenom(String prenom) {
+        this._prenom = prenom;
     }
 
     public String get_adresse() {
         return _adresse;
     }
 
-    public void set_adresse(String _adresse) {
-        this._adresse = _adresse;
+    public void set_adresse(String adresse) {
+        this._adresse = adresse;
     }
 
     public String get_nom() {
         return _nom;
     }
 
-    public void set_nom(String _nom) {
-        this._nom = _nom;
+    public void set_nom(String nom) {
+        this._nom = nom;
     }
 }

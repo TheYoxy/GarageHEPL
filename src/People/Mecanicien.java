@@ -3,8 +3,8 @@ package People;
 public class Mecanicien extends PersonnelGarage {
     private String _specialisation;
 
-    public Mecanicien(String nom, String prenom, String adresse, String numeroTelephone, String id, String specialisation) {
-        super(nom, prenom, adresse, numeroTelephone, id);
+    public Mecanicien(String nom, String prenom, String adresse, String numeroTelephone, String id, String pass,String specialisation) {
+        super(nom, prenom, adresse, numeroTelephone, id,pass);
         _specialisation = specialisation;
     }
 
@@ -16,13 +16,4 @@ public class Mecanicien extends PersonnelGarage {
         this._specialisation = specialisation;
     }
 
-    @Override
-    public boolean isValid() {
-        return false;
-    }
-
-    @Override
-    public boolean validate() {
-        return false;
-    }
 }
