@@ -35,15 +35,14 @@ public class Main {
         FilesOperations xmlfile = new FilesOperations();
         try {
             tableid = xmlfile.loadUsers();
-
         }
         catch(FileNotFoundException e)
         {
             e.printStackTrace();
         }
 
-        Login log = new Login(tableid, table);
-        log.setVisible(true);
+        //Login log = new Login(tableid, table);
+        //log.setVisible(true);
 
     }
 }

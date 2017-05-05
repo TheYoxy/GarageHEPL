@@ -13,6 +13,7 @@ import People.Client;
 import People.Employe;
 import People.Mecanicien;
 import People.PersonnelGarage;
+import Tools.FilesOperations;
 import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
@@ -114,6 +115,11 @@ public class Panel extends javax.swing.JFrame {
      */
     public Panel(LinkedList<Identifiable> list, Identifiable log){
         this();
+        //Charger les 3 fichiers de travaux
+        //FilesOperations binfile = new FilesOperations();
+        //binfile.loadFromBinaryFile("Endedworks");
+        //binfile.loadFromBinaryFile("Waitingworks");
+        //binfile.loadFromBinaryFile("works") ;
         _listePersonnes = list;
         _logged = log;
         if (_logged instanceof PersonnelGarage) {
