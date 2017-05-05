@@ -2,6 +2,8 @@ package Tools;
 import Activités.Entretien;
 import Activités.Travail;
 import Authenticate.Identifiable;
+import People.Personne;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
@@ -11,7 +13,7 @@ public class FilesOperations {
 
 
     //Save XML file, LinkedList<Identifiable>
-    public void saveUsers(LinkedList<Identifiable> person) throws FileNotFoundException {
+    public void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
         encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("personne.xml")));
         encoder.writeObject(person);
@@ -20,10 +22,10 @@ public class FilesOperations {
     }
 
     //Load XML file
-    public LinkedList<Identifiable> loadUsers() throws FileNotFoundException {
+    public LinkedList<Personne> loadUsers() throws FileNotFoundException {
         XMLDecoder decoder;
         decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("personne.xml")));
-        LinkedList<Identifiable> list = (LinkedList<Identifiable>) decoder.readObject();
+        LinkedList<Personne> list = (LinkedList<Personne>) decoder.readObject();
         decoder.close();
 
         return list;

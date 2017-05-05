@@ -7,10 +7,13 @@ package ApplicationGestion;
 
 import Authenticate.Identifiable;
 import People.APersonne;
+import People.Personne;
 import People.TechnicienExterieur;
+import Tools.FilesOperations;
 
 import javax.swing.*;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Map;
@@ -25,7 +28,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private LinkedList<Identifiable> _tableId;
+    private LinkedList<Personne> _tableId;
     private LinkedList<APersonne> _aPersonnes;
     private Properties _p;
 
@@ -34,7 +37,7 @@ public class Login extends javax.swing.JFrame {
      * @param ptableid Bla bal
      * @param p Bla bla
      */
-    public Login(LinkedList<Identifiable> ptableid,Properties p) {
+    public Login(LinkedList<Personne> ptableid,Properties p) {
         try {
             if (p.isEmpty())
                 p.load(new FileInputStream("user.properties"));
@@ -44,7 +47,7 @@ public class Login extends javax.swing.JFrame {
         }
         _tableId = ptableid;
         _aPersonnes = new LinkedList<>();
-        for (Identifiable temp : _tableId)
+        for (Personne temp : _tableId)
         {
             if (temp instanceof APersonne)
                 _aPersonnes.add((APersonne) temp);
@@ -55,9 +58,12 @@ public class Login extends javax.swing.JFrame {
     public static void main(String args[])
     {
         Properties p = new Properties();
+        FilesOperations xmlfile = new FilesOperations();
         try {
             p.load(new FileInputStream("user.properties"));
-            new Login(new LinkedList<>(),p);
+            LinkedList<Personne> aPersonnes = xmlfile.loadUsers();
+
+            new Login(aPersonnes,p).setVisible(true);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,"Imposssible de trouver le fichier user.properties.\nFin de l'application","Erreur",JOptionPane.ERROR_MESSAGE);
             return;

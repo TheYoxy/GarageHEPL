@@ -9,10 +9,7 @@ import Activités.Entretien;
 import Activités.Reparation;
 import Activités.Travail;
 import Authenticate.Identifiable;
-import People.Client;
-import People.Employe;
-import People.Mecanicien;
-import People.PersonnelGarage;
+import People.*;
 import Tools.FilesOperations;
 import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
@@ -84,7 +81,7 @@ public class Panel extends javax.swing.JFrame {
     /**
      * Liste chainée qui retiens toutes les personnes identifiables de l'application
      */
-    private LinkedList<Identifiable> _listePersonnes;
+    private LinkedList<Personne> _listePersonnes;
     /**
      * Hashtable pour retenir si c'est un entretiens ou une réparation
      */
@@ -113,7 +110,7 @@ public class Panel extends javax.swing.JFrame {
      * @param list Liste des personnes identifiables
      * @param log Utilisateur reconnu qui s'identifie pour l'application
      */
-    public Panel(LinkedList<Identifiable> list, Identifiable log){
+    public Panel(LinkedList<Personne> list, Identifiable log){
         this();
         //Charger les 3 fichiers de travaux
         //FilesOperations binfile = new FilesOperations();
@@ -505,7 +502,7 @@ public class Panel extends javax.swing.JFrame {
 
     private void _aPrevoirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__aPrevoirMenuItemActionPerformed
         LinkedList<Client> templist = new LinkedList<>();
-        for (Identifiable temp : _listePersonnes)
+        for (Personne temp : _listePersonnes)
             if (temp instanceof Client)
                 templist.add((Client) temp);
         new NewWork(this,true,templist).setVisible(true);
