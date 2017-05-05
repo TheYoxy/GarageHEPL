@@ -10,7 +10,7 @@ import Activités.Reparation;
 import Activités.Travail;
 import Authenticate.Identifiable;
 import People.Client;
-import People.Employé;
+import People.Employe;
 import People.Mecanicien;
 import People.PersonnelGarage;
 import Vehicules.MissingTradeMarkException;
@@ -30,6 +30,77 @@ import java.util.Vector;
 public class Panel extends javax.swing.JFrame {
 
     /**
+     * Constante pour la remise à 0 des emplacements de travail
+     */
+    private static final String PDEFAUT = "--LIBRE--";
+    /**
+     * Contante pour la remise à 0 de Divers
+     */
+    private static final String DDEFAUT = "RAS";
+    /**
+     * Constante qui retiens le nombre d'emplacements disponibles pour des travaux
+     */
+    private static final int NB_EMPLACEMENTS = 4;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem _aPrevoirMenuItem;
+    private javax.swing.JLabel _atelierLabel;
+    private javax.swing.JMenu _atelierMenu;
+    private javax.swing.JLabel _bureauCliLabel;
+    private javax.swing.JTextField _bureauCliTextField;
+    private javax.swing.JLabel _bureauComLabelFixe;
+    private javax.swing.JLabel _bureauComptaLabel;
+    private javax.swing.JLabel _bureauLabel;
+    private javax.swing.JRadioButton _certainAbsentsRadioButton;
+    private javax.swing.JMenu _clientMenu;
+    private javax.swing.JLabel _dateHeureLabel;
+    private javax.swing.JLabel _diversLabel;
+    private javax.swing.JTextField _diversTextField;
+    private javax.swing.JMenu _factureMenu;
+    private javax.swing.JMenuItem _listesMenuItem;
+    private javax.swing.JMenu _materielMenu;
+    private javax.swing.JMenuBar _menuBar;
+    private javax.swing.JCheckBox _patronDispoCheckBox;
+    private javax.swing.JCheckBox _pauseMidiCheckBox;
+    private javax.swing.JLabel _pont1Label;
+    private javax.swing.JTextField _pont1TextField;
+    private javax.swing.JLabel _pont2Label;
+    private javax.swing.JTextField _pont2TextField;
+    private javax.swing.JLabel _pont3Label;
+    private javax.swing.JTextField _pont3TextField;
+    private javax.swing.JMenuItem _priseEnChargeMenuItem;
+    private javax.swing.JLabel _solLabel;
+    private javax.swing.JTextField _solTextField;
+    private javax.swing.JMenuItem _terminerMenuItem;
+    private javax.swing.JRadioButton _toutLeMondeRadioButton;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    // End of variables declaration//GEN-END:variables
+    private JMenu _parametres;
+    private JMenu _aide;
+    private JMenuItem _info;
+    private JMenuItem _pourDebute;
+    private JMenuItem _aPropos;
+    private AboutBox _aboutBox;
+    /**
+     * Liste chainée qui retiens toutes les personnes identifiables de l'application
+     */
+    private LinkedList<Identifiable> _listePersonnes;
+    /**
+     * Hashtable pour retenir si c'est un entretiens ou une réparation
+     */
+    private Hashtable<Vector<Object>,Boolean> _listeAttente;
+    /**
+     * Tableau de taille 4 qui contiens le travail qui se trouve sur le sol où sur un des ponts
+     */
+    private Travail[] _listeOccupe;
+    /**
+     * Liste qui contiens tout les travaux qui ont été effectués
+     */
+    private LinkedList<Travail> _listeFini;
+    /**
+     * Identifie la personne qui vient de se connecter à l'application
+     */
+    private Identifiable _logged;
+    /**
      * Creates new form Panel
      */
     public Panel() {
@@ -37,7 +108,6 @@ public class Panel extends javax.swing.JFrame {
         setTime();
         CustomSetup();
     }
-
     /**
      * @param list Liste des personnes identifiables
      * @param log Utilisateur reconnu qui s'identifie pour l'application
@@ -51,10 +121,45 @@ public class Panel extends javax.swing.JFrame {
             _atelierMenu.setEnabled(true);
             _factureMenu.setEnabled(true);
             _materielMenu.setEnabled(true);
-            if (_logged instanceof Employé) {
+            if (_logged instanceof Employe) {
                 _priseEnChargeMenuItem.setEnabled(false); //Un employé ne peut pas prendre un travail à charge
             }
         }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Panel().setVisible(true);
+            }
+        });
     }
 
     private void CustomSetup(){
@@ -144,6 +249,7 @@ public class Panel extends javax.swing.JFrame {
         _listeFini.add(_listeOccupe[n]);
         _listeOccupe[n] = null;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -410,113 +516,4 @@ public class Panel extends javax.swing.JFrame {
     private void _listesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__listesMenuItemActionPerformed
         new TravauxFini(this,true,_listeFini).setVisible(true);
     }//GEN-LAST:event__listesMenuItemActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Panel().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem _aPrevoirMenuItem;
-    private javax.swing.JLabel _atelierLabel;
-    private javax.swing.JMenu _atelierMenu;
-    private javax.swing.JLabel _bureauCliLabel;
-    private javax.swing.JTextField _bureauCliTextField;
-    private javax.swing.JLabel _bureauComLabelFixe;
-    private javax.swing.JLabel _bureauComptaLabel;
-    private javax.swing.JLabel _bureauLabel;
-    private javax.swing.JRadioButton _certainAbsentsRadioButton;
-    private javax.swing.JMenu _clientMenu;
-    private javax.swing.JLabel _dateHeureLabel;
-    private javax.swing.JLabel _diversLabel;
-    private javax.swing.JTextField _diversTextField;
-    private javax.swing.JMenu _factureMenu;
-    private javax.swing.JMenuItem _listesMenuItem;
-    private javax.swing.JMenu _materielMenu;
-    private javax.swing.JMenuBar _menuBar;
-    private javax.swing.JCheckBox _patronDispoCheckBox;
-    private javax.swing.JCheckBox _pauseMidiCheckBox;
-    private javax.swing.JLabel _pont1Label;
-    private javax.swing.JTextField _pont1TextField;
-    private javax.swing.JLabel _pont2Label;
-    private javax.swing.JTextField _pont2TextField;
-    private javax.swing.JLabel _pont3Label;
-    private javax.swing.JTextField _pont3TextField;
-    private javax.swing.JMenuItem _priseEnChargeMenuItem;
-    private javax.swing.JLabel _solLabel;
-    private javax.swing.JTextField _solTextField;
-    private javax.swing.JMenuItem _terminerMenuItem;
-    private javax.swing.JRadioButton _toutLeMondeRadioButton;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    // End of variables declaration//GEN-END:variables
-    private JMenu _parametres;
-    private JMenu _aide;
-    private JMenuItem _info;
-    private JMenuItem _pourDebute;
-    private JMenuItem _aPropos;
-    private AboutBox _aboutBox;
-
-    /**
-     * Constante pour la remise à 0 des emplacements de travail
-     */
-    private static final String PDEFAUT = "--LIBRE--";
-    /**
-     * Contante pour la remise à 0 de Divers
-     */
-    private static final String DDEFAUT = "RAS";
-
-    /**
-     * Constante qui retiens le nombre d'emplacements disponibles pour des travaux
-     */
-    private static final int NB_EMPLACEMENTS = 4;
-    /**
-     * Liste chainée qui retiens toutes les personnes identifiables de l'application
-     */
-    private LinkedList<Identifiable> _listePersonnes;
-    /**
-     * Hashtable pour retenir si c'est un entretiens ou une réparation
-     */
-    private Hashtable<Vector<Object>,Boolean> _listeAttente;
-    /**
-     * Tableau de taille 4 qui contiens le travail qui se trouve sur le sol où sur un des ponts
-     */
-    private Travail[] _listeOccupe;
-    /**
-     * Liste qui contiens tout les travaux qui ont été effectués
-     */
-    private LinkedList<Travail> _listeFini;
-    /**
-     * Identifie la personne qui vient de se connecter à l'application
-     */
-    private Identifiable _logged;
 }
