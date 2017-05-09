@@ -15,6 +15,7 @@ import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Hashtable;
@@ -79,6 +80,10 @@ public class Panel extends javax.swing.JFrame {
     private JMenuItem _aPropos;
     private AboutBox _aboutBox;
     /**
+     * Instance de la classe FilesOperations pour la serialization/deserialisation des fichiers
+     */
+    public FilesOperations filesop = new FilesOperations();
+    /**
      * Liste chainée qui retiens toutes les personnes identifiables de l'application
      */
     private LinkedList<Personne> _listePersonnes;
@@ -117,6 +122,19 @@ public class Panel extends javax.swing.JFrame {
         //binfile.loadFromBinaryFile("Endedworks");
         //binfile.loadFromBinaryFile("Waitingworks");
         //binfile.loadFromBinaryFile("works") ;
+        try {
+            _listeFini = filesop.loadFromBinaryFile("travaux_finis");
+            LinkedList<Travail> tempList = new LinkedList<>();
+            tempList= filesop.loadFromBinaryFile("travaux_occupes");
+            _listeOccupe = new Travail[tempList.size()];
+            for (int i = 0; i < tempList.size(); i++) {
+                _listeOccupe[i] = tempList.get(i); // Watch out for NullPointerExceptions!
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         _listePersonnes = list;
         _logged = log;
         if (_logged instanceof PersonnelGarage) {
@@ -197,7 +215,10 @@ public class Panel extends javax.swing.JFrame {
 
     public void ajout(Vector <Object> vector,boolean entretien)
     {
+        LinkedList<Travail> tempWork;
+
         _listeAttente.put(vector,entretien);
+        /*Serialisation de la liste des Travaux en attentes */
     }
 
     /**
@@ -239,18 +260,37 @@ public class Panel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,e.getMessage(),"Exception",JOptionPane.ERROR_MESSAGE);
         }
         _listeAttente.remove(vector);
+
+        /*Ajout de la liste des travaux occupés au fichier*/
+        LinkedList<Travail> tempList = new LinkedList<>();
+        for(int i = 0; i<_listeOccupe.length; i++)
+        {
+            tempList.add(_listeOccupe[i]);
+        }
+        try {
+            filesop.saveToBinaryFile(tempList, "travaux_occupes");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * @param n Endroit où le travail est fini
      * @throws IndexOutOfBoundsException
      */
-    public void finTravail(int n) throws IndexOutOfBoundsException {
+    public void finTravail(int n){
         JTextField[] temp = new JTextField[] {_pont1TextField,_pont2TextField,_pont3TextField,_solTextField};
         if (n < 0 || n > 3) throw new IndexOutOfBoundsException("Le paramètre n doit être compris entre 0 & 3 compris");
         temp[n].setText(PDEFAUT);
         _listeFini.add(_listeOccupe[n]);
         _listeOccupe[n] = null;
+        /*Ajout au fichier des travaux finis*/
+
+        try {
+            filesop.saveToBinaryFile(_listeFini, "travaux_finis");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

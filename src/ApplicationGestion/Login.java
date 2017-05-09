@@ -185,7 +185,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okButtonMouseClicked
+    private void okButtonMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_okButtonMouseClicked
         for(Map.Entry<Object, Object> entry : _p.entrySet()) {
             if(entry.getKey().equals(utilisateurTextField.getText()))
                 if(entry.getValue().equals(String.valueOf(mdpTextField.getPassword()))){
