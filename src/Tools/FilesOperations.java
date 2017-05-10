@@ -47,11 +47,12 @@ public class FilesOperations {
 
         return object;
     }
+
     public static void main (String[] args)
     {
         LinkedList<Personne> temp = new LinkedList<>();
-        temp.add(new Mecanicien("Simar","Floryan","","","aa","11","Pneus"));
-        temp.add(new Employe("Simar","Floryan","","","bb","22"));
+        temp.add(new Mecanicien("Simar","Floryan","","","aa","Pneus"));
+        temp.add(new Employe("Simar","Floryan","","","bb"));
         temp.add(new Client("Simar","Floryan","","","cc"));
         try {
             FilesOperations.saveUsers(temp);
