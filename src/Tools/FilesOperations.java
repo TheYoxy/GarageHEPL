@@ -1,7 +1,9 @@
 package Tools;
-import Activités.Entretien;
+
 import Activités.Travail;
-import Authenticate.Identifiable;
+import People.Client;
+import People.Employe;
+import People.Mecanicien;
 import People.Personne;
 
 import java.beans.XMLDecoder;
@@ -11,40 +13,51 @@ import java.util.LinkedList;
 
 public class FilesOperations {
 
-
+    private final static String USER_FILENAME = "personne.xml";
     //Save XML file, LinkedList<Identifiable>
-    public void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
+    public static void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
-        encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("personne.xml")));
+        encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(USER_FILENAME)));
         encoder.writeObject(person);
         encoder.flush();
         //encoder.close();
     }
 
     //Load XML file
-    public LinkedList<Personne> loadUsers() throws FileNotFoundException {
+    public static LinkedList<Personne> loadUsers() throws FileNotFoundException {
         XMLDecoder decoder;
-        decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("personne.xml")));
+        decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(USER_FILENAME)));
         LinkedList<Personne> list = (LinkedList<Personne>) decoder.readObject();
         decoder.close();
-
         return list;
     }
 
     //Save to binary file
-    public void saveToBinaryFile(LinkedList<Travail> object, String filename) throws IOException {
+    public static void saveToBinaryFile(LinkedList<Travail> object, String filename) throws IOException {
         ObjectOutputStream objstream = new ObjectOutputStream( new FileOutputStream(filename));
         objstream.writeObject(object);
         objstream.close();
     }
 
     //Load from binary file
-   public LinkedList<Travail> loadFromBinaryFile(String filename) throws IOException, ClassNotFoundException {
+   public static LinkedList<Travail> loadFromBinaryFile(String filename) throws IOException, ClassNotFoundException {
         ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(filename));
         LinkedList<Travail> object = (LinkedList<Travail>) objstream.readObject();
         objstream.close();
 
         return object;
     }
-
+    public static void main (String[] args)
+    {
+        LinkedList<Personne> temp = new LinkedList<>();
+        temp.add(new Mecanicien("Simar","Floryan","","","aa","11","Pneus"));
+        temp.add(new Employe("Simar","Floryan","","","bb","22"));
+        temp.add(new Client("Simar","Floryan","","","cc"));
+        try {
+            FilesOperations.saveUsers(temp);
+            System.out.println("Ajout réussi");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
