@@ -58,15 +58,12 @@ public class Login extends javax.swing.JFrame {
     {
 
         Properties p = new Properties();
-        FilesOperations xmlfile = new FilesOperations();
         try {
             p.load(new FileInputStream("user.properties"));
-            LinkedList<Personne> aPersonnes = xmlfile.loadUsers();
-
+            LinkedList<Personne> aPersonnes = FilesOperations.loadUsers();
             new Login(aPersonnes,p).setVisible(true);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,"Imposssible de trouver le fichier user.properties.\nFin de l'application","Erreur",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
 
@@ -187,13 +184,13 @@ public class Login extends javax.swing.JFrame {
         for(Map.Entry<Object, Object> entry : _p.entrySet()) {
             if(entry.getKey().equals(utilisateurTextField.getText()))
                 if(entry.getValue().equals(String.valueOf(mdpTextField.getPassword()))){
-                    for (final APersonne id : _aPersonnes) {
-                        if (id.getId().equals(utilisateurTextField.getText())) {
-                            if (id instanceof TechnicienExterieur && ! ehRadioButton.isSelected())
+                    for (final APersonne aPersonne : _aPersonnes) {
+                        if (aPersonne.getId().equals(utilisateurTextField.getText())) {
+                            if (aPersonne instanceof TechnicienExterieur && ! ehRadioButton.isSelected())
                                 JOptionPane.showMessageDialog(this, "Vous n'êtes pas un Membre du personnel,\nmais un extérieur habilité.", "Information", JOptionPane.INFORMATION_MESSAGE);
-                            else if (! (id instanceof TechnicienExterieur) && ehRadioButton.isSelected())
+                            else if (! (aPersonne instanceof TechnicienExterieur) && ehRadioButton.isSelected())
                                 JOptionPane.showMessageDialog(this, "Vous n'êtes pas un extréieur habilité,\nmais un membre du personnel", "Information", JOptionPane.INFORMATION_MESSAGE);
-                            new Panel(_tableId, id).setVisible(true);
+                            new Panel(_tableId, aPersonne).setVisible(true);
                             setVisible(false);
                             return;
                         }

@@ -80,10 +80,6 @@ public class Panel extends javax.swing.JFrame {
     private JMenuItem _aPropos;
     private AboutBox _aboutBox;
     /**
-     * Instance de la classe FilesOperations pour la serialization/deserialisation des fichiers
-     */
-    public FilesOperations filesop = new FilesOperations();
-    /**
      * Liste chainée qui retiens toutes les personnes identifiables de l'application
      */
     private LinkedList<Personne> _listePersonnes;
@@ -123,16 +119,14 @@ public class Panel extends javax.swing.JFrame {
         //binfile.loadFromBinaryFile("Waitingworks");
         //binfile.loadFromBinaryFile("works") ;
         try {
-            _listeFini = filesop.loadFromBinaryFile("travaux_finis");
-            LinkedList<Travail> tempList = new LinkedList<>();
-            tempList= filesop.loadFromBinaryFile("travaux_occupes");
+            _listeFini = FilesOperations.loadFromBinaryFile("travaux_finis");
+            LinkedList<Travail> tempList;
+            tempList= FilesOperations.loadFromBinaryFile("travaux_occupes");
             _listeOccupe = new Travail[tempList.size()];
             for (int i = 0; i < tempList.size(); i++) {
                 _listeOccupe[i] = tempList.get(i); // Watch out for NullPointerExceptions!
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         _listePersonnes = list;
@@ -268,7 +262,7 @@ public class Panel extends javax.swing.JFrame {
             tempList.add(_listeOccupe[i]);
         }
         try {
-            filesop.saveToBinaryFile(tempList, "travaux_occupes");
+            FilesOperations.saveToBinaryFile(tempList, "travaux_occupes");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -287,7 +281,7 @@ public class Panel extends javax.swing.JFrame {
         /*Ajout au fichier des travaux finis*/
 
         try {
-            filesop.saveToBinaryFile(_listeFini, "travaux_finis");
+            FilesOperations.saveToBinaryFile(_listeFini, "travaux_finis");
         } catch (IOException e) {
             e.printStackTrace();
         }
