@@ -7,14 +7,14 @@ import java.util.Map;
 
 public abstract class APersonne extends Personne implements AValider, Identifiable {
     private String _id; //Numero de matricule ou membre du personnel
-    private String _pass;
+//    private String _pass;
 
     protected APersonne(){}
 
-    protected APersonne (String nom, String prenom, String adresse, String numeroTelephone, String id,String pass) {
+    protected APersonne (String nom, String prenom, String adresse, String numeroTelephone, String id) {
         super(nom, prenom, adresse, numeroTelephone);
         _id = id;
-        _pass = pass;
+//        _pass = pass;
     }
 
     @Override
@@ -26,7 +26,8 @@ public abstract class APersonne extends Personne implements AValider, Identifiab
     @Override
     public boolean validate(Map.Entry<String,String> entry)
     {
-        return entry.getKey().equals(_id) && entry.getValue().equals(_pass);
+//        return entry.getKey().equals(_id) && entry.getValue().equals(_pass);
+        return false;
     }
 
     @Override

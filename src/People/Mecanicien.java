@@ -6,8 +6,8 @@ public class Mecanicien extends PersonnelGarage {
     public Mecanicien()
     {}
 
-    public Mecanicien(String nom, String prenom, String adresse, String numeroTelephone, String id, String pass,String specialisation) {
-        super(nom, prenom, adresse, numeroTelephone, id,pass);
+    public Mecanicien(String nom, String prenom, String adresse, String numeroTelephone, String id,String specialisation) {
+        super(nom, prenom, adresse, numeroTelephone, id);
         _specialisation = specialisation;
     }
 
