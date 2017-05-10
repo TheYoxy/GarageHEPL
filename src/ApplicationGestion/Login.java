@@ -5,7 +5,6 @@
  */
 package ApplicationGestion;
 
-import Authenticate.Identifiable;
 import People.APersonne;
 import People.Personne;
 import People.TechnicienExterieur;
@@ -13,7 +12,6 @@ import Tools.FilesOperations;
 
 import javax.swing.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Map;
