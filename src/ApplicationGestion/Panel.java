@@ -115,7 +115,6 @@ public class Panel extends javax.swing.JFrame {
         //binfile.loadFromBinaryFile("Endedworks");
         //binfile.loadFromBinaryFile("Waitingworks");
         //binfile.loadFromBinaryFile("works") ;
-        _listeOccupe = new Travail[NB_EMPLACEMENTS];
         _listePersonnes = list;
         _logged = log;
         if (_logged instanceof PersonnelGarage) {
@@ -128,37 +127,28 @@ public class Panel extends javax.swing.JFrame {
             }
         }
         /*Lecture des fichiers*/
-        try {
-            _listeFini = FilesOperations.loadFromBinaryFile("travaux_finis");
-        }
-        catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try{
-            Hashtable<Travail,Integer> tempList;
-            tempList = FilesOperations.loadOccupe();
-            for (Map.Entry<Travail,Integer> entry : tempList.entrySet())
-            {
-                _listeOccupe[entry.getValue()] = entry.getKey();
-                switch (entry.getValue())
-                {
-                    case 0:
-                        _pont1TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
-                        break;
-                    case 1:
-                        _pont2TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
-                        break;
-                    case 2:
-                        _pont3TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
-                        break;
-                    case 3:
-                        _solTextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
-                        break;
-                }
+        loadAttente();
+        loadOccupe();
+        loadFini();
+    }
+
+    private void CustomSetup(){
+        _aboutBox = new AboutBox(this,true);
+        _menuBar.add(Box.createHorizontalGlue());
+        _menuBar.add(_parametres = new JMenu("Paramètres"));
+        _parametres.add(_info = new JMenuItem("Infos système"));
+        _menuBar.add(_aide = new JMenu("Aide"));
+        _aide.add(_pourDebute = new JMenuItem("Pour débuter"));
+        _aide.add(new JSeparator());
+        _aide.add(_aPropos = new JMenuItem("A propos de ..."));
+        _aPropos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AProposMouseClicked();
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        });
+        _listeAttente = new Hashtable<>();
+        _listeOccupe = new Travail[NB_EMPLACEMENTS];
+        _listeFini = new LinkedList<>();
     }
 
     /**
@@ -196,24 +186,6 @@ public class Panel extends javax.swing.JFrame {
         });
     }
 
-    private void CustomSetup(){
-        _aboutBox = new AboutBox(this,true);
-        _menuBar.add(Box.createHorizontalGlue());
-        _menuBar.add(_parametres = new JMenu("Paramètres"));
-        _parametres.add(_info = new JMenuItem("Infos système"));
-        _menuBar.add(_aide = new JMenu("Aide"));
-        _aide.add(_pourDebute = new JMenuItem("Pour débuter"));
-        _aide.add(new JSeparator());
-        _aide.add(_aPropos = new JMenuItem("A propos de ..."));
-        _aPropos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AProposMouseClicked();
-            }
-        });
-        _listeAttente = new Hashtable<>();
-        _listeOccupe = new Travail[NB_EMPLACEMENTS];
-        _listeFini = new LinkedList<>();
-    }
 
     private void AProposMouseClicked()
     {
@@ -228,10 +200,8 @@ public class Panel extends javax.swing.JFrame {
 
     public void ajout(Vector <Object> vector,boolean entretien)
     {
-        LinkedList<Travail> tempWork;
-
         _listeAttente.put(vector,entretien);
-        /*Serialisation de la liste des Travaux en attentes */
+        saveAttente();
     }
 
     /**
@@ -275,12 +245,80 @@ public class Panel extends javax.swing.JFrame {
         _listeAttente.remove(vector);
 
         saveOccupe();
+        saveAttente();
     }
 
     /**
+     * Fonction qui charge les travaux en attente
+     */
+    private void loadAttente()
+    {
+        try {
+            _listeAttente = FilesOperations.loadAttente();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Fonction qui charge les travaux en cours
+     */
+    private void loadOccupe()
+    {
+        try{
+            Hashtable<Travail,Integer> tempList;
+            tempList = FilesOperations.loadOccupe();
+            for (Map.Entry<Travail,Integer> entry : tempList.entrySet())
+            {
+                _listeOccupe[entry.getValue()] = entry.getKey();
+                switch (entry.getValue())
+                {
+                    case 0:
+                        _pont1TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 1:
+                        _pont2TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 2:
+                        _pont3TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 3:
+                        _solTextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Fonction qui charge les travaux fini
+     */
+    private void loadFini()
+    {
+        try {
+            _listeFini = FilesOperations.loadFini();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Fonction qui enregistre les travaux en attente
+     */
+    private void saveAttente()
+    {
+        try {
+            FilesOperations.saveAttente(_listeAttente);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
      * Fonction qui enregistre les travaux en cours
      */
-    public void saveOccupe()
+    private void saveOccupe()
     {
         /*Ajout de la liste des travaux occupés au fichier*/
         Hashtable<Travail,Integer> hashtable = new Hashtable<>();
@@ -297,6 +335,18 @@ public class Panel extends javax.swing.JFrame {
     }
 
     /**
+     * Fonction qui enregistre les travaux finis
+     */
+    private void saveFini()
+    {
+        try {
+            FilesOperations.saveFini(_listeFini);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * @param n Endroit où le travail est fini
      * @throws IndexOutOfBoundsException
      */
@@ -306,13 +356,8 @@ public class Panel extends javax.swing.JFrame {
         temp[n].setText(PDEFAUT);
         _listeFini.add(_listeOccupe[n]);
         _listeOccupe[n] = null;
-        /*Ajout au fichier des travaux finis*/
-
-        try {
-            FilesOperations.saveToBinaryFile(_listeFini, "travaux_finis");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveOccupe();
+        saveFini();
     }
 
     /**

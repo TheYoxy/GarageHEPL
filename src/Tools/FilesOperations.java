@@ -11,11 +11,14 @@ import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class FilesOperations {
 
     private final static String USER_FILENAME = "personne.xml";
     private final static String OCCUPE_FILENAME = "travaux_occupes";
+    private final static String ATTENTE_FILENAME = "travaux_attente";
+    private final static String FINI_FILENAME = "travaux_fini";
     //Save XML file, LinkedList<Identifiable>
     public static void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
@@ -35,16 +38,29 @@ public class FilesOperations {
     }
 
     //Save to binary file
-    public static void saveToBinaryFile(LinkedList<Travail> object, String filename) throws IOException {
-        ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(filename));
+    public static void saveFini(LinkedList<Travail> object) throws IOException {
+        ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(FINI_FILENAME));
         objstream.writeObject(object);
         objstream.close();
     }
 
     //Load from binary file
-    public static LinkedList<Travail> loadFromBinaryFile(String filename) throws IOException, ClassNotFoundException {
-        ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(filename));
+    public static LinkedList<Travail> loadFini() throws IOException, ClassNotFoundException {
+        ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(FINI_FILENAME));
         LinkedList<Travail> object = (LinkedList<Travail>) objstream.readObject();
+        objstream.close();
+        return object;
+    }
+
+    public static void saveAttente(Hashtable<Vector<Object>,Boolean> hashtable) throws IOException {
+        ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(ATTENTE_FILENAME));
+        objstream.writeObject(hashtable);
+        objstream.close();
+    }
+
+    public static Hashtable<Vector<Object>,Boolean> loadAttente() throws IOException, ClassNotFoundException {
+        ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(ATTENTE_FILENAME));
+        Hashtable<Vector<Object>,Boolean> object = (Hashtable<Vector<Object>,Boolean>) objstream.readObject();
         objstream.close();
         return object;
     }
