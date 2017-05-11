@@ -1,6 +1,8 @@
 package Vehicules;
 
-public class TypeVoiture {
+import java.io.Serializable;
+
+public class TypeVoiture implements Serializable{
     private int NombrePortes;
     private int Type;
     private String Marque;

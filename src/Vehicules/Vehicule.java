@@ -2,7 +2,9 @@ package Vehicules;
 
 import Authenticate.Identifiable;
 
-public abstract class Vehicule implements Identifiable{
+import java.io.Serializable;
+
+public abstract class Vehicule implements Identifiable,Serializable{
     protected int nbRoue;
     protected int nbPlace;
     protected String id;

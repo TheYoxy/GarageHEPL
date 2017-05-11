@@ -4,7 +4,9 @@ import Authenticate.Identifiable;
 import People.Mecanicien;
 import Vehicules.Voiture;
 
-public abstract class Travail implements Identifiable{
+import java.io.Serializable;
+
+public abstract class Travail implements Identifiable,Serializable{
     protected Voiture Car;
     protected Mecanicien Travailleur;
     protected String Id;
