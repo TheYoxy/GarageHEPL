@@ -1,6 +1,8 @@
 package People;
 
-public class Personne {
+import java.io.Serializable;
+
+public class Personne implements Serializable{
     private String _nom;
     private String _prenom;
     private String _adresse;
