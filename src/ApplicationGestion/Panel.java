@@ -17,10 +17,7 @@ import Vehicules.Voiture;
 import javax.swing.*;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 /**
  *
@@ -118,17 +115,7 @@ public class Panel extends javax.swing.JFrame {
         //binfile.loadFromBinaryFile("Endedworks");
         //binfile.loadFromBinaryFile("Waitingworks");
         //binfile.loadFromBinaryFile("works") ;
-        try {
-            _listeFini = FilesOperations.loadFromBinaryFile("travaux_finis");
-            LinkedList<Travail> tempList;
-            tempList= FilesOperations.loadFromBinaryFile("travaux_occupes");
-            _listeOccupe = new Travail[tempList.size()];
-            for (int i = 0; i < tempList.size(); i++) {
-                _listeOccupe[i] = tempList.get(i); // Watch out for NullPointerExceptions!
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        _listeOccupe = new Travail[NB_EMPLACEMENTS];
         _listePersonnes = list;
         _logged = log;
         if (_logged instanceof PersonnelGarage) {
@@ -139,6 +126,38 @@ public class Panel extends javax.swing.JFrame {
             if (_logged instanceof Employe) {
                 _priseEnChargeMenuItem.setEnabled(false); //Un employé ne peut pas prendre un travail à charge
             }
+        }
+        /*Lecture des fichiers*/
+        try {
+            _listeFini = FilesOperations.loadFromBinaryFile("travaux_finis");
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            Hashtable<Travail,Integer> tempList;
+            tempList = FilesOperations.loadOccupe();
+            for (Map.Entry<Travail,Integer> entry : tempList.entrySet())
+            {
+                _listeOccupe[entry.getValue()] = entry.getKey();
+                switch (entry.getValue())
+                {
+                    case 0:
+                        _pont1TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 1:
+                        _pont2TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 2:
+                        _pont3TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                    case 3:
+                        _solTextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        break;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -255,14 +274,23 @@ public class Panel extends javax.swing.JFrame {
         }
         _listeAttente.remove(vector);
 
+        saveOccupe();
+    }
+
+    /**
+     * Fonction qui enregistre les travaux en cours
+     */
+    public void saveOccupe()
+    {
         /*Ajout de la liste des travaux occupés au fichier*/
-        LinkedList<Travail> tempList = new LinkedList<>();
-        for(int i = 0; i<_listeOccupe.length; i++)
+        Hashtable<Travail,Integer> hashtable = new Hashtable<>();
+        for (int i = 0; i < 4; i++)
         {
-            tempList.add(_listeOccupe[i]);
+            if (_listeOccupe[i] != null)
+                hashtable.put(_listeOccupe[i],i);
         }
         try {
-            FilesOperations.saveToBinaryFile(tempList, "travaux_occupes");
+            FilesOperations.saveOccupe(hashtable);
         } catch (IOException e) {
             e.printStackTrace();
         }

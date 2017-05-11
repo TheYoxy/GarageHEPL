@@ -9,11 +9,13 @@ import People.Personne;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
+import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class FilesOperations {
 
     private final static String USER_FILENAME = "personne.xml";
+    private final static String OCCUPE_FILENAME = "travaux_occupes";
     //Save XML file, LinkedList<Identifiable>
     public static void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
@@ -34,26 +36,37 @@ public class FilesOperations {
 
     //Save to binary file
     public static void saveToBinaryFile(LinkedList<Travail> object, String filename) throws IOException {
-        ObjectOutputStream objstream = new ObjectOutputStream( new FileOutputStream(filename));
+        ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(filename));
         objstream.writeObject(object);
         objstream.close();
     }
 
     //Load from binary file
-   public static LinkedList<Travail> loadFromBinaryFile(String filename) throws IOException, ClassNotFoundException {
+    public static LinkedList<Travail> loadFromBinaryFile(String filename) throws IOException, ClassNotFoundException {
         ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(filename));
         LinkedList<Travail> object = (LinkedList<Travail>) objstream.readObject();
         objstream.close();
-
         return object;
     }
 
-    public static void main (String[] args)
-    {
+    public static void saveOccupe(Hashtable<Travail,Integer> hashtable) throws IOException {
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(OCCUPE_FILENAME));
+        objectOutputStream.writeObject(hashtable);
+        objectOutputStream.close();
+    }
+
+    public static Hashtable<Travail,Integer> loadOccupe() throws IOException, ClassNotFoundException {
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(OCCUPE_FILENAME));
+        Hashtable<Travail,Integer> hashtable = (Hashtable<Travail,Integer>) objectInputStream.readObject();
+        objectInputStream.close();
+        return hashtable;
+    }
+
+    public static void main(String[] args) {
         LinkedList<Personne> temp = new LinkedList<>();
-        temp.add(new Mecanicien("Simar","Floryan","","","aa","Pneus"));
-        temp.add(new Employe("Simar","Floryan","","","bb"));
-        temp.add(new Client("Simar","Floryan","","","cc"));
+        temp.add(new Mecanicien("Simar", "Floryan", "", "", "aa", "Pneus"));
+        temp.add(new Employe("Simar", "Floryan", "", "", "bb"));
+        temp.add(new Client("Simar", "Floryan", "", "", "cc"));
         try {
             FilesOperations.saveUsers(temp);
             System.out.println("Ajout réussi");
