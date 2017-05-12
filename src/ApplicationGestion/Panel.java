@@ -15,10 +15,6 @@ import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
 import javax.swing.*;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
@@ -52,7 +48,10 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel _bureauLabel;
     private javax.swing.JRadioButton _certainAbsentsRadioButton;
     private javax.swing.JMenu _clientMenu;
-    private javax.swing.JMenuItem _commandeItem;
+    private javax.swing.JMenu _commandeItem;
+    private javax.swing.JMenuItem _commandeLubrifiantItem;
+    private javax.swing.JMenuItem _commandePiecesItem;
+    private javax.swing.JMenuItem _commandePneusItem;
     private javax.swing.JLabel _dateHeureLabel;
     private javax.swing.JLabel _diversLabel;
     private javax.swing.JTextField _diversTextField;
@@ -107,7 +106,7 @@ public class Panel extends javax.swing.JFrame {
     /**
      * Creates new form Panel
      */
-    private Panel() {
+    public Panel() {
         initComponents();
         setTime();
         CustomSetup();
@@ -157,12 +156,6 @@ public class Panel extends javax.swing.JFrame {
         _listeAttente = new Hashtable<>();
         _listeOccupe = new Travail[NB_EMPLACEMENTS];
         _listeFini = new LinkedList<>();
-        new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                setTime();
-            }
-        }).start();
     }
 
     /**
@@ -207,7 +200,9 @@ public class Panel extends javax.swing.JFrame {
     }
 
     private void setTime() {
-        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.DEFAULT).format(Calendar.getInstance().getTime()));
+        Date temp = new Date();
+        DateFormat format = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
+        _dateHeureLabel.setText(format.format(temp));
     }
 
     public void ajout(Vector <Object> vector,boolean entretien)
@@ -268,10 +263,7 @@ public class Panel extends javax.swing.JFrame {
         try {
             _listeAttente = FilesOperations.loadAttente();
         } catch (IOException | ClassNotFoundException e) {
-            if (e instanceof FileNotFoundException)
-                System.out.println("Fichier " + FilesOperations.ATTENTE_FILENAME + " introuvable");
-            else
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -303,10 +295,7 @@ public class Panel extends javax.swing.JFrame {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            if (e instanceof FileNotFoundException)
-                System.out.println("Fichier " + FilesOperations.OCCUPE_FILENAME + " introuvable");
-            else
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -319,10 +308,7 @@ public class Panel extends javax.swing.JFrame {
             _listeFini = FilesOperations.loadFini();
         }
         catch (IOException | ClassNotFoundException e) {
-            if (e instanceof FileNotFoundException)
-                System.out.println("Fichier " + FilesOperations.FINI_FILENAME + " introuvable");
-            else
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
     /**
@@ -419,7 +405,10 @@ public class Panel extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         _listesMenuItem = new javax.swing.JMenuItem();
         _materielMenu = new javax.swing.JMenu();
-        _commandeItem = new javax.swing.JMenuItem();
+        _commandeItem = new javax.swing.JMenu();
+        _commandePneusItem = new javax.swing.JMenuItem();
+        _commandePiecesItem = new javax.swing.JMenuItem();
+        _commandeLubrifiantItem = new javax.swing.JMenuItem();
         _receptionItem = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         _listeCommandesItem = new javax.swing.JMenuItem();
@@ -531,11 +520,31 @@ public class Panel extends javax.swing.JFrame {
         _materielMenu.setEnabled(false);
 
         _commandeItem.setText("Commande");
-        _commandeItem.addActionListener(new java.awt.event.ActionListener() {
+
+        _commandePneusItem.setText("Commande Pneus");
+        _commandePneusItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _commandeItemActionPerformed(evt);
+                _commandePneusItemActionPerformed(evt);
             }
         });
+        _commandeItem.add(_commandePneusItem);
+
+        _commandePiecesItem.setText("Commande Pièces");
+        _commandePiecesItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _commandePiecesItemActionPerformed(evt);
+            }
+        });
+        _commandeItem.add(_commandePiecesItem);
+
+        _commandeLubrifiantItem.setText("Commande Lubrifiant");
+        _commandeLubrifiantItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _commandeLubrifiantItemActionPerformed(evt);
+            }
+        });
+        _commandeItem.add(_commandeLubrifiantItem);
+
         _materielMenu.add(_commandeItem);
 
         _receptionItem.setText("Réception");
@@ -668,7 +677,15 @@ public class Panel extends javax.swing.JFrame {
         new TravauxFini(this,true,_listeFini).setVisible(true);
     }//GEN-LAST:event__listesMenuItemActionPerformed
 
-    private void _commandeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandeItemActionPerformed
-        new CommandePieces(this,true).setVisible(true);
-    }//GEN-LAST:event__commandeItemActionPerformed
+    private void _commandePiecesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePiecesItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__commandePiecesItemActionPerformed
+
+    private void _commandePneusItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePneusItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__commandePneusItemActionPerformed
+
+    private void _commandeLubrifiantItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandeLubrifiantItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__commandeLubrifiantItemActionPerformed
 }
