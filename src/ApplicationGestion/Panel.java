@@ -15,6 +15,10 @@ import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
 import javax.swing.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
@@ -103,7 +107,7 @@ public class Panel extends javax.swing.JFrame {
     /**
      * Creates new form Panel
      */
-    public Panel() {
+    private Panel() {
         initComponents();
         setTime();
         CustomSetup();
@@ -153,6 +157,12 @@ public class Panel extends javax.swing.JFrame {
         _listeAttente = new Hashtable<>();
         _listeOccupe = new Travail[NB_EMPLACEMENTS];
         _listeFini = new LinkedList<>();
+        new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setTime();
+            }
+        }).start();
     }
 
     /**
@@ -197,9 +207,7 @@ public class Panel extends javax.swing.JFrame {
     }
 
     private void setTime() {
-        Date temp = new Date();
-        DateFormat format = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
-        _dateHeureLabel.setText(format.format(temp));
+        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.DEFAULT).format(Calendar.getInstance().getTime()));
     }
 
     public void ajout(Vector <Object> vector,boolean entretien)
@@ -260,7 +268,10 @@ public class Panel extends javax.swing.JFrame {
         try {
             _listeAttente = FilesOperations.loadAttente();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.ATTENTE_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
 
@@ -292,7 +303,10 @@ public class Panel extends javax.swing.JFrame {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.OCCUPE_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
 
@@ -305,7 +319,10 @@ public class Panel extends javax.swing.JFrame {
             _listeFini = FilesOperations.loadFini();
         }
         catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.FINI_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
     /**
