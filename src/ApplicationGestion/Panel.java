@@ -15,6 +15,7 @@ import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
@@ -256,7 +257,10 @@ public class Panel extends javax.swing.JFrame {
         try {
             _listeAttente = FilesOperations.loadAttente();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.ATTENTE_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
 
@@ -288,7 +292,10 @@ public class Panel extends javax.swing.JFrame {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.OCCUPE_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
 
@@ -301,7 +308,10 @@ public class Panel extends javax.swing.JFrame {
             _listeFini = FilesOperations.loadFini();
         }
         catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException)
+                System.out.println("Fichier " + FilesOperations.FINI_FILENAME + " introuvable");
+            else
+                e.printStackTrace();
         }
     }
     /**

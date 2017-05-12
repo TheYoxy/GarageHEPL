@@ -16,9 +16,9 @@ import java.util.Vector;
 public class FilesOperations {
 
     private final static String USER_FILENAME = "personne.xml";
-    private final static String OCCUPE_FILENAME = "travaux_occupes";
-    private final static String ATTENTE_FILENAME = "travaux_attente";
-    private final static String FINI_FILENAME = "travaux_fini";
+    public final static String ATTENTE_FILENAME = "travaux_attente";
+    public final static String OCCUPE_FILENAME = "travaux_occupes";
+    public final static String FINI_FILENAME = "travaux_fini";
     //Save XML file, LinkedList<Identifiable>
     public static void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
