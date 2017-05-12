@@ -48,10 +48,12 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel _bureauLabel;
     private javax.swing.JRadioButton _certainAbsentsRadioButton;
     private javax.swing.JMenu _clientMenu;
+    private javax.swing.JMenuItem _commandeItem;
     private javax.swing.JLabel _dateHeureLabel;
     private javax.swing.JLabel _diversLabel;
     private javax.swing.JTextField _diversTextField;
     private javax.swing.JMenu _factureMenu;
+    private javax.swing.JMenuItem _listeCommandesItem;
     private javax.swing.JMenuItem _listesMenuItem;
     private javax.swing.JMenu _materielMenu;
     private javax.swing.JMenuBar _menuBar;
@@ -64,11 +66,13 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel _pont3Label;
     private javax.swing.JTextField _pont3TextField;
     private javax.swing.JMenuItem _priseEnChargeMenuItem;
+    private javax.swing.JMenuItem _receptionItem;
     private javax.swing.JLabel _solLabel;
     private javax.swing.JTextField _solTextField;
     private javax.swing.JMenuItem _terminerMenuItem;
     private javax.swing.JRadioButton _toutLeMondeRadioButton;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
     private JMenu _parametres;
     private JMenu _aide;
@@ -398,6 +402,10 @@ public class Panel extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         _listesMenuItem = new javax.swing.JMenuItem();
         _materielMenu = new javax.swing.JMenu();
+        _commandeItem = new javax.swing.JMenuItem();
+        _receptionItem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        _listeCommandesItem = new javax.swing.JMenuItem();
         _clientMenu = new javax.swing.JMenu();
         _factureMenu = new javax.swing.JMenu();
 
@@ -504,6 +512,22 @@ public class Panel extends javax.swing.JFrame {
 
         _materielMenu.setText("Matériel");
         _materielMenu.setEnabled(false);
+
+        _commandeItem.setText("Commande");
+        _commandeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _commandeItemActionPerformed(evt);
+            }
+        });
+        _materielMenu.add(_commandeItem);
+
+        _receptionItem.setText("Réception");
+        _materielMenu.add(_receptionItem);
+        _materielMenu.add(jSeparator2);
+
+        _listeCommandesItem.setText("Liste commandes");
+        _materielMenu.add(_listeCommandesItem);
+
         _menuBar.add(_materielMenu);
 
         _clientMenu.setText("Clients");
@@ -626,4 +650,8 @@ public class Panel extends javax.swing.JFrame {
     private void _listesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__listesMenuItemActionPerformed
         new TravauxFini(this,true,_listeFini).setVisible(true);
     }//GEN-LAST:event__listesMenuItemActionPerformed
+
+    private void _commandeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandeItemActionPerformed
+        new CommandePieces(this,true).setVisible(true);
+    }//GEN-LAST:event__commandeItemActionPerformed
 }
