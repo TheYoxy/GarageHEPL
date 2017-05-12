@@ -22,14 +22,16 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     NetworkBasicServer commandeSer;
 
     public ApplicationCentrale(int type) {
-        commandeSer = new NetworkBasicServer(1500, _messageEntrantCB);
         switch(type)
         {
             case 1:
+                commandeSer = new NetworkBasicServer(4441, _messageEntrantCB);
                 break;
             case 2:
+                commandeSer = new NetworkBasicServer(5555, _messageEntrantCB);
                 break;
             case 3:
+                commandeSer = new NetworkBasicServer(6666, _messageEntrantCB);
                 break;
         }
         initComponents();
@@ -203,14 +205,22 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //String message = commandeSer.getMessage();
-        String message = "Type : hello it's me bitch";
-        String message2 ="test2";
+        String libelle, type, quantite;
+        String message = commandeSer.getMessage();
+        String[] parts = message.split(";");
+        libelle = parts[0];
+        type = parts[1];
+        quantite = parts[2];
+
         DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
         dtm.setColumnIdentifiers(new String[]{"Caractéristique","Valeur"});
         Vector<Object> vec = new Vector<>();
-        vec.add(message);
-        vec.add(message2);
+        vec.add("type :");
+        vec.add(libelle);
+        vec.add("Type :");
+        vec.add(libelle);
+        vec.add("Quantite");
+        vec.add(quantite);
         dtm.addRow(vec);
         _detailTable.setModel(dtm);
     }

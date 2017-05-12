@@ -5,6 +5,8 @@
  */
 package ApplicationGestion;
 
+import network.NetworkBasicClient;
+
 /**
  *
  * @author Nicolas
@@ -14,8 +16,29 @@ public class CommandePieces extends javax.swing.JDialog {
     /**
      * Creates new form CommandePieces
      */
-    public CommandePieces(java.awt.Frame parent, boolean modal) {
+    public NetworkBasicClient client;
+    public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
+
+        /**
+         * On fait un switch pour déteriner quel centrale on voudra joindre en fonction de l'article à commander
+         */
+        switch(type)
+        {
+            //Si pneus
+            case 1:
+                client = new NetworkBasicClient("127.0.0.1", 4444);
+                break;
+            //Si pièces
+            case 2:
+                client = new NetworkBasicClient("127.0.0.1", 5555);
+                break;
+            //Si lubrifiant
+            case 3:
+                client = new NetworkBasicClient("127.0.0.1", 6666);
+                break;
+        }
+
         initComponents();
         
     }
@@ -187,7 +210,14 @@ public class CommandePieces extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _envoyerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerButtonActionPerformed
-        // TODO add your handling code here:
+        String reponse;
+        String envoiMessage;
+        envoiMessage = _libelleTF.toString() + ";" + _typeTF.toString() + ";" + _quantitéTF.toString();
+        //Envoi d'un message avec attente bloquante de la réponse.
+        reponse = client.sendString(envoiMessage);
+        //On ajoute à la liste des commandes
+        //_commandesList.add();
+
     }//GEN-LAST:event__envoyerButtonActionPerformed
 
     private void annulerButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerButonActionPerformed
@@ -224,7 +254,7 @@ public class CommandePieces extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CommandePieces dialog = new CommandePieces(new javax.swing.JFrame(), true);
+                CommandePieces dialog = new CommandePieces(new javax.swing.JFrame(), true, 1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
