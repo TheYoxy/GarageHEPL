@@ -7,43 +7,43 @@ import Vehicules.Voiture;
 import java.io.Serializable;
 
 public abstract class Travail implements Identifiable,Serializable{
-    protected Voiture Car;
-    protected Mecanicien Travailleur;
-    protected String Id;
-    protected String Libelle;
-    protected String Remarque;
+    private Voiture _car;
+    private Mecanicien _travailleur;
+    protected String _id;
+    private String _libelle;
+    private String _remarque;
 
     protected Travail(Voiture car, Mecanicien travailleur, String libelle, String remarque) {
-        Car = car;
-        Travailleur = travailleur;
-        Id = generateId();
-        Libelle = libelle;
-        Remarque = remarque;
+        _car = car;
+        _travailleur = travailleur;
+        _id = generateId();
+        _libelle = libelle;
+        _remarque = remarque;
     }
 
     @Override
     public String getId() {
-        return Id;
+        return _id;
     }
 
     public String getLibelle() {
-        return Libelle;
+        return _libelle;
     }
 
     public String getRemarque() {
-        return Remarque;
+        return _remarque;
     }
 
     public Voiture getCar() {
-        return Car;
+        return _car;
     }
 
     public Mecanicien getTravailleur() {
-        return Travailleur;
+        return _travailleur;
     }
 
     public String generateId()
     {
-        return Car + Travailleur.toString() + Libelle + Remarque;
+        return _car + _travailleur.toString() + _libelle + _remarque;
     }
 }
