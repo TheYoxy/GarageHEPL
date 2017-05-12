@@ -27,7 +27,7 @@ public class CommandePieces extends javax.swing.JDialog {
         {
             //Si pneus
             case 1:
-                client = new NetworkBasicClient("127.0.0.1", 4444);
+                client = new NetworkBasicClient("127.0.0.1", 4441);
                 break;
             //Si pièces
             case 2:
