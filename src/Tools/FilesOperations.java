@@ -28,10 +28,15 @@ public class FilesOperations {
             properties.load(new FileInputStream(PROPERTIES));
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
-        ATTENTE_FILENAME = properties.getProperty("ATTENTE_FILENAME");
-        OCCUPE_FILENAME = properties.getProperty("OCCUPE_FILENAME");
-        FINI_FILENAME = properties.getProperty("FINI_FILENAME");
+        final File dossier = new File(properties.getProperty("FOLDER"));
+        final String folder = dossier.getName() + System.getProperty("file.separator");
+        if (!dossier.exists())
+            dossier.mkdir();
+        ATTENTE_FILENAME = folder + properties.getProperty("ATTENTE_FILENAME");
+        OCCUPE_FILENAME = folder + properties.getProperty("OCCUPE_FILENAME");
+        FINI_FILENAME = folder + properties.getProperty("FINI_FILENAME");
     }
 
     //Save XML file, LinkedList<Identifiable>
