@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_121" class="java.beans.XMLDecoder">
+ <object class="java.util.LinkedList">
+  <void method="add">
+   <object class="People.Mecanicien">
+    <void property="_adresse">
+     <string></string>
+    </void>
+    <void property="_nom">
+     <string>Simar</string>
+    </void>
+    <void property="_numeroTelephone">
+     <string></string>
+    </void>
+    <void property="_prenom">
+     <string>Floryan</string>
+    </void>
+    <void property="id">
+     <string>aa</string>
+    </void>
+    <void property="specialisation">
+     <string>Pneus</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="People.Employe">
+    <void property="_adresse">
+     <string></string>
+    </void>
+    <void property="_nom">
+     <string>Simar</string>
+    </void>
+    <void property="_numeroTelephone">
+     <string></string>
+    </void>
+    <void property="_prenom">
+     <string>Floryan</string>
+    </void>
+    <void property="id">
+     <string>bb</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="People.Client">
+    <void property="_adresse">
+     <string></string>
+    </void>
+    <void property="_nom">
+     <string>Simar</string>
+    </void>
+    <void property="_numeroTelephone">
+     <string></string>
+    </void>
+    <void property="_prenom">
+     <string>Floryan</string>
+    </void>
+    <void property="id">
+     <string>cc</string>
+    </void>
+   </object>
+  </void>
+ </object>

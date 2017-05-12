@@ -15,6 +15,9 @@ import Vehicules.MissingTradeMarkException;
 import Vehicules.Voiture;
 
 import javax.swing.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
@@ -156,6 +159,12 @@ public class Panel extends javax.swing.JFrame {
         _listeAttente = new Hashtable<>();
         _listeOccupe = new Travail[NB_EMPLACEMENTS];
         _listeFini = new LinkedList<>();
+        new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setTime();
+            }
+        }).start();
     }
 
     /**
@@ -174,13 +183,7 @@ public class Panel extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -200,9 +203,7 @@ public class Panel extends javax.swing.JFrame {
     }
 
     private void setTime() {
-        Date temp = new Date();
-        DateFormat format = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
-        _dateHeureLabel.setText(format.format(temp));
+        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.DEFAULT).format(Calendar.getInstance().getTime()));
     }
 
     public void ajout(Vector <Object> vector,boolean entretien)
