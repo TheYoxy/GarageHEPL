@@ -214,14 +214,16 @@ public class ApplicationCentrale extends javax.swing.JFrame {
 
         DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
         dtm.setColumnIdentifiers(new String[]{"Caractéristique","Valeur"});
-        Vector<Object> vec = new Vector<>();
-        vec.add("type :");
-        vec.add(libelle);
-        vec.add("Type :");
-        vec.add(libelle);
-        vec.add("Quantite");
-        vec.add(quantite);
-        dtm.addRow(vec);
+        Object[] array = new Object[2];
+        array[0] = ("libelle :");
+        array[1]= (libelle);
+        dtm.addRow(array);
+        array[0] = ("Type :");
+        array[1] = (type);
+        dtm.addRow(array);
+        array[0] = ("Quantite");
+        array[1] = (quantite);
+        dtm.addRow(array);
         _detailTable.setModel(dtm);
     }
 
@@ -229,6 +231,17 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         /*
         *Envoi de la réponse au client
          */
+        String reponse;
+        if(_disponibleRB.isSelected())
+        {
+            reponse = "disponible";
+        }
+        else
+        {
+            if (_nonDispoRB.isSelected()) {
+                reponse = "nonDispo";
+            }
+        }
         commandeSer.sendMessage("coucou");
     }
 
