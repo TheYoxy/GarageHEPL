@@ -35,6 +35,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         initComponents();
+        _commandeCoursCB.removeAllItems();//Temporaire
     }
 
     /**
@@ -207,6 +208,9 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String libelle, type, quantite;
         String message = commandeSer.getMessage();
+
+        //Ajout à la comboBox
+        _commandeCoursCB.addItem(message);
         String[] parts = message.split(";");
         libelle = parts[0];
         type = parts[1];

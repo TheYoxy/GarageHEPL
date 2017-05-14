@@ -19,6 +19,8 @@ public class CommandePieces extends javax.swing.JDialog {
      * Creates new form CommandePieces
      */
     public NetworkBasicClient client;
+    public boolean EXIST = false; // détermine si un model pour la jliste existe deja ou non
+
     public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
 
@@ -213,7 +215,12 @@ public class CommandePieces extends javax.swing.JDialog {
         envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
         //On ajoute à la liste des commandes
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        //dlm = (DefaultListModel)_commandesList.getModel();
+        if(!EXIST)
+        {
+            _commandesList.setModel(dlm);
+            EXIST = true;
+        }
+        dlm = (DefaultListModel<String>)_commandesList.getModel();
         dlm.addElement(envoiMessage);
         _commandesList.setModel(dlm);
 
