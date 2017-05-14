@@ -35,7 +35,6 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         initComponents();
-        _commandeCoursCB.removeAllItems();//temporaire
     }
 
     /**
@@ -61,6 +60,11 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _envoyerReponseB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                commandeCoursCBMouseClicked(evt);
+            }
+        });
 
         _messageEntrantCB.setText("Message Entrant");
         _messageEntrantCB.setActionCommand("MessageEntrant");
@@ -76,25 +80,23 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _commandeCoursLabel.setText("Commande en cours :");
         _commandeCoursLabel.setToolTipText("");
 
-        _commandeCoursCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         _imageLabel.setText("Image");
         _imageLabel.setToolTipText("");
 
         _detailCommandeLabel.setText("Détail de la commande :");
 
         _detailTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null},
-                        {null, null},
-                        {null, null}
-                },
-                new String [] {
-                        "Caractéristique", "Valeur"
-                }
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Caractéristique", "Valeur"
+            }
         ) {
             boolean[] canEdit = new boolean [] {
-                    false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -129,65 +131,65 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(_verificationDispoB)
-                                                .addGap(85, 85, 85)
-                                                .addComponent(_disponibleRB)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(_nonDispoRB)
-                                                .addGap(67, 67, 67))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(_detailCommandeLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                                .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(_messageEntrantCB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(_lireButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(95, 95, 95)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(_commandeCoursLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(_commandeCoursCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(263, 263, 263)
-                                .addComponent(_envoyerReponseB)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_verificationDispoB)
+                        .addGap(85, 85, 85)
+                        .addComponent(_disponibleRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_nonDispoRB)
+                        .addGap(67, 67, 67))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_detailCommandeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(_messageEntrantCB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_lireButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(95, 95, 95)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(_commandeCoursLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_commandeCoursCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(263, 263, 263)
+                .addComponent(_envoyerReponseB)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(29, 29, 29)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(_messageEntrantCB)
-                                                        .addComponent(_commandeCoursLabel))
-                                                .addGap(20, 20, 20)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(_lireButton)
-                                                        .addComponent(_commandeCoursCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(23, 23, 23)
-                                                .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(_detailCommandeLabel)
-                                        .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(_verificationDispoB)
-                                        .addComponent(_disponibleRB)
-                                        .addComponent(_nonDispoRB))
-                                .addGap(52, 52, 52)
-                                .addComponent(_envoyerReponseB)
-                                .addGap(23, 23, 23))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_messageEntrantCB)
+                            .addComponent(_commandeCoursLabel))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(_lireButton)
+                            .addComponent(_commandeCoursCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_detailCommandeLabel)
+                    .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_verificationDispoB)
+                    .addComponent(_disponibleRB)
+                    .addComponent(_nonDispoRB))
+                .addGap(52, 52, 52)
+                .addComponent(_envoyerReponseB)
+                .addGap(23, 23, 23))
         );
 
         _commandeCoursLabel.getAccessibleContext().setAccessibleName("CommandeLabel");
@@ -211,6 +213,52 @@ public class ApplicationCentrale extends javax.swing.JFrame {
 
         //Ajout à la comboBox
         _commandeCoursCB.addItem(message);
+
+        //Ajout à la jtable
+        ajoutJtable(message);
+    }//GEN-LAST:event__lireButtonActionPerformed
+
+    private void _envoyerReponseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerReponseBActionPerformed
+        /*
+        *Envoi de la réponse au client
+         */
+        String reponse = "";
+
+        if(_disponibleRB.isSelected())
+        {
+            reponse = "disponible";
+        }
+        else
+        {
+            if (_nonDispoRB.isSelected()) {
+                reponse = "nonDispo";
+            }
+        }
+        //Et réenvoi le message pour que le client puisse determiner pour quel message il a recu une réponse
+        commandeSer.sendMessage(reponse +";"+_commandeCoursCB.getSelectedItem());
+        //On enleve la commande à laquelle on a répondu de la combobox
+        _commandeCoursCB.removeItem(_commandeCoursCB.getSelectedItem());
+        //On clear la jtable
+        DefaultTableModel dtm;
+        dtm = (DefaultTableModel)_detailTable.getModel();
+        dtm.removeRow(0);
+        dtm.removeRow(1);
+        dtm.removeRow(2);
+        _detailTable.setModel(dtm);
+
+
+    }//GEN-LAST:event__envoyerReponseBActionPerformed
+
+    private void commandeCoursCBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commandeCoursCBMouseClicked
+        String message = (String)_commandeCoursCB.getSelectedItem();
+        ajoutJtable(message);
+
+    }//GEN-LAST:event_commandeCoursCBMouseClicked
+
+    private void ajoutJtable(String message)
+    {
+        String libelle, type, quantite;
+
         String[] parts = message.split(";");
         libelle = parts[0];
         type = parts[1];
@@ -229,25 +277,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         array[1] = (quantite);
         dtm.addRow(array);
         _detailTable.setModel(dtm);
-    }//GEN-LAST:event__lireButtonActionPerformed
-
-    private void _envoyerReponseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerReponseBActionPerformed
-        /*
-        *Envoi de la réponse au client
-         */
-        String reponse;
-        if(_disponibleRB.isSelected())
-        {
-            reponse = "disponible";
-        }
-        else
-        {
-            if (_nonDispoRB.isSelected()) {
-                reponse = "nonDispo";
-            }
-        }
-        commandeSer.sendMessage("coucou");
-    }//GEN-LAST:event__envoyerReponseBActionPerformed
+    }
 
     /**
      * @param args the command line arguments

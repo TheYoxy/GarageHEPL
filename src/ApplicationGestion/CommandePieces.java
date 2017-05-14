@@ -211,6 +211,8 @@ public class CommandePieces extends javax.swing.JDialog {
     private void _envoyerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerButtonActionPerformed
         String reponse;
         String envoiMessage;
+        String disponibilite;
+        JOptionPane jop = new JOptionPane();
 
         envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
         //On ajoute à la liste des commandes
@@ -226,6 +228,17 @@ public class CommandePieces extends javax.swing.JDialog {
 
         //Envoi d'un message avec attente bloquante de la réponse.
         reponse = client.sendString(envoiMessage);
+        //Envoi d'un message sans attente bloquante (simple notif)
+        //client.sendStringWithoutWaiting(envoiMessage);
+
+        String[] parts = reponse.split(";");
+        disponibilite = parts[0];
+
+        if(disponibilite.compareTo("disponible") == 1)
+            jop.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
+        else
+            jop.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
+
 
     }//GEN-LAST:event__envoyerButtonActionPerformed
 
