@@ -35,7 +35,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         initComponents();
-        _commandeCoursCB.removeAllItems();//Temporaire
+        _commandeCoursCB.removeAllItems();//temporaire
     }
 
     /**
@@ -199,7 +199,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _envoyerReponseB.getAccessibleContext().setAccessibleName("EnvoiReponseButton");
 
         pack();
-    }// </editor-fold>
+    }// </editor-fold>//GEN-END:initComponents
 
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
