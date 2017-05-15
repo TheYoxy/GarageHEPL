@@ -9,37 +9,33 @@ import network.NetworkBasicClient;
 
 import javax.swing.*;
 
-/**
- *
- * @author Nicolas
- */
 public class CommandePieces extends javax.swing.JDialog {
 
     /**
      * Creates new form CommandePieces
      */
-    public NetworkBasicClient client;
-    public boolean EXIST = false; // détermine si un model pour la jliste existe deja ou non
+    private NetworkBasicClient _client;
+    private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
 
-    public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
+    private CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
 
-        /**
+        /*
          * On fait un switch pour déteriner quel centrale on voudra joindre en fonction de l'article à commander
          */
         switch(type)
         {
             //Si pneus
             case 1:
-                client = new NetworkBasicClient("127.0.0.1", 4441);
+                _client = new NetworkBasicClient("127.0.0.1", 4441);
                 break;
             //Si pièces
             case 2:
-                client = new NetworkBasicClient("127.0.0.1", 5555);
+                _client = new NetworkBasicClient("127.0.0.1", 5555);
                 break;
             //Si lubrifiant
             case 3:
-                client = new NetworkBasicClient("127.0.0.1", 6666);
+                _client = new NetworkBasicClient("127.0.0.1", 6666);
                 break;
         }
 
@@ -212,22 +208,21 @@ public class CommandePieces extends javax.swing.JDialog {
         String reponse;
         String envoiMessage;
         String disponibilite;
-        JOptionPane jop = new JOptionPane();
 
         envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
         //On ajoute à la liste des commandes
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        if(!EXIST)
+        if(!_exist)
         {
             _commandesList.setModel(dlm);
-            EXIST = true;
+            _exist = true;
         }
         dlm = (DefaultListModel<String>)_commandesList.getModel();
         dlm.addElement(envoiMessage);
         _commandesList.setModel(dlm);
 
         //Envoi d'un message avec attente bloquante de la réponse.
-        reponse = client.sendString(envoiMessage);
+        reponse = _client.sendString(envoiMessage);
         //Envoi d'un message sans attente bloquante (simple notif)
         //client.sendStringWithoutWaiting(envoiMessage);
 
@@ -235,9 +230,9 @@ public class CommandePieces extends javax.swing.JDialog {
         disponibilite = parts[0];
 
         if(disponibilite.compareTo("disponible") == 1)
-            jop.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
         else
-            jop.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
 
 
     }//GEN-LAST:event__envoyerButtonActionPerformed
@@ -262,13 +257,7 @@ public class CommandePieces extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CommandePieces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CommandePieces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CommandePieces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(CommandePieces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
