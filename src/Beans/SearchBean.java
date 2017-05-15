@@ -6,7 +6,7 @@ public class SearchBean implements ReceiveMessageListener
     {
         ReceivingBean rb = new ReceivingBean();
         rb.addReceiveMessageListener(this);
-        //rb.run();
+        //rb.run(nbs); //nbs = netwotkbasicserver
     }
 
     public void MessageDetected(ReceiveMessageEvent e)

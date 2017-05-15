@@ -27,18 +27,19 @@ public class ReceivingBean {
             if((message = serveur.getMessage()).compareTo("RIEN") == 0)
             {
                 setCommande(message);
+                notifyReceiveMesageDetected();
             }
         }
     }
 
-    public void addAlertListener(ReceiveMessageListener rml)/*Ici ce sera que le search bean normalement*/
+    public void addReceiveMessageListener(ReceiveMessageListener rml)/*Ici ce sera que le search bean normalement*/
     {
        if(!ReceivingMessageListeners.contains(rml))
        {
            ReceivingMessageListeners.addElement(rml);
        }
     }
-    public void removeAlertListener(ReceiveMessageListener rml)
+    public void removeReceiveMessageListener(ReceiveMessageListener rml)
     {
         if(ReceivingMessageListeners.contains(rml))
         {
@@ -48,7 +49,7 @@ public class ReceivingBean {
 
     protected void notifyReceiveMesageDetected()
     {
-        ReceiveMessageEvent e = new ReceiveMessageEvent(this);
+        ReceiveMessageEvent e = new ReceiveMessageEvent(this, _commande);
         int n = ReceivingMessageListeners.size();
         //On active la méthode MessageDetected pour chaque listener
         for(int i = 0; i<n; i++)

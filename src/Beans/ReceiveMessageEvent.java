@@ -4,8 +4,15 @@ import java.util.EventObject;
 
 public class ReceiveMessageEvent extends EventObject
 {
-    public ReceiveMessageEvent(Object source)
+    private String commande;
+
+    public ReceiveMessageEvent(Object source, String commande)
     {
         super(source);
+    }
+
+    public String getCommande()
+    {
+        return commande;
     }
 }
