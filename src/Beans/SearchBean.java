@@ -1,8 +1,11 @@
 package Beans;
 
-import network.NetworkBasicServer;
+public class SearchBean implements ReceiveMessageListener
+{
 
-public class SearchBean {
-
-
+    public void MessageDetected(ReceiveMessageEvent e)
+    {
+        /*On affiche le message*/
+        //e.getCommande();
+    }
 }
