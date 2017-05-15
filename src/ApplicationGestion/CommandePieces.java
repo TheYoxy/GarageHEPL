@@ -79,12 +79,27 @@ public class CommandePieces extends javax.swing.JDialog {
 
         _urgentRB.setText("Urgent");
         _urgentRB.setToolTipText("");
+        _urgentRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _urgentRBActionPerformed(evt);
+            }
+        });
 
         _normalRB.setText("Normal");
         _normalRB.setToolTipText("");
         _normalRB.setActionCommand("NormalRB");
+        _normalRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _normalRBActionPerformed(evt);
+            }
+        });
 
         _nonPrioritaireRB.setText("Non Prioritaire");
+        _nonPrioritaireRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _nonPrioritaireRBActionPerformed(evt);
+            }
+        });
 
         _commandesLabel.setText("Commandes :");
 
@@ -93,12 +108,6 @@ public class CommandePieces extends javax.swing.JDialog {
         _typeLabel.setText("Type :");
 
         _quantiteLabel.setText("Quantité :");
-
-        _libelleTF.setText("Libellé");
-
-        _typeTF.setText("Type");
-
-        _quantitéTF.setText("Quantité");
 
         _envoyerButton.setText("Envoyer");
         _envoyerButton.setToolTipText("");
@@ -245,6 +254,21 @@ public class CommandePieces extends javax.swing.JDialog {
     private void annulerButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerButonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_annulerButonActionPerformed
+
+    private void _urgentRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__urgentRBActionPerformed
+        _normalRB.setSelected(false);
+        _nonPrioritaireRB.setSelected(false);
+    }//GEN-LAST:event__urgentRBActionPerformed
+
+    private void _normalRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__normalRBActionPerformed
+        _nonPrioritaireRB.setSelected(false);
+        _urgentRB.setSelected(false);
+    }//GEN-LAST:event__normalRBActionPerformed
+
+    private void _nonPrioritaireRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__nonPrioritaireRBActionPerformed
+        _urgentRB.setSelected(false);
+        _normalRB.setSelected(false);
+    }//GEN-LAST:event__nonPrioritaireRBActionPerformed
 
     /**
      * @param args the command line arguments
