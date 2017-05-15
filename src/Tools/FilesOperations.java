@@ -18,9 +18,9 @@ public class FilesOperations {
 
     private final static String USER_FILENAME = "personne.xml";
     private final static String PROPERTIES = "filename.properties";
-    public final static String ATTENTE_FILENAME;
-    public final static String OCCUPE_FILENAME;
-    public final static String FINI_FILENAME;
+    private final static String ATTENTE_FILENAME;
+    private final static String OCCUPE_FILENAME;
+    private final static String FINI_FILENAME;
 
     static {
         Properties properties = new Properties();
