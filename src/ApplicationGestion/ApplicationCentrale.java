@@ -34,19 +34,19 @@ public class ApplicationCentrale extends javax.swing.JFrame {
             e.printStackTrace();
             System.exit(-1);
         }
-        _port = Integer.parseInt(temp.getProperty("Port"));
         switch(type)
         {
             case 1:
-                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
+                _port = Integer.parseInt(temp.getProperty("Pneus"));
                 break;
             case 2:
-                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
+                _port = Integer.parseInt(temp.getProperty("Piece"));
                 break;
             case 3:
-                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
+                _port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 break;
         }
+        _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
         initComponents();
     }
 
