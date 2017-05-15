@@ -16,8 +16,8 @@ import java.util.Vector;
 
 public class FilesOperations {
 
+    public final static String PROPERTIES = "config.properties";
     private final static String USER_FILENAME = "personne.xml";
-    private final static String PROPERTIES = "filename.properties";
     private final static String ATTENTE_FILENAME;
     private final static String OCCUPE_FILENAME;
     private final static String FINI_FILENAME;

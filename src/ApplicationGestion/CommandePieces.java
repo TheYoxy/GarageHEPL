@@ -5,9 +5,13 @@
  */
 package ApplicationGestion;
 
+import Tools.FilesOperations;
 import network.NetworkBasicClient;
 
 import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class CommandePieces extends javax.swing.JDialog {
 
@@ -16,31 +20,35 @@ public class CommandePieces extends javax.swing.JDialog {
      */
     private NetworkBasicClient _client;
     private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
-
+    private String _ip;
+    private int _port;
     private CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
-
-        /*
-         * On fait un switch pour déteriner quel centrale on voudra joindre en fonction de l'article à commander
-         */
+        final Properties temp = new Properties();
+        try {
+            temp.load(new FileInputStream(FilesOperations.PROPERTIES));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        _ip = temp.getProperty("IP");
         switch(type)
         {
             //Si pneus
             case 1:
-                _client = new NetworkBasicClient("127.0.0.1", 4441);
+                _port = Integer.parseInt(temp.getProperty("Pneus"));
                 break;
             //Si pièces
             case 2:
-                _client = new NetworkBasicClient("127.0.0.1", 5555);
+                _port = Integer.parseInt(temp.getProperty("Piece"));
                 break;
             //Si lubrifiant
             case 3:
-                _client = new NetworkBasicClient("127.0.0.1", 6666);
+                _port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 break;
         }
-
+        _client = new NetworkBasicClient(_ip, _port);
         initComponents();
-        
     }
 
     /**

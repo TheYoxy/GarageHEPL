@@ -358,7 +358,7 @@ public class Panel extends javax.swing.JFrame {
      * @param n Endroit où le travail est fini
      * @throws IndexOutOfBoundsException
      */
-    public void finTravail(int n){
+    public void finTravail(int n) throws IndexOutOfBoundsException {
         JTextField[] temp = new JTextField[] {_pont1TextField,_pont2TextField,_pont3TextField,_solTextField};
         if (n < 0 || n > 3) throw new IndexOutOfBoundsException("Le paramètre n doit être compris entre 0 & 3 compris");
         temp[n].setText(PDEFAUT);

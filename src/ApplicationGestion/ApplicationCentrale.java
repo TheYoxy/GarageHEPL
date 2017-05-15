@@ -5,9 +5,13 @@
  */
 package ApplicationGestion;
 
+import Tools.FilesOperations;
 import network.NetworkBasicServer;
 
 import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Vector;
 
 /**
@@ -19,19 +23,28 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     /**
      * Creates new form ApplicationCentrale
      */
-    NetworkBasicServer commandeSer;
+    private NetworkBasicServer _commandeSer;
+    private int _port;
+    private ApplicationCentrale(int type) {
 
-    public ApplicationCentrale(int type) {
+        final Properties temp = new Properties();
+        try {
+            temp.load(new FileInputStream(FilesOperations.PROPERTIES));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        _port = Integer.parseInt(temp.getProperty("Port"));
         switch(type)
         {
             case 1:
-                commandeSer = new NetworkBasicServer(4441, _messageEntrantCB);
+                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
                 break;
             case 2:
-                commandeSer = new NetworkBasicServer(5555, _messageEntrantCB);
+                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
                 break;
             case 3:
-                commandeSer = new NetworkBasicServer(6666, _messageEntrantCB);
+                _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
                 break;
         }
         initComponents();
@@ -218,8 +231,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
-        String libelle, type, quantite;
-        String message = commandeSer.getMessage();
+        String message = _commandeSer.getMessage();
 
         //Ajout à la comboBox
         _commandeCoursCB.addItem(message);
@@ -232,20 +244,19 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         /*
         *Envoi de la réponse au client
          */
-        String reponse = "";
+        String reponse;
 
         if(_disponibleRB.isSelected())
         {
-            reponse = "disponible";
+            reponse = "Disponible";
+        }
+        else if (_nonDispoRB.isSelected()) {
+            reponse = "Indisponible";
         }
         else
-        {
-            if (_nonDispoRB.isSelected()) {
-                reponse = "nonDispo";
-            }
-        }
+            return;
         //Et réenvoi le message pour que le client puisse determiner pour quel message il a recu une réponse
-        commandeSer.sendMessage(reponse +";"+_commandeCoursCB.getSelectedItem());
+        _commandeSer.sendMessage(reponse + ";" + _commandeCoursCB.getSelectedItem());
         //On enleve la commande à laquelle on a répondu de la combobox
         _commandeCoursCB.removeItem(_commandeCoursCB.getSelectedItem());
         //On clear la jtable
@@ -275,25 +286,22 @@ public class ApplicationCentrale extends javax.swing.JFrame {
 
     private void ajoutJtable(String message)
     {
-        String libelle, type, quantite;
-
-        String[] parts = message.split(";");
-        libelle = parts[0];
-        type = parts[1];
-        quantite = parts[2];
+        String[] split = message.split(";");
 
         DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
-        dtm.setColumnIdentifiers(new String[]{"Caractéristique","Valeur"});
-        Object[] array = new Object[2];
-        array[0] = ("libelle :");
-        array[1]= (libelle);
-        dtm.addRow(array);
-        array[0] = ("Type :");
-        array[1] = (type);
-        dtm.addRow(array);
-        array[0] = ("Quantite");
-        array[1] = (quantite);
-        dtm.addRow(array);
+//        dtm.setColumnIdentifiers(new String[]{,"Valeur"});
+        Vector<Object> vector = new Vector<>();
+        vector.add("Libelle :");
+        vector.add("Type :");
+        vector.add("Quantité :");
+        dtm.addColumn("Caractéristique",vector);
+        vector.clear();
+
+        vector.add(split[0]);
+        vector.add(split[1]);
+        vector.add(split[2]);
+        dtm.addColumn("Valeur",vector);
+
         _detailTable.setModel(dtm);
     }
 
