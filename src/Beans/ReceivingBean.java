@@ -1,4 +1,4 @@
-package Tools;
+package Beans;
 
 import network.NetworkBasicServer;
 
