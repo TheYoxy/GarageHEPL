@@ -116,9 +116,19 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _disponibleRB.setText("Disponible");
         _disponibleRB.setToolTipText("");
         _disponibleRB.setActionCommand("DisponibleRadioB");
+        _disponibleRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _disponibleRBActionPerformed(evt);
+            }
+        });
 
         _nonDispoRB.setText("Non disponible");
         _nonDispoRB.setActionCommand("NonDisponibleRadioB");
+        _nonDispoRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _nonDispoRBActionPerformed(evt);
+            }
+        });
 
         _envoyerReponseB.setText("Envoyer réponse");
         _envoyerReponseB.setActionCommand("EnvoiReponseButton");
@@ -254,6 +264,14 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         ajoutJtable(message);
 
     }//GEN-LAST:event_commandeCoursCBMouseClicked
+
+    private void _disponibleRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__disponibleRBActionPerformed
+        _nonDispoRB.setSelected(false);
+    }//GEN-LAST:event__disponibleRBActionPerformed
+
+    private void _nonDispoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__nonDispoRBActionPerformed
+        _disponibleRB.setSelected(false);
+    }//GEN-LAST:event__nonDispoRBActionPerformed
 
     private void ajoutJtable(String message)
     {

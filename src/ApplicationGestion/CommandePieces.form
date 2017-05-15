@@ -130,6 +130,9 @@
         <Property name="text" type="java.lang.String" value="Urgent"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_urgentRBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="_normalRB">
       <Properties>
@@ -137,11 +140,17 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="actionCommand" type="java.lang.String" value="NormalRB"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_normalRBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="_nonPrioritaireRB">
       <Properties>
         <Property name="text" type="java.lang.String" value="Non Prioritaire"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_nonPrioritaireRBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="_commandesLabel">
       <Properties>
@@ -177,25 +186,16 @@
       </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="_libelleTF">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Libell&#xe9;"/>
-      </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="LibelleTF"/>
       </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="_typeTF">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Type"/>
-      </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="TypeTF"/>
       </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="_quantit&#xe9;TF">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Quantit&#xe9;"/>
-      </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="QuantiteTF"/>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
