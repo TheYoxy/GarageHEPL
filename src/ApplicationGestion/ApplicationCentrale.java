@@ -5,6 +5,11 @@
  */
 package ApplicationGestion;
 
+import network.NetworkBasicServer;
+
+import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
+
 /**
  *
  * @author Nicolas
@@ -14,7 +19,21 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     /**
      * Creates new form ApplicationCentrale
      */
-    public ApplicationCentrale() {
+    NetworkBasicServer commandeSer;
+
+    public ApplicationCentrale(int type) {
+        switch(type)
+        {
+            case 1:
+                commandeSer = new NetworkBasicServer(4441, _messageEntrantCB);
+                break;
+            case 2:
+                commandeSer = new NetworkBasicServer(5555, _messageEntrantCB);
+                break;
+            case 3:
+                commandeSer = new NetworkBasicServer(6666, _messageEntrantCB);
+                break;
+        }
         initComponents();
     }
 
@@ -33,14 +52,19 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _commandeCoursCB = new javax.swing.JComboBox<>();
         _imageLabel = new javax.swing.JLabel();
         _detailCommandeLabel = new javax.swing.JLabel();
-        _detailTable = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        _detailScrollPane = new javax.swing.JScrollPane();
+        _detailTable = new javax.swing.JTable();
         _verificationDispoB = new javax.swing.JButton();
         _disponibleRB = new javax.swing.JRadioButton();
         _nonDispoRB = new javax.swing.JRadioButton();
         _envoyerReponseB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                commandeCoursCBMouseClicked(evt);
+            }
+        });
 
         _messageEntrantCB.setText("Message Entrant");
         _messageEntrantCB.setActionCommand("MessageEntrant");
@@ -56,14 +80,12 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _commandeCoursLabel.setText("Commande en cours :");
         _commandeCoursLabel.setToolTipText("");
 
-        _commandeCoursCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         _imageLabel.setText("Image");
         _imageLabel.setToolTipText("");
 
         _detailCommandeLabel.setText("Détail de la commande :");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        _detailTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -81,8 +103,8 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        _detailTable.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleName("detailTable");
+        _detailScrollPane.setViewportView(_detailTable);
+        _detailTable.getAccessibleContext().setAccessibleName("detailTable");
 
         _verificationDispoB.setText("Vérification disponibilité");
         _verificationDispoB.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +145,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_detailCommandeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(_detailTable, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(_messageEntrantCB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,7 +181,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_detailCommandeLabel)
-                    .addComponent(_detailTable, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_verificationDispoB)
@@ -186,12 +208,76 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
-        // TODO add your handling code here:
+        String libelle, type, quantite;
+        String message = commandeSer.getMessage();
+
+        //Ajout à la comboBox
+        _commandeCoursCB.addItem(message);
+
+        //Ajout à la jtable
+        ajoutJtable(message);
     }//GEN-LAST:event__lireButtonActionPerformed
 
     private void _envoyerReponseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerReponseBActionPerformed
-        // TODO add your handling code here:
+        /*
+        *Envoi de la réponse au client
+         */
+        String reponse = "";
+
+        if(_disponibleRB.isSelected())
+        {
+            reponse = "disponible";
+        }
+        else
+        {
+            if (_nonDispoRB.isSelected()) {
+                reponse = "nonDispo";
+            }
+        }
+        //Et réenvoi le message pour que le client puisse determiner pour quel message il a recu une réponse
+        commandeSer.sendMessage(reponse +";"+_commandeCoursCB.getSelectedItem());
+        //On enleve la commande à laquelle on a répondu de la combobox
+        _commandeCoursCB.removeItem(_commandeCoursCB.getSelectedItem());
+        //On clear la jtable
+        DefaultTableModel dtm;
+        dtm = (DefaultTableModel)_detailTable.getModel();
+        dtm.removeRow(0);
+        dtm.removeRow(1);
+        dtm.removeRow(2);
+        _detailTable.setModel(dtm);
+
+
     }//GEN-LAST:event__envoyerReponseBActionPerformed
+
+    private void commandeCoursCBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commandeCoursCBMouseClicked
+        String message = (String)_commandeCoursCB.getSelectedItem();
+        ajoutJtable(message);
+
+    }//GEN-LAST:event_commandeCoursCBMouseClicked
+
+    private void ajoutJtable(String message)
+    {
+        String libelle, type, quantite;
+
+        String[] parts = message.split(";");
+        libelle = parts[0];
+        type = parts[1];
+        quantite = parts[2];
+
+        DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
+        dtm.setColumnIdentifiers(new String[]{"Caractéristique","Valeur"});
+        Object[] array = new Object[2];
+        array[0] = ("libelle :");
+        array[1]= (libelle);
+        dtm.addRow(array);
+        array[0] = ("Type :");
+        array[1] = (type);
+        dtm.addRow(array);
+        array[0] = ("Quantite");
+        array[1] = (quantite);
+        dtm.addRow(array);
+        _detailTable.setModel(dtm);
+    }
 
     /**
      * @param args the command line arguments
@@ -200,7 +286,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -223,7 +309,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ApplicationCentrale().setVisible(true);
+                new ApplicationCentrale(1).setVisible(true);
             }
         });
     }
@@ -232,7 +318,8 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> _commandeCoursCB;
     private javax.swing.JLabel _commandeCoursLabel;
     private javax.swing.JLabel _detailCommandeLabel;
-    private javax.swing.JScrollPane _detailTable;
+    private javax.swing.JScrollPane _detailScrollPane;
+    private javax.swing.JTable _detailTable;
     private javax.swing.JRadioButton _disponibleRB;
     private javax.swing.JButton _envoyerReponseB;
     private javax.swing.JLabel _imageLabel;
@@ -240,6 +327,5 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private javax.swing.JCheckBox _messageEntrantCB;
     private javax.swing.JRadioButton _nonDispoRB;
     private javax.swing.JButton _verificationDispoB;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

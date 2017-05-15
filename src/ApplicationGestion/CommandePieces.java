@@ -5,6 +5,10 @@
  */
 package ApplicationGestion;
 
+import network.NetworkBasicClient;
+
+import javax.swing.*;
+
 /**
  *
  * @author Nicolas
@@ -14,8 +18,31 @@ public class CommandePieces extends javax.swing.JDialog {
     /**
      * Creates new form CommandePieces
      */
-    public CommandePieces(java.awt.Frame parent, boolean modal) {
+    public NetworkBasicClient client;
+    public boolean EXIST = false; // détermine si un model pour la jliste existe deja ou non
+
+    public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
+
+        /**
+         * On fait un switch pour déteriner quel centrale on voudra joindre en fonction de l'article à commander
+         */
+        switch(type)
+        {
+            //Si pneus
+            case 1:
+                client = new NetworkBasicClient("127.0.0.1", 4441);
+                break;
+            //Si pièces
+            case 2:
+                client = new NetworkBasicClient("127.0.0.1", 5555);
+                break;
+            //Si lubrifiant
+            case 3:
+                client = new NetworkBasicClient("127.0.0.1", 6666);
+                break;
+        }
+
         initComponents();
         
     }
@@ -42,8 +69,8 @@ public class CommandePieces extends javax.swing.JDialog {
         _quantitéTF = new javax.swing.JTextField();
         _envoyerButton = new javax.swing.JButton();
         annulerButon = new javax.swing.JButton();
-        _commandesList = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        _scrollpanel = new javax.swing.JScrollPane();
+        _commandesList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,12 +118,7 @@ public class CommandePieces extends javax.swing.JDialog {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        _commandesList.setViewportView(jList1);
+        _scrollpanel.setViewportView(_commandesList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,7 +156,7 @@ public class CommandePieces extends javax.swing.JDialog {
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_commandesLabel)
-                            .addComponent(_commandesList, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))))
+                            .addComponent(_scrollpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,7 +186,7 @@ public class CommandePieces extends javax.swing.JDialog {
                             .addComponent(_quantitéTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(_commandesList, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(_scrollpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_envoyerButton)
@@ -187,7 +209,37 @@ public class CommandePieces extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _envoyerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerButtonActionPerformed
-        // TODO add your handling code here:
+        String reponse;
+        String envoiMessage;
+        String disponibilite;
+        JOptionPane jop = new JOptionPane();
+
+        envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
+        //On ajoute à la liste des commandes
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+        if(!EXIST)
+        {
+            _commandesList.setModel(dlm);
+            EXIST = true;
+        }
+        dlm = (DefaultListModel<String>)_commandesList.getModel();
+        dlm.addElement(envoiMessage);
+        _commandesList.setModel(dlm);
+
+        //Envoi d'un message avec attente bloquante de la réponse.
+        reponse = client.sendString(envoiMessage);
+        //Envoi d'un message sans attente bloquante (simple notif)
+        //client.sendStringWithoutWaiting(envoiMessage);
+
+        String[] parts = reponse.split(";");
+        disponibilite = parts[0];
+
+        if(disponibilite.compareTo("disponible") == 1)
+            jop.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
+        else
+            jop.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
+
+
     }//GEN-LAST:event__envoyerButtonActionPerformed
 
     private void annulerButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerButonActionPerformed
@@ -224,7 +276,7 @@ public class CommandePieces extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CommandePieces dialog = new CommandePieces(new javax.swing.JFrame(), true);
+                CommandePieces dialog = new CommandePieces(new javax.swing.JFrame(), true, 1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -239,7 +291,7 @@ public class CommandePieces extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _commandeLabel;
     private javax.swing.JLabel _commandesLabel;
-    private javax.swing.JScrollPane _commandesList;
+    private javax.swing.JList<String> _commandesList;
     private javax.swing.JButton _envoyerButton;
     private javax.swing.JTextField _libelleTF;
     private javax.swing.JLabel _libelléLabel;
@@ -247,10 +299,10 @@ public class CommandePieces extends javax.swing.JDialog {
     private javax.swing.JRadioButton _normalRB;
     private javax.swing.JLabel _quantiteLabel;
     private javax.swing.JTextField _quantitéTF;
+    private javax.swing.JScrollPane _scrollpanel;
     private javax.swing.JLabel _typeLabel;
     private javax.swing.JTextField _typeTF;
     private javax.swing.JRadioButton _urgentRB;
     private javax.swing.JButton annulerButon;
-    private javax.swing.JList<String> jList1;
     // End of variables declaration//GEN-END:variables
 }
