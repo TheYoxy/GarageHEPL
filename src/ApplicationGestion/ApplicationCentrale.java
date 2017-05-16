@@ -240,7 +240,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__verificationDispoBActionPerformed
-        
+
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
