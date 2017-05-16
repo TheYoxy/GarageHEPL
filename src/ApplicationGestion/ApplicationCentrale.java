@@ -5,6 +5,7 @@
  */
 package ApplicationGestion;
 
+import Beans.PrepareOrderBean;
 import Beans.ReceivingBean;
 import Beans.SearchBean;
 import Tools.FilesOperations;
@@ -27,6 +28,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
      */
     private NetworkBasicServer _commandeSer;
     private int _port;
+    private ReceivingBean rb = new ReceivingBean();
+    private SearchBean sb = new SearchBean();
+    private PrepareOrderBean pob = new PrepareOrderBean();
+
     private ApplicationCentrale(int type) {
 
         final Properties temp = new Properties();
@@ -53,9 +58,8 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         *Création des beans
         */
         initComponents();
-        ReceivingBean rb = new ReceivingBean();
-        SearchBean sb = new SearchBean();
-        rb.addReceiveMessageListener(sb);//Ajout d'un listener
+        rb.addReceiveMessageListener(sb);//Ajout du bean search en tant que lsitener du bean receivemessage
+        sb.addSearchFoundListener(pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
         //rb.run(_commandeSer); evidemment ca couille car while 1
     }
 
@@ -236,7 +240,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__verificationDispoBActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
