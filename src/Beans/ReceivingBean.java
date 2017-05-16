@@ -24,7 +24,7 @@ public class ReceivingBean {
 
         while(true)
         {
-            if((message = serveur.getMessage()).compareTo("RIEN") == 0)
+            if((message = serveur.getMessage()).compareTo("RIEN") != 0)
             {
                 setCommande(message);
                 notifyReceiveMesageDetected();

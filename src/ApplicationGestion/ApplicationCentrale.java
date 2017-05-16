@@ -5,6 +5,8 @@
  */
 package ApplicationGestion;
 
+import Beans.ReceivingBean;
+import Beans.SearchBean;
 import Tools.FilesOperations;
 import network.NetworkBasicServer;
 
@@ -47,7 +49,14 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
+        /*
+        *Création des beans
+        */
         initComponents();
+        ReceivingBean rb = new ReceivingBean();
+        SearchBean sb = new SearchBean();
+        rb.addReceiveMessageListener(sb);//Ajout d'un listener
+        //rb.run(_commandeSer); evidemment ca couille car while 1
     }
 
     /**
