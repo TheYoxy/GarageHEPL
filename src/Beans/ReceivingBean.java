@@ -4,10 +4,11 @@ import network.NetworkBasicServer;
 
 import java.util.Vector;
 
-public class ReceivingBean {
+public class ReceivingBean implements InStockListener {
 
     private String _commande;
     private Vector ReceivingMessageListeners;
+    private NetworkBasicServer _ser;
 
     public ReceivingBean()
     {
@@ -15,11 +16,19 @@ public class ReceivingBean {
         ReceivingMessageListeners = new Vector();
     }
 
+    @Override
+    public void InStockDetected(InStockEvent e) {
+        //Envoie de la réponse au cllient :
+        _ser.sendMessage(e.getEtatCommande() + ";" + e.getLibelle() + ";" + e.get_dateMois());
+    }
+
     public String getCommande() { return _commande; }
     public void setCommande(String c){ _commande = c; }
 
     public void run(NetworkBasicServer serveur)
     {
+        _ser = serveur;
+
         String message;
 
         while(true)
