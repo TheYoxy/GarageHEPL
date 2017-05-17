@@ -59,8 +59,8 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         */
         initComponents();
         rb.addReceiveMessageListener(sb);//Ajout du bean search en tant que lsitener du bean receivemessage
-        sb.addSearchFoundListener(pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
-        //rb.run(_commandeSer); evidemment ca couille car while 1
+        //sb.addSearchFoundListener(pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
+        rb.run(_commandeSer); //evidemment ca couille car while 1
     }
 
     /**

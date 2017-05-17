@@ -6,6 +6,7 @@ public class SearchBean implements ReceiveMessageListener {
 
 
     private Vector SearchFoundListeners;
+    private boolean etatCommande;
 
     public SearchBean() {
 
@@ -13,8 +14,13 @@ public class SearchBean implements ReceiveMessageListener {
 
     public void MessageDetected(ReceiveMessageEvent e) {
         String message;
-        /*On affiche le message*/
+
+        /*On recupere la commande*/
         message = e.getCommande();
+        /*Serialiser container*/
+        etatCommande = checkDisponibility();
+        notifySearchFoundDetected(message, etatCommande);
+
     }
 
     public void addSearchFoundListener(SearchFoundListener sfl)/*Ici ce sera que le prepareOrder bean normalement*/ {
@@ -29,7 +35,7 @@ public class SearchBean implements ReceiveMessageListener {
         }
     }
 
-    protected void notifySearchFoundDetected(String libelle, String etatCommande)
+    protected void notifySearchFoundDetected(String libelle, boolean etatCommande)
     {
         SearchFoundEvent e = new SearchFoundEvent(this, libelle, etatCommande);
         int n = SearchFoundListeners.size();
@@ -39,5 +45,12 @@ public class SearchBean implements ReceiveMessageListener {
             SearchFoundListener obj = (SearchFoundListener)SearchFoundListeners.elementAt(i);
             obj.SearchDetected(e);
         }
+    }
+
+    public boolean checkDisponibility()
+    {
+        double i = Math.random();
+
+        return i == 0 ? false : true;
     }
 }

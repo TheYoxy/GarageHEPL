@@ -1,4 +1,8 @@
 package Beans;
 
-public interface InStockListener {
+import java.util.EventListener;
+
+public interface InStockListener extends EventListener
+{
+    public void InStockDetected (InStockEvent e);
 }
