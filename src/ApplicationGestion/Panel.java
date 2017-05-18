@@ -80,37 +80,44 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
-    private JMenu _parametres;
-    private JMenu _aide;
-    private JMenuItem _info;
-    private JMenuItem _pourDebute;
-    private JMenuItem _aPropos;
-    private AboutBox _aboutBox;
+    private JMenu Parametres;
+    private JMenu Aide;
+    private JMenuItem Info;
+    private JMenuItem DateMenu;
+    private JMenuItem PourDebute;
+    private JMenuItem APropos;
+    private AboutBox AboutBox;
+    private int Date;
+    private int Time;
+    private Locale LocaleDateTime;
     /**
      * Liste chainée qui retiens toutes les personnes identifiables de l'application
      */
-    private LinkedList<Personne> _listePersonnes;
+    private LinkedList<Personne> ListePersonnes;
     /**
      * Hashtable pour retenir si c'est un entretiens ou une réparation
      */
-    private Hashtable<Vector<Object>,Boolean> _listeAttente;
+    private Hashtable<Vector<Object>,Boolean> ListeAttente;
     /**
      * Tableau de taille 4 qui contiens le travail qui se trouve sur le sol où sur un des ponts
      */
-    private Travail[] _listeOccupe;
+    private Travail[] ListeOccupe;
     /**
      * Liste qui contiens tout les travaux qui ont été effectués
      */
-    private LinkedList<Travail> _listeFini;
+    private LinkedList<Travail> ListeFini;
     /**
      * Identifie la personne qui vient de se connecter à l'application
      */
-    private Identifiable _logged;
+    private Identifiable Logged;
     /**
      * Creates new form Panel
      */
-    public Panel() {
+    private Panel() {
         initComponents();
+        Time = DateFormat.DEFAULT;
+        Date = DateFormat.SHORT;
+        LocaleDateTime = Locale.getDefault();
         setTime();
         CustomSetup();
     }
@@ -125,14 +132,14 @@ public class Panel extends javax.swing.JFrame {
         //binfile.loadFromBinaryFile("Endedworks");
         //binfile.loadFromBinaryFile("Waitingworks");
         //binfile.loadFromBinaryFile("works") ;
-        _listePersonnes = list;
-        _logged = log;
-        if (_logged instanceof PersonnelGarage) {
+        ListePersonnes= list;
+        Logged = log;
+        if (Logged instanceof PersonnelGarage) {
             _clientMenu.setEnabled(true);
             _atelierMenu.setEnabled(true);
             _factureMenu.setEnabled(true);
             _materielMenu.setEnabled(true);
-            if (_logged instanceof Employe) {
+            if (Logged instanceof Employe) {
                 _priseEnChargeMenuItem.setEnabled(false); //Un employé ne peut pas prendre un travail à charge
             }
         }
@@ -143,22 +150,22 @@ public class Panel extends javax.swing.JFrame {
     }
 
     private void CustomSetup(){
-        _aboutBox = new AboutBox(this,true);
+        AboutBox = new AboutBox(this,true);
         _menuBar.add(Box.createHorizontalGlue());
-        _menuBar.add(_parametres = new JMenu("Paramètres"));
-        _parametres.add(_info = new JMenuItem("Infos système"));
-        _menuBar.add(_aide = new JMenu("Aide"));
-        _aide.add(_pourDebute = new JMenuItem("Pour débuter"));
-        _aide.add(new JSeparator());
-        _aide.add(_aPropos = new JMenuItem("A propos de ..."));
-        _aPropos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AProposMouseClicked();
-            }
+        _menuBar.add(Parametres = new JMenu("Paramètres"));
+        Parametres.add(Info = new JMenuItem("Infos système"));
+        Parametres.add(DateMenu = new JMenuItem("Format de la date"));
+        DateMenu.addActionListener(e -> {
+            new Date(this,true).setVisible(true);
         });
-        _listeAttente = new Hashtable<>();
-        _listeOccupe = new Travail[NB_EMPLACEMENTS];
-        _listeFini = new LinkedList<>();
+        _menuBar.add(Aide = new JMenu("Aide"));
+        Aide.add(PourDebute = new JMenuItem("Pour débuter"));
+        Aide.add(new JSeparator());
+        Aide.add(APropos = new JMenuItem("A propos de ..."));
+        APropos.addActionListener(evt -> AProposMouseClicked());
+        ListeAttente = new Hashtable<>();
+        ListeOccupe = new Travail[NB_EMPLACEMENTS];
+        ListeFini = new LinkedList<>();
         new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -196,20 +203,31 @@ public class Panel extends javax.swing.JFrame {
         });
     }
 
-
     /**
      *
      */
     private void AProposMouseClicked()
     {
-        _aboutBox.setVisible(true);
+        AboutBox.setVisible(true);
+    }
+
+    /**
+     * @param loc
+     * @param date
+     * @param time
+     */
+    public void setDate(Locale loc, int date, int time)
+    {
+        LocaleDateTime = loc;
+        Date = date;
+        Time = time;
     }
 
     /**
      *
      */
     private void setTime() {
-        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.DEFAULT).format(Calendar.getInstance().getTime()));
+        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(Date,Time).format(Calendar.getInstance(LocaleDateTime).getTime()));
     }
 
     /**
@@ -218,7 +236,7 @@ public class Panel extends javax.swing.JFrame {
      */
     public void ajout(Vector <Object> vector,boolean entretien)
     {
-        _listeAttente.put(vector,entretien);
+        ListeAttente.put(vector,entretien);
         saveAttente();
     }
 
@@ -228,10 +246,10 @@ public class Panel extends javax.swing.JFrame {
      */
     public void miseEnPlace(int place,Vector<Object> vector) throws PlaceUtilisee {
         try{
-            if (_listeOccupe[place - 1] == null)
-                _listeOccupe[place - 1] = _listeAttente.get(vector)
-                        ? new Entretien (new Voiture((String)vector.get(1),4,2,(String)vector.get(0),(Client)vector.get(2)),(Mecanicien) _logged, (String) vector.get(3),(String) vector.get(4))
-                        : new Reparation(new Voiture((String)vector.get(1),4,2,(String)vector.get(0),(Client)vector.get(2)),(Mecanicien) _logged, (String) vector.get(3),(String) vector.get(4)); // Si la clef = true -> Entretien
+            if (ListeOccupe[place - 1] == null)
+                ListeOccupe[place - 1] = ListeAttente.get(vector)
+                        ? new Entretien (new Voiture((String)vector.get(1),4,2,(String)vector.get(0),(Client)vector.get(2)),(Mecanicien) Logged, (String) vector.get(3),(String) vector.get(4))
+                        : new Reparation(new Voiture((String)vector.get(1),4,2,(String)vector.get(0),(Client)vector.get(2)),(Mecanicien) Logged, (String) vector.get(3),(String) vector.get(4)); // Si la clef = true -> Entretien
             else
             {
                 String[] pos = new String[]{"pont n°1","pont n°2","pont n°3","sol"};
@@ -240,16 +258,16 @@ public class Panel extends javax.swing.JFrame {
             switch (place)
             {
                 case 1:
-                    _pont1TextField.setText(_listeOccupe[place - 1].getCar().toString() + ". " + _listeOccupe[place-1].getTravailleur() + " fait " + _listeOccupe[place-1].getLibelle());
+                    _pont1TextField.setText(ListeOccupe[place - 1].getCar().toString() + ". " + ListeOccupe[place-1].getTravailleur() + " fait " + ListeOccupe[place-1].getLibelle());
                     break;
                 case 2:
-                    _pont2TextField.setText(_listeOccupe[place - 1].getCar().toString() + ". " + _listeOccupe[place-1].getTravailleur() + " fait " + _listeOccupe[place-1].getLibelle());
+                    _pont2TextField.setText(ListeOccupe[place - 1].getCar().toString() + ". " + ListeOccupe[place-1].getTravailleur() + " fait " + ListeOccupe[place-1].getLibelle());
                     break;
                 case 3:
-                    _pont3TextField.setText(_listeOccupe[place - 1].getCar().toString() + ". " + _listeOccupe[place-1].getTravailleur() + " fait " + _listeOccupe[place-1].getLibelle());
+                    _pont3TextField.setText(ListeOccupe[place - 1].getCar().toString() + ". " + ListeOccupe[place-1].getTravailleur() + " fait " + ListeOccupe[place-1].getLibelle());
                     break;
                 case 4:
-                    _solTextField.setText(_listeOccupe[place - 1].getCar().toString() + ". " + _listeOccupe[place-1].getTravailleur() + " fait " + _listeOccupe[place-1].getLibelle());
+                    _solTextField.setText(ListeOccupe[place - 1].getCar().toString() + ". " + ListeOccupe[place-1].getTravailleur() + " fait " + ListeOccupe[place-1].getLibelle());
                     break;
                 default:
                     //Ne peut pas arriver dans ce cas-ci, mais il peut apparaitre si qqn d'autre utilise le code
@@ -260,7 +278,7 @@ public class Panel extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this,e.getMessage(),"Exception",JOptionPane.ERROR_MESSAGE);
         }
-        _listeAttente.remove(vector);
+        ListeAttente.remove(vector);
 
         saveOccupe();
         saveAttente();
@@ -272,8 +290,9 @@ public class Panel extends javax.swing.JFrame {
     private void loadAttente()
     {
         try {
-            _listeAttente = FilesOperations.loadAttente();
-        } catch (IOException | ClassNotFoundException e) {
+            ListeAttente = FilesOperations.loadAttente();
+        }
+        catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -288,20 +307,20 @@ public class Panel extends javax.swing.JFrame {
             tempList = FilesOperations.loadOccupe();
             for (Map.Entry<Travail,Integer> entry : tempList.entrySet())
             {
-                _listeOccupe[entry.getValue()] = entry.getKey();
+                ListeOccupe[entry.getValue()] = entry.getKey();
                 switch (entry.getValue())
                 {
                     case 0:
-                        _pont1TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        _pont1TextField.setText(ListeOccupe[entry.getValue()].getCar().toString() + ". " + ListeOccupe[entry.getValue()].getTravailleur() + " fait " + ListeOccupe[entry.getValue()].getLibelle());
                         break;
                     case 1:
-                        _pont2TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        _pont2TextField.setText(ListeOccupe[entry.getValue()].getCar().toString() + ". " + ListeOccupe[entry.getValue()].getTravailleur() + " fait " + ListeOccupe[entry.getValue()].getLibelle());
                         break;
                     case 2:
-                        _pont3TextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        _pont3TextField.setText(ListeOccupe[entry.getValue()].getCar().toString() + ". " + ListeOccupe[entry.getValue()].getTravailleur() + " fait " + ListeOccupe[entry.getValue()].getLibelle());
                         break;
                     case 3:
-                        _solTextField.setText(_listeOccupe[entry.getValue()].getCar().toString() + ". " + _listeOccupe[entry.getValue()].getTravailleur() + " fait " + _listeOccupe[entry.getValue()].getLibelle());
+                        _solTextField.setText(ListeOccupe[entry.getValue()].getCar().toString() + ". " + ListeOccupe[entry.getValue()].getTravailleur() + " fait " + ListeOccupe[entry.getValue()].getLibelle());
                         break;
                 }
             }
@@ -316,7 +335,7 @@ public class Panel extends javax.swing.JFrame {
     private void loadFini()
     {
         try {
-            _listeFini = FilesOperations.loadFini();
+            ListeFini = FilesOperations.loadFini();
         }
         catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -328,7 +347,7 @@ public class Panel extends javax.swing.JFrame {
     private void saveAttente()
     {
         try {
-            FilesOperations.saveAttente(_listeAttente);
+            FilesOperations.saveAttente(ListeAttente);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -342,8 +361,8 @@ public class Panel extends javax.swing.JFrame {
         Hashtable<Travail,Integer> hashtable = new Hashtable<>();
         for (int i = 0; i < 4; i++)
         {
-            if (_listeOccupe[i] != null)
-                hashtable.put(_listeOccupe[i],i);
+            if (ListeOccupe[i] != null)
+                hashtable.put(ListeOccupe[i],i);
         }
         try {
             FilesOperations.saveOccupe(hashtable);
@@ -358,7 +377,7 @@ public class Panel extends javax.swing.JFrame {
     private void saveFini()
     {
         try {
-            FilesOperations.saveFini(_listeFini);
+            FilesOperations.saveFini(ListeFini);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -372,8 +391,8 @@ public class Panel extends javax.swing.JFrame {
         JTextField[] temp = new JTextField[] {_pont1TextField,_pont2TextField,_pont3TextField,_solTextField};
         if (n < 0 || n > 3) throw new IndexOutOfBoundsException("Le paramètre n doit être compris entre 0 & 3 compris");
         temp[n].setText(PDEFAUT);
-        _listeFini.add(_listeOccupe[n]);
-        _listeOccupe[n] = null;
+        ListeFini.add(ListeOccupe[n]);
+        ListeOccupe[n] = null;
         saveOccupe();
         saveFini();
     }
@@ -673,7 +692,7 @@ public class Panel extends javax.swing.JFrame {
      */
     private void _aPrevoirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__aPrevoirMenuItemActionPerformed
         LinkedList<Client> templist = new LinkedList<>();
-        for (Personne temp : _listePersonnes)
+        for (Personne temp : ListePersonnes)
             if (temp instanceof Client)
                 templist.add((Client) temp);
         new NewWork(this,true,templist).setVisible(true);
@@ -683,21 +702,21 @@ public class Panel extends javax.swing.JFrame {
      * @param evt
      */
     private void _priseEnChargeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__priseEnChargeMenuItemActionPerformed
-        new PriseCharge(this,true, _listeAttente, _listeOccupe).setVisible(true);
+        new PriseCharge(this,true, ListeAttente, ListeOccupe).setVisible(true);
     }//GEN-LAST:event__priseEnChargeMenuItemActionPerformed
 
     /**
      * @param evt
      */
     private void _terminerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__terminerMenuItemActionPerformed
-        new Valider(this,true, _listeOccupe).setVisible(true);
+        new Valider(this,true, ListeOccupe).setVisible(true);
     }//GEN-LAST:event__terminerMenuItemActionPerformed
 
     /**
      * @param evt
      */
     private void _listesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__listesMenuItemActionPerformed
-        new TravauxFini(this,true,_listeFini).setVisible(true);
+        new TravauxFini(this,true, ListeFini).setVisible(true);
     }//GEN-LAST:event__listesMenuItemActionPerformed
 
     /**

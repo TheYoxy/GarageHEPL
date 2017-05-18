@@ -5,6 +5,8 @@
  */
 package ApplicationGestion;
 
+import java.util.Locale;
+
 /**
  *
  * @author Nicolas
@@ -118,7 +120,30 @@ public class Date extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__okButtonActionPerformed
-        // TODO add your handling code here:
+        Locale loc;
+        switch (_paysComboBox.getSelectedIndex())
+        {
+            case 0:
+                loc = Locale.FRANCE;
+                break;
+            case 1:
+                loc = Locale.UK;
+                break;
+            case 2:
+                loc = Locale.GERMANY;
+                break;
+            case 3:
+                loc = Locale.ITALY;
+                break;
+            case 4:
+                loc = Locale.US;
+                break;
+            default:
+                loc = Locale.getDefault();
+                break;
+        }
+        ((Panel)getParent()).setDate(loc,_dateComboBox.getSelectedIndex(),_tempsComboBox.getSelectedIndex());
+        dispose();
     }//GEN-LAST:event__okButtonActionPerformed
 
     /**
