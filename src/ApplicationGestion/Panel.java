@@ -89,6 +89,7 @@ public class Panel extends javax.swing.JFrame {
     private AboutBox AboutBox;
     private int Date;
     private int Time;
+    private Locale LocaleDateTime;
     /**
      * Liste chainée qui retiens toutes les personnes identifiables de l'application
      */
@@ -114,10 +115,11 @@ public class Panel extends javax.swing.JFrame {
      */
     private Panel() {
         initComponents();
-        setTime();
-        CustomSetup();
         Time = DateFormat.DEFAULT;
         Date = DateFormat.SHORT;
+        LocaleDateTime = Locale.getDefault();
+        setTime();
+        CustomSetup();
     }
     /**
      * @param list Liste des personnes identifiables
@@ -154,7 +156,7 @@ public class Panel extends javax.swing.JFrame {
         Parametres.add(Info = new JMenuItem("Infos système"));
         Parametres.add(DateMenu = new JMenuItem("Format de la date"));
         DateMenu.addActionListener(e -> {
-
+            new Date(this,true).setVisible(true);
         });
         _menuBar.add(Aide = new JMenu("Aide"));
         Aide.add(PourDebute = new JMenuItem("Pour débuter"));
@@ -210,10 +212,22 @@ public class Panel extends javax.swing.JFrame {
     }
 
     /**
+     * @param loc
+     * @param date
+     * @param time
+     */
+    public void setDate(Locale loc, int date, int time)
+    {
+        LocaleDateTime = loc;
+        Date = date;
+        Time = time;
+    }
+
+    /**
      *
      */
     private void setTime() {
-        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(Date,Time).format(Calendar.getInstance().getTime()));
+        _dateHeureLabel.setText(DateFormat.getDateTimeInstance(Date,Time).format(Calendar.getInstance(LocaleDateTime).getTime()));
     }
 
     /**
@@ -277,7 +291,8 @@ public class Panel extends javax.swing.JFrame {
     {
         try {
             ListeAttente = FilesOperations.loadAttente();
-        } catch (IOException | ClassNotFoundException e) {
+        }
+        catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

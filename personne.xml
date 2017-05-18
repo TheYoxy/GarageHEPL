@@ -3,20 +3,20 @@
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="People.Mecanicien">
-    <void property="_adresse">
+    <void property="adresse">
      <string></string>
-    </void>
-    <void property="_nom">
-     <string>Simar</string>
-    </void>
-    <void property="_numeroTelephone">
-     <string></string>
-    </void>
-    <void property="_prenom">
-     <string>Floryan</string>
     </void>
     <void property="id">
      <string>aa</string>
+    </void>
+    <void property="nom">
+     <string>Simar</string>
+    </void>
+    <void property="numeroTelephone">
+     <string></string>
+    </void>
+    <void property="prenom">
+     <string>Floryan</string>
     </void>
     <void property="specialisation">
      <string>Pneus</string>
@@ -25,39 +25,39 @@
   </void>
   <void method="add">
    <object class="People.Employe">
-    <void property="_adresse">
+    <void property="adresse">
      <string></string>
-    </void>
-    <void property="_nom">
-     <string>Simar</string>
-    </void>
-    <void property="_numeroTelephone">
-     <string></string>
-    </void>
-    <void property="_prenom">
-     <string>Floryan</string>
     </void>
     <void property="id">
      <string>bb</string>
+    </void>
+    <void property="nom">
+     <string>Simar</string>
+    </void>
+    <void property="numeroTelephone">
+     <string></string>
+    </void>
+    <void property="prenom">
+     <string>Floryan</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="People.Client">
-    <void property="_adresse">
+    <void property="adresse">
      <string></string>
-    </void>
-    <void property="_nom">
-     <string>Simar</string>
-    </void>
-    <void property="_numeroTelephone">
-     <string></string>
-    </void>
-    <void property="_prenom">
-     <string>Floryan</string>
     </void>
     <void property="id">
      <string>cc</string>
+    </void>
+    <void property="nom">
+     <string>Simar</string>
+    </void>
+    <void property="numeroTelephone">
+     <string></string>
+    </void>
+    <void property="prenom">
+     <string>Floryan</string>
     </void>
    </object>
   </void>
