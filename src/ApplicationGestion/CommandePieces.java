@@ -24,6 +24,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
     private String _ip;
     private int _port;
+    private int _portClient;
     private String _messageEtat;
 
     /**
@@ -41,6 +42,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
             System.exit(-1);
         }
         _ip = temp.getProperty("IP");
+        _portClient = Integer.parseInt(temp.getProperty("portClient"));
         switch(type)
         {
             //Si pneus
@@ -57,7 +59,8 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                 break;
         }
         _client = new NetworkBasicClient(_ip, _port);
-        new Thread(this).start();
+        //_serveur = new NetworkBasicServer(_port, null);
+        //new Thread(this).start();
         initComponents();
     }
 
@@ -87,6 +90,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         annulerButon = new javax.swing.JButton();
         _scrollpanel = new javax.swing.JScrollPane();
         _commandesList = new javax.swing.JList<>();
+        _etatServeurLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -145,20 +149,20 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
 
         _scrollpanel.setViewportView(_commandesList);
 
+        _etatServeurLabel.setText("Etat du serveur");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(_envoyerButton)
+                .addGap(108, 108, 108)
+                .addComponent(annulerButon)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(_commandeLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(_envoyerButton)
-                        .addGap(108, 108, 108)
-                        .addComponent(annulerButon))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,18 +181,30 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(_libelleTF)
                                     .addComponent(_typeTF)
-                                    .addComponent(_quantitéTF, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
+                                    .addComponent(_quantitéTF, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(_commandeLabel)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_commandesLabel)
-                            .addComponent(_scrollpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(_scrollpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_commandesLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_etatServeurLabel)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(_commandeLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_commandeLabel)
+                    .addComponent(_etatServeurLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_urgentRB)
@@ -298,6 +314,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         while (true) {
             if ((message = _serveur.getMessage()).compareTo("RIEN") != 0) {
                 _messageEtat = message;
+                _etatServeurLabel.setText(_messageEtat);
             }
         }
     }
@@ -343,6 +360,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private javax.swing.JLabel _commandesLabel;
     private javax.swing.JList<String> _commandesList;
     private javax.swing.JButton _envoyerButton;
+    private javax.swing.JLabel _etatServeurLabel;
     private javax.swing.JTextField _libelleTF;
     private javax.swing.JLabel _libelléLabel;
     private javax.swing.JRadioButton _nonPrioritaireRB;
@@ -354,6 +372,5 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private javax.swing.JTextField _typeTF;
     private javax.swing.JRadioButton _urgentRB;
     private javax.swing.JButton annulerButon;
-
     // End of variables declaration//GEN-END:variables
 }

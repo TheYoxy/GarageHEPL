@@ -62,18 +62,17 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         CommandeSer = new NetworkBasicServer(Port, _messageEntrantCB);
-        CommandeCli = new NetworkBasicClient(_ip, PortCli);
         /*
         *Création des beans
         */
         initComponents();
-        Rb = new ReceivingBean();
+        /*Rb = new ReceivingBean();
         Sb = new SearchBean();
         Rb.addReceiveMessageListener(Sb);//Ajout du bean search en tant que lsitener du bean receivemessage
         Pob = new PrepareOrderBean();
         Sb.addSearchFoundListener(Pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
         Pob.addInStockListener(Rb);
-        Rb.run(CommandeSer); //evidemment ca couille car while 1
+        Rb.run(CommandeSer); //evidemment ca couille car while 1*/
     }
 
     /**
@@ -276,6 +275,9 @@ public class ApplicationCentrale extends javax.swing.JFrame {
      * @param evt
      */
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
+        /*TEST*/
+        //CommandeCli = new NetworkBasicClient(_ip, PortCli);
+        /*FIN TEST*/
         String message = CommandeSer.getMessage();
 
         //Ajout à la comboBox
