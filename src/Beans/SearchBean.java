@@ -8,8 +8,10 @@ public class SearchBean implements ReceiveMessageListener {
     private Vector SearchFoundListeners;
     private boolean etatCommande;
 
-    public SearchBean() {
-
+    public SearchBean()
+    {
+        SearchFoundListeners = new Vector();
+        etatCommande = false;
     }
 
     public void MessageDetected(ReceiveMessageEvent e) {
@@ -49,7 +51,7 @@ public class SearchBean implements ReceiveMessageListener {
 
     public boolean checkDisponibility()
     {
-        double i = Math.random();
+        int i = (int)(Math.random() * (1-0)) + 1;
 
         return i == 0 ? false : true;
     }

@@ -246,7 +246,7 @@ public class CommandePieces extends javax.swing.JDialog {
         String[] parts = reponse.split(";");
         disponibilite = parts[0];
 
-        if(disponibilite.compareTo("disponible") == 1)
+        if(disponibilite.compareTo("true") == 0)
             JOptionPane.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
         else
             JOptionPane.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);

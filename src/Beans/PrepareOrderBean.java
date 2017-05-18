@@ -6,7 +6,10 @@ public class PrepareOrderBean implements SearchFoundListener{
 
     private Vector InStockListeners;
 
-    public PrepareOrderBean(){}
+    public PrepareOrderBean()
+    {
+        InStockListeners = new Vector();
+    }
 
     public void SearchDetected(SearchFoundEvent e)
     {
@@ -22,13 +25,13 @@ public class PrepareOrderBean implements SearchFoundListener{
         notifyInStockDetected(message, etat, date);
     }
 
-    public void addSearchFoundListener(SearchFoundListener sfl)/*Ici ce sera que le prepareOrder bean normalement*/ {
+    public void addInStockListener(InStockListener sfl)/*Ici ce sera que le prepareOrder bean normalement*/ {
         if (!InStockListeners.contains(sfl)) {
             InStockListeners.addElement(sfl);
         }
     }
 
-    public void removeSearchFoundListener(SearchFoundListener sfl) {
+    public void removeInStockListener(InStockListener sfl) {
         if (InStockListeners.contains(sfl)) {
             InStockListeners.removeElement(sfl);
         }
