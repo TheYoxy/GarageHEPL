@@ -3,47 +3,88 @@ package Activités;
 import Authenticate.Identifiable;
 import People.Mecanicien;
 import Vehicules.Voiture;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 public abstract class Travail implements Identifiable,Serializable{
-    private Voiture _car;
-    private Mecanicien _travailleur;
-    protected String _id;
-    private String _libelle;
-    private String _remarque;
+    /**
+     *
+     */
+    private Voiture Car;
+    /**
+     *
+     */
+    private Mecanicien Travailleur;
+    /**
+     *
+     */
+    protected String Id;
+    /**
+     *
+     */
+    private String Libelle;
+    /**
+     *
+     */
+    private String Remarque;
 
+    /**
+     * @param car
+     * @param travailleur
+     * @param libelle
+     * @param remarque
+     */
     protected Travail(Voiture car, Mecanicien travailleur, String libelle, String remarque) {
-        _car = car;
-        _travailleur = travailleur;
-        _id = generateId();
-        _libelle = libelle;
-        _remarque = remarque;
+        Car = car;
+        Travailleur = travailleur;
+        Id = generateId();
+        Libelle = libelle;
+        Remarque = remarque;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String getId() {
-        return _id;
+        return Id;
     }
 
+    /**
+     * @return
+     */
     public String getLibelle() {
-        return _libelle;
+        return Libelle;
     }
 
+    /**
+     * @return
+     */
     public String getRemarque() {
-        return _remarque;
+        return Remarque;
     }
 
+    /**
+     * @return
+     */
     public Voiture getCar() {
-        return _car;
+        return Car;
     }
 
+    /**
+     * @return
+     */
     public Mecanicien getTravailleur() {
-        return _travailleur;
+        return Travailleur;
     }
 
-    public String generateId()
+    /**
+     * @return
+     */
+    @NotNull
+    private String generateId()
     {
-        return _car + _travailleur.toString() + _libelle + _remarque;
+        return Car + Travailleur.toString() + Libelle + Remarque;
     }
 }

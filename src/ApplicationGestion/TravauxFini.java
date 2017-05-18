@@ -19,18 +19,29 @@ import java.util.Vector;
 public class TravauxFini extends javax.swing.JDialog {
 
     /**
-     * Creates new form TravauxFini
+     * @param parent
+     * @param modal
      */
-    public TravauxFini(java.awt.Frame parent, boolean modal) {
+    private TravauxFini(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+
+    /**
+     * @param parent
+     * @param modal
+     * @param liste
+     */
     public TravauxFini(Frame parent, boolean modal, LinkedList<Travail> liste)
     {
         this(parent,modal);
         Liste = liste;
         remplissageTableau();
     }
+
+    /**
+     *
+     */
     private void remplissageTableau()
     {
         DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
@@ -113,6 +124,9 @@ public class TravauxFini extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okButtonMouseClicked
         dispose();
     }//GEN-LAST:event_okButtonMouseClicked

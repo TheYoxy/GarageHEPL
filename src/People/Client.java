@@ -1,32 +1,56 @@
 package People;
 
 import Authenticate.Identifiable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class Client extends Personne implements Identifiable {
 
-    private String _numero; //Numéro de client
+    /**
+     *
+     */
+    private String Numero; //Numéro de client
 
+    /**
+     *
+     */
     public Client() {
     }
 
+    /**
+     * @param nom
+     * @param prenom
+     * @param adresse
+     * @param numeroTelephone
+     * @param id
+     */
     public Client(String nom,String prenom,String adresse,String numeroTelephone,String id) {
         super(prenom == null ? "Mr" : nom, prenom == null ? nom : prenom, adresse, numeroTelephone);
-            _numero = id == null ? generateId() : id;
+            Numero = id == null ? generateId() : id;
 
     }
 
+    /**
+     * @return
+     */
     @Override
     public String getId() {
-        return _numero;
+        return Numero;
     }
 
+    /**
+     * @param id
+     */
     @Override
     public void setId(String id) {
-        _numero = id;
+        Numero = id;
     }
 
+    /**
+     * @return
+     */
+    @NotNull
     private String generateId()
     {
         char[] temp = new char[5];

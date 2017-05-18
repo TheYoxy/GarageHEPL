@@ -19,17 +19,28 @@ import java.util.Vector;
 public class Valider extends javax.swing.JDialog {
 
     /**
-     * Creates new form Valider
+     * @param parent
+     * @param modal
      */
     public Valider(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+
+    /**
+     * @param parent
+     * @param modal
+     * @param tabl
+     */
     public Valider(Frame parent, boolean modal, Travail[] tabl){
         this(parent, modal);
         _table = tabl;
         remplissageTableau();
     }
+
+    /**
+     *
+     */
     private void remplissageTableau()
     {
         //Pour faire en sorte que le tableau ne soit pas modifiable
@@ -142,6 +153,9 @@ public class Valider extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okButtonMouseClicked
         if (travailTable.getSelectedRowCount() == 0)
             JOptionPane.showMessageDialog(this,"Veuillez sélectionner un élément","Erreur", JOptionPane.ERROR_MESSAGE);
@@ -159,6 +173,9 @@ public class Valider extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this,"Veuillez ne sélectionner qu'un seul travail à la fois","Erreur",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_okButtonMouseClicked
 
+    /**
+     * @param evt
+     */
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
@@ -212,5 +229,9 @@ public class Valider extends javax.swing.JDialog {
     private javax.swing.JButton okButton;
     private javax.swing.JTable travailTable;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     *
+     */
     private Travail[] _table;
 }

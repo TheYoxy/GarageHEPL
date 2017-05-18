@@ -24,10 +24,17 @@ public class PriseCharge extends javax.swing.JDialog {
     /**
      * Creates new form PriseCharge
      */
-    public PriseCharge(java.awt.Frame parent, boolean modal) {
+    private PriseCharge(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+
+    /**
+     * @param parent
+     * @param modal
+     * @param liste
+     * @param occupe
+     */
     public PriseCharge(Frame parent, boolean modal, Hashtable<Vector<Object>,Boolean> liste, Travail[] occupe)
     {
         this(parent,modal);
@@ -35,6 +42,10 @@ public class PriseCharge extends javax.swing.JDialog {
         ListeOccupe = occupe;
         miseTableau();
     }
+
+    /**
+     *
+     */
     private void miseTableau()
     {
                                                         //Pour faire en sorte que le tableau ne soit pas modifiable
@@ -44,6 +55,11 @@ public class PriseCharge extends javax.swing.JDialog {
             dtm.addRow(entry.getKey());
         Table.setModel(dtm);
     }
+
+    /**
+     * @param row
+     * @return
+     */
     private Vector<Object> getRow(int row)
     {
         Vector<Object> retour = new Vector<>();
@@ -161,12 +177,18 @@ public class PriseCharge extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void pontRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pontRadioButtonActionPerformed
         pontComboBox.setEnabled(true);
         pontRadioButton.setSelected(true);
         solRadioButton.setSelected(false);
     }//GEN-LAST:event_pontRadioButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if (Table.getSelectedRowCount() == 1) {
             try{
@@ -185,10 +207,16 @@ public class PriseCharge extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this,"Veuillez sélectionner un travail","Information",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void AnnulerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnulerButtonActionPerformed
         dispose();
     }//GEN-LAST:event_AnnulerButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void solRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solRadioButtonActionPerformed
         pontComboBox.setEnabled(false);
         pontRadioButton.setSelected(true);

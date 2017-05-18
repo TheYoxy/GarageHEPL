@@ -11,6 +11,10 @@ import java.util.Vector;
 import static java.lang.System.exit;
 
 public class TestVehicules {
+    /**
+     * @param args
+     * @throws MissingTradeMarkException
+     */
     public static void main(String[] args) throws MissingTradeMarkException {
         if (args.length < 1) exit(-1);
         Voiture[] voiture = new Voiture[]

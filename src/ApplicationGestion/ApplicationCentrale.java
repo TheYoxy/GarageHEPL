@@ -23,16 +23,15 @@ import java.util.Vector;
  * @author Nicolas
  */
 public class ApplicationCentrale extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ApplicationCentrale
-     */
     private NetworkBasicServer CommandeSer;
     private int Port;
-    private ReceivingBean Rb = new ReceivingBean();
-    private SearchBean Sb = new SearchBean();
-    private PrepareOrderBean Pob = new PrepareOrderBean();
+    private ReceivingBean Rb;
+    private SearchBean Sb;
+    private PrepareOrderBean Pob;
 
+    /**
+     * @param type
+     */
     private ApplicationCentrale(int type) {
 
         final Properties temp = new Properties();
@@ -59,7 +58,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         *Création des beans
         */
         initComponents();
+        Rb = new ReceivingBean();
+        Sb = new SearchBean();
         Rb.addReceiveMessageListener(Sb);//Ajout du bean search en tant que lsitener du bean receivemessage
+        Pob = new PrepareOrderBean();
         Sb.addSearchFoundListener(Pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
         Pob.addInStockListener(Rb);
         Rb.run(CommandeSer); //evidemment ca couille car while 1
@@ -241,12 +243,18 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__verificationDispoBActionPerformed
         Boolean etat = new Random().nextBoolean();
         _disponibleRB.setSelected(etat);
         _nonDispoRB.setSelected(!etat);
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
         String message = CommandeSer.getMessage();
 
@@ -257,6 +265,9 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         ajoutJtable(message);
     }//GEN-LAST:event__lireButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _envoyerReponseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerReponseBActionPerformed
         /*
         *Envoi de la réponse au client
@@ -287,20 +298,32 @@ public class ApplicationCentrale extends javax.swing.JFrame {
 
     }//GEN-LAST:event__envoyerReponseBActionPerformed
 
+    /**
+     * @param evt
+     */
     private void commandeCoursCBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commandeCoursCBMouseClicked
         String message = (String)_commandeCoursCB.getSelectedItem();
         ajoutJtable(message);
 
     }//GEN-LAST:event_commandeCoursCBMouseClicked
 
+    /**
+     * @param evt
+     */
     private void _disponibleRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__disponibleRBActionPerformed
         _nonDispoRB.setSelected(false);
     }//GEN-LAST:event__disponibleRBActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _nonDispoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__nonDispoRBActionPerformed
         _disponibleRB.setSelected(false);
     }//GEN-LAST:event__nonDispoRBActionPerformed
 
+    /**
+     * @param message
+     */
     private void ajoutJtable(String message)
     {
         String[] split = message.split(";");

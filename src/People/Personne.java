@@ -3,55 +3,103 @@ package People;
 import java.io.Serializable;
 
 public class Personne implements Serializable{
-    private String _nom;
-    private String _prenom;
-    private String _adresse;
-    private String _numeroTelephone;
+    /**
+     *
+     */
+    private String Nom;
+    /**
+     *
+     */
+    private String Prenom;
+    /**
+     *
+     */
+    private String Adresse;
+    /**
+     *
+     */
+    private String NumeroTelephone;
 
+    /**
+     *
+     */
     public Personne() {
     }
 
+    /**
+     * @param nom
+     * @param prenom
+     * @param adresse
+     * @param numeroTelephone
+     */
     public Personne(String nom, String prenom, String adresse, String numeroTelephone) {
-        _nom = nom;
-        _prenom = prenom;
-        _adresse = adresse;
-        _numeroTelephone = numeroTelephone;
+        Nom = nom;
+        Prenom = prenom;
+        Adresse = adresse;
+        NumeroTelephone = numeroTelephone;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString() {
-        return _nom + " " + _prenom;
+        return Nom + " " + Prenom;
     }
 
-    public String get_numeroTelephone() {
-        return _numeroTelephone;
+    /**
+     * @return
+     */
+    public String getNumeroTelephone() {
+        return NumeroTelephone;
     }
 
-    public void set_numeroTelephone(String numeroTelephone) {
-        this._numeroTelephone = numeroTelephone;
+    /**
+     * @param numeroTelephone
+     */
+    public void setNumeroTelephone(String numeroTelephone) {
+        this.NumeroTelephone = numeroTelephone;
     }
 
-    public String get_prenom() {
-        return _prenom;
+    /**
+     * @return
+     */
+    public String getPrenom() {
+        return Prenom;
     }
 
-    public void set_prenom(String prenom) {
-        this._prenom = prenom;
+    /**
+     * @param prenom
+     */
+    public void setPrenom(String prenom) {
+        this.Prenom = prenom;
     }
 
-    public String get_adresse() {
-        return _adresse;
+    /**
+     * @return
+     */
+    public String getAdresse() {
+        return Adresse;
     }
 
-    public void set_adresse(String adresse) {
-        this._adresse = adresse;
+    /**
+     * @param adresse
+     */
+    public void setAdresse(String adresse) {
+        this.Adresse = adresse;
     }
 
-    public String get_nom() {
-        return _nom;
+    /**
+     * @return
+     */
+    public String getNom() {
+        return Nom;
     }
 
-    public void set_nom(String nom) {
-        this._nom = nom;
+    /**
+     * @param nom
+     */
+    public void setNom(String nom) {
+        this.Nom = nom;
     }
 }

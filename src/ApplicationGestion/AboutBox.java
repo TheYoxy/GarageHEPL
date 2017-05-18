@@ -112,18 +112,27 @@ public class AboutBox extends javax.swing.JDialog {
     pack();
   }// </editor-fold>
 
+  /**
+   * @param evt
+   */
   private void JaimeRadioMouseClicked(java.awt.event.MouseEvent evt) {
     JaimeRadio.setSelected(true);
     BofRadio.setSelected(false);
     JeDetesteRadio.setSelected(false);
   }
 
+  /**
+   * @param evt
+   */
   private void BofRadioMouseClicked(java.awt.event.MouseEvent evt) {
     JaimeRadio.setSelected(false);
     BofRadio.setSelected(true);
     JeDetesteRadio.setSelected(false);
   }
 
+  /**
+   * @param evt
+   */
   private void JeDetesteRadioMouseClicked(java.awt.event.MouseEvent evt) {
 
     JOptionPane.showMessageDialog(this,"Pour des raisons de sécurité,\nil n'est pas possible de sélectionner cette option","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -132,6 +141,9 @@ public class AboutBox extends javax.swing.JDialog {
     JeDetesteRadio.setSelected(false);
   }
 
+  /**
+   * @param evt
+   */
   private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {
     dispose();
   }

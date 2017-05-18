@@ -22,6 +22,12 @@ public class CommandePieces extends javax.swing.JDialog {
     private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
     private String _ip;
     private int _port;
+
+    /**
+     * @param parent
+     * @param modal
+     * @param type
+     */
     private CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
         final Properties temp = new Properties();
@@ -221,6 +227,9 @@ public class CommandePieces extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void _envoyerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerButtonActionPerformed
         String reponse;
         String envoiMessage;
@@ -254,8 +263,11 @@ public class CommandePieces extends javax.swing.JDialog {
 
     }//GEN-LAST:event__envoyerButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void annulerButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerButonActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_annulerButonActionPerformed
 
     private void _urgentRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__urgentRBActionPerformed

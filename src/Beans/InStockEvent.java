@@ -4,25 +4,25 @@ import java.util.EventObject;
 
 public class InStockEvent extends EventObject
 {
-    private String _libelle;
-    private boolean _etatCommande;
-    private int _dateMois;
+    private String Libelle;
+    private boolean EtatCommande;
+    private int DateMois;
 
     public InStockEvent(Object source, String lib, boolean etat, int mois)
     {
         super(source);
-        _etatCommande = etat;
-        _libelle = lib;
-        _dateMois = mois;
+        EtatCommande = etat;
+        Libelle = lib;
+        DateMois = mois;
     }
 
     public String getLibelle()
     {
-        return _libelle;
+        return Libelle;
     }
     public boolean getEtatCommande()
     {
-        return _etatCommande;
+        return EtatCommande;
     }
-    public int get_dateMois(){return _dateMois;}
+    public int getDateMois(){return DateMois;}
 }

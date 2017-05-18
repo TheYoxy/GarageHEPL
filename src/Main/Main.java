@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 public class Main {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         LinkedList<Personne> tableid = new LinkedList<>();
         tableid.add(new Client("Simar", "Floryan", null, null, "flo"));

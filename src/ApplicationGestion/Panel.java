@@ -197,15 +197,25 @@ public class Panel extends javax.swing.JFrame {
     }
 
 
+    /**
+     *
+     */
     private void AProposMouseClicked()
     {
         _aboutBox.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void setTime() {
         _dateHeureLabel.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.DEFAULT).format(Calendar.getInstance().getTime()));
     }
 
+    /**
+     * @param vector
+     * @param entretien
+     */
     public void ajout(Vector <Object> vector,boolean entretien)
     {
         _listeAttente.put(vector,entretien);
@@ -658,6 +668,9 @@ public class Panel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void _aPrevoirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__aPrevoirMenuItemActionPerformed
         LinkedList<Client> templist = new LinkedList<>();
         for (Personne temp : _listePersonnes)
@@ -666,26 +679,44 @@ public class Panel extends javax.swing.JFrame {
         new NewWork(this,true,templist).setVisible(true);
     }//GEN-LAST:event__aPrevoirMenuItemActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _priseEnChargeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__priseEnChargeMenuItemActionPerformed
         new PriseCharge(this,true, _listeAttente, _listeOccupe).setVisible(true);
     }//GEN-LAST:event__priseEnChargeMenuItemActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _terminerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__terminerMenuItemActionPerformed
         new Valider(this,true, _listeOccupe).setVisible(true);
     }//GEN-LAST:event__terminerMenuItemActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _listesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__listesMenuItemActionPerformed
         new TravauxFini(this,true,_listeFini).setVisible(true);
     }//GEN-LAST:event__listesMenuItemActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _commandePiecesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePiecesItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__commandePiecesItemActionPerformed
 
+    /**
+     ** @param evt
+     */
     private void _commandePneusItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePneusItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__commandePneusItemActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _commandeLubrifiantItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandeLubrifiantItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__commandeLubrifiantItemActionPerformed

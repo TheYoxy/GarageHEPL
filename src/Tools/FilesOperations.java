@@ -16,10 +16,25 @@ import java.util.Vector;
 
 public class FilesOperations {
 
+    /**
+     *
+     */
     public final static String PROPERTIES = "config.properties";
+    /**
+     *
+     */
     private final static String USER_FILENAME = "personne.xml";
+    /**
+     *
+     */
     private final static String ATTENTE_FILENAME;
+    /**
+     *
+     */
     private final static String OCCUPE_FILENAME;
+    /**
+     *
+     */
     private final static String FINI_FILENAME;
 
     static {
@@ -39,6 +54,10 @@ public class FilesOperations {
         FINI_FILENAME = folder + properties.getProperty("FINI_FILENAME");
     }
 
+    /**
+     * @param person
+     * @throws FileNotFoundException
+     */
     //Save XML file, LinkedList<Identifiable>
     public static void saveUsers(LinkedList<Personne> person) throws FileNotFoundException {
         XMLEncoder encoder;
@@ -48,6 +67,10 @@ public class FilesOperations {
         //encoder.close();
     }
 
+    /**
+     * @return
+     * @throws FileNotFoundException
+     */
     //Load XML file
     public static LinkedList<Personne> loadUsers() throws FileNotFoundException {
         XMLDecoder decoder;
@@ -57,6 +80,10 @@ public class FilesOperations {
         return list;
     }
 
+    /**
+     * @param object
+     * @throws IOException
+     */
     //Save to binary file
     public static void saveFini(LinkedList<Travail> object) throws IOException {
         ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(FINI_FILENAME));
@@ -64,6 +91,11 @@ public class FilesOperations {
         objstream.close();
     }
 
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     //Load from binary file
     public static LinkedList<Travail> loadFini() throws IOException, ClassNotFoundException {
         ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(FINI_FILENAME));
@@ -72,12 +104,21 @@ public class FilesOperations {
         return object;
     }
 
+    /**
+     * @param hashtable
+     * @throws IOException
+     */
     public static void saveAttente(Hashtable<Vector<Object>, Boolean> hashtable) throws IOException {
         ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(ATTENTE_FILENAME));
         objstream.writeObject(hashtable);
         objstream.close();
     }
 
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Hashtable<Vector<Object>, Boolean> loadAttente() throws IOException, ClassNotFoundException {
         ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(ATTENTE_FILENAME));
         Hashtable<Vector<Object>, Boolean> object = (Hashtable<Vector<Object>, Boolean>) objstream.readObject();
@@ -85,12 +126,21 @@ public class FilesOperations {
         return object;
     }
 
+    /**
+     * @param hashtable
+     * @throws IOException
+     */
     public static void saveOccupe(Hashtable<Travail, Integer> hashtable) throws IOException {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(OCCUPE_FILENAME));
         objectOutputStream.writeObject(hashtable);
         objectOutputStream.close();
     }
 
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Hashtable<Travail, Integer> loadOccupe() throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(OCCUPE_FILENAME));
         Hashtable<Travail, Integer> hashtable = (Hashtable<Travail, Integer>) objectInputStream.readObject();
@@ -98,6 +148,9 @@ public class FilesOperations {
         return hashtable;
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         LinkedList<Personne> temp = new LinkedList<>();
         temp.add(new Mecanicien("Simar", "Floryan", "", "", "aa", "Pneus"));

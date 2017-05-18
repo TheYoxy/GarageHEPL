@@ -4,5 +4,8 @@ import java.util.EventListener;
 
 public interface ReceiveMessageListener extends EventListener
 {
-    public void MessageDetected (ReceiveMessageEvent e);
+    /**
+     * @param e
+     */
+    void MessageDetected (ReceiveMessageEvent e);
 }

@@ -54,6 +54,9 @@ public class Login extends javax.swing.JFrame {
         _p = p;
     }
 
+    /**
+     * @param args
+     */
     public static void main(String args[])
     {
 
@@ -180,6 +183,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_okButtonMouseClicked
         for(Map.Entry<Object, Object> entry : _p.entrySet()) {
             if(entry.getKey().equals(utilisateurTextField.getText()))
@@ -204,6 +210,9 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_okButtonMouseClicked
 
+    /**
+     * @param evt
+     */
     private void mdpRadioButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mdpRadioButtonMouseClicked
         if (ehRadioButton.isSelected()) {
             mdpRadioButton.setSelected(true);
@@ -211,6 +220,9 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mdpRadioButtonMouseClicked
 
+    /**
+     * @param evt
+     */
     private void ehRadioButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ehRadioButtonMouseClicked
         if (mdpRadioButton.isSelected()) {
             mdpRadioButton.setSelected(false);
@@ -218,11 +230,17 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ehRadioButtonMouseClicked
 
+    /**
+     * @param evt
+     */
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         setVisible(false);
         dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
 
+    /**
+     * @param evt
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         setVisible(false);
         dispose();

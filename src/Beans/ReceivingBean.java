@@ -6,31 +6,55 @@ import java.util.Vector;
 
 public class ReceivingBean implements InStockListener {
 
-    private String _commande;
-    private Vector<ReceiveMessageListener> _receivingMessageListeners;
-    private NetworkBasicServer _ser;
+    /**
+     *
+     */
+    private String Commande;
+    /**
+     *
+     */
+    private Vector<ReceiveMessageListener> ReceivingMessageListeners;
+    /**
+     *
+     */
+    private NetworkBasicServer Ser;
 
+    /**
+     *
+     */
     public ReceivingBean() {
         setCommande("");
-        _receivingMessageListeners = new Vector<>();
+        ReceivingMessageListeners = new Vector<>();
     }
 
+    /**
+     * @param e
+     */
     @Override
     public void InStockDetected(InStockEvent e) {
         //Envoie de la réponse au cllient :
-        _ser.sendMessage(e.getEtatCommande() + ";" + e.getLibelle() + ";" + e.get_dateMois());
+        Ser.sendMessage(e.getEtatCommande() + ";" + e.getLibelle() + ";" + e.getDateMois());
     }
 
+    /**
+     * @return
+     */
     public String getCommande() {
-        return _commande;
+        return Commande;
     }
 
-    public void setCommande(String c) {
-        _commande = c;
+    /**
+     * @param c
+     */
+    private void setCommande(String c) {
+        Commande = c;
     }
 
+    /**
+     * @param serveur
+     */
     public void run(NetworkBasicServer serveur) {
-        _ser = serveur;
+        Ser = serveur;
 
         String message;
 
@@ -42,24 +66,33 @@ public class ReceivingBean implements InStockListener {
         }
     }
 
+    /**
+     * @param rml
+     */
     public void addReceiveMessageListener(ReceiveMessageListener rml)/*Ici ce sera que le search bean normalement*/ {
-        if (!_receivingMessageListeners.contains(rml)) {
-            _receivingMessageListeners.addElement(rml);
+        if (!ReceivingMessageListeners.contains(rml)) {
+            ReceivingMessageListeners.addElement(rml);
         }
     }
 
+    /**
+     * @param rml
+     */
     public void removeReceiveMessageListener(ReceiveMessageListener rml) {
-        if (_receivingMessageListeners.contains(rml)) {
-            _receivingMessageListeners.removeElement(rml);
+        if (ReceivingMessageListeners.contains(rml)) {
+            ReceivingMessageListeners.removeElement(rml);
         }
     }
 
-    protected void notifyReceiveMesageDetected() {
-        ReceiveMessageEvent e = new ReceiveMessageEvent(this, _commande);
-        int n = _receivingMessageListeners.size();
+    /**
+     *
+     */
+    private void notifyReceiveMesageDetected() {
+        ReceiveMessageEvent e = new ReceiveMessageEvent(this, Commande);
+        int n = ReceivingMessageListeners.size();
         //On active la méthode MessageDetected pour chaque listener
         for (int i = 0; i < n; i++) {
-            _receivingMessageListeners.elementAt(i).MessageDetected(e);
+            ReceivingMessageListeners.elementAt(i).MessageDetected(e);
         }
     }
 }

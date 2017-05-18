@@ -10,57 +10,83 @@ import java.io.IOException;
  */
 public class FichierLogBean implements ReceiveMessageListener,SearchFoundListener,InStockListener
 {
-    private String _filename;
-    private FileOutputStream _file;
+    /**
+     *
+     */
+    private String Filename;
+    /**
+     *
+     */
+    private FileOutputStream File;
+
+    /**
+     * @param filename
+     */
     public FichierLogBean(String filename) {
-        _filename = filename;
+        Filename = filename;
         try {
-            _file = new FileOutputStream(_filename);
+            File = new FileOutputStream(Filename);
         } catch (FileNotFoundException e) {
-            System.err.println("Impossible d'ouvrir le fichier " + _filename);
+            System.err.println("Impossible d'ouvrir le fichier " + Filename);
             System.exit(-1);
         }
     }
+
+    /**
+     *
+     */
     public void finalize()
     {
         try {
-            _file.close();
+            File.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * @param e
+     */
     @Override
     public void MessageDetected(ReceiveMessageEvent e) {
         try {
-            _file.write(e.getCommande().getBytes());
-            _file.write(new byte[] {Byte.parseByte("\n")});
+            File.write(e.getCommande().getBytes());
+            File.write(new byte[] {Byte.parseByte("\n")});
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
 
+    /**
+     * @param e
+     */
     @Override
     public void SearchDetected(SearchFoundEvent e) {
         try {
-            _file.write(e.get_libelle().getBytes());
-            _file.write(new byte[] {Byte.parseByte("\n")});
+            File.write(e.getLibelle().getBytes());
+            File.write(new byte[] {Byte.parseByte("\n")});
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
 
+    /**
+     * @param e
+     */
     @Override
     public void InStockDetected(InStockEvent e) {
         try {
-            _file.write(e.get_dateMois());
-            _file.write(new byte[] {Byte.parseByte("\n"),Byte.parseByte("\n")});
+            File.write(e.getDateMois());
+            File.write(new byte[] {Byte.parseByte("\n"),Byte.parseByte("\n")});
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
 
-    public String get_filename() {
-        return _filename;
+    /**
+     * @return
+     */
+    public String getFilename() {
+        return Filename;
     }
 }

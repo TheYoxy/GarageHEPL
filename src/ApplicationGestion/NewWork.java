@@ -22,8 +22,15 @@ import static java.lang.System.exit;
  */
 public class NewWork extends javax.swing.JDialog {
 
+    /**
+     *
+     */
     final private static String FORMAT = "#-UUU-###";
 
+    /**
+     * @param parent
+     * @param modal
+     */
     private NewWork(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -250,6 +257,9 @@ public class NewWork extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param evt
+     */
     private void _okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__okButtonActionPerformed
         Vector<Object> retour = new Vector<>();
         if (_choixVoitureTextField.getText().isEmpty()
@@ -278,6 +288,9 @@ public class NewWork extends javax.swing.JDialog {
         }
     }//GEN-LAST:event__okButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _plaqueCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__plaqueCheckBoxActionPerformed
         if (_plaqueCheckBox.isSelected())
             try {
@@ -293,10 +306,16 @@ public class NewWork extends javax.swing.JDialog {
             }
     }//GEN-LAST:event__plaqueCheckBoxActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _annulerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__annulerButtonActionPerformed
         dispose();
     }//GEN-LAST:event__annulerButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _entretienRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__entretienRadioButtonActionPerformed
         _entretienRadioButton.setSelected(true);
         _reparationRadioButton.setSelected(false);
@@ -305,6 +324,9 @@ public class NewWork extends javax.swing.JDialog {
             _typeTravailCombo.addItem(temp);
     }//GEN-LAST:event__entretienRadioButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _reparationRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__reparationRadioButtonActionPerformed
         _entretienRadioButton.setSelected(false);
         _reparationRadioButton.setSelected(true);
@@ -313,6 +335,9 @@ public class NewWork extends javax.swing.JDialog {
             _typeTravailCombo.addItem(temp);
     }//GEN-LAST:event__reparationRadioButtonActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _newCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__newCheckBoxActionPerformed
         if (_newCheckBox.isSelected())
         {
@@ -327,6 +352,9 @@ public class NewWork extends javax.swing.JDialog {
         }
     }//GEN-LAST:event__newCheckBoxActionPerformed
 
+    /**
+     * @param evt
+     */
     private void _immatriculationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__immatriculationTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__immatriculationTextFieldActionPerformed

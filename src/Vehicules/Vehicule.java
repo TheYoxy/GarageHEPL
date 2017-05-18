@@ -5,13 +5,30 @@ import Authenticate.Identifiable;
 import java.io.Serializable;
 
 public abstract class Vehicule implements Identifiable,Serializable{
-    protected int nbRoue;
-    protected int nbPlace;
-    protected String id;
+    /**
+     *
+     */
+    private int NbRoue;
+    /**
+     *
+     */
+    private int NbPlace;
+    /**
+     *
+     */
+    protected String Id;
 
+    /**
+     * @param nbRoue
+     * @param nbPlace
+     */
     protected Vehicule(int nbRoue, int nbPlace) {
-        this.nbRoue = nbRoue;
-        this.nbPlace = nbPlace;
+        this.NbRoue = nbRoue;
+        this.NbPlace = nbPlace;
     }
+
+    /**
+     * @return
+     */
     public abstract String generateId();
 }
