@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -26,11 +27,11 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     /**
      * Creates new form ApplicationCentrale
      */
-    private NetworkBasicServer _commandeSer;
-    private int _port;
-    private ReceivingBean _rb = new ReceivingBean();
-    private SearchBean _sb = new SearchBean();
-    private PrepareOrderBean _pob = new PrepareOrderBean();
+    private NetworkBasicServer CommandeSer;
+    private int Port;
+    private ReceivingBean Rb = new ReceivingBean();
+    private SearchBean Sb = new SearchBean();
+    private PrepareOrderBean Pob = new PrepareOrderBean();
 
     private ApplicationCentrale(int type) {
 
@@ -44,24 +45,24 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         switch(type)
         {
             case 1:
-                _port = Integer.parseInt(temp.getProperty("Pneus"));
+                Port = Integer.parseInt(temp.getProperty("Pneus"));
                 break;
             case 2:
-                _port = Integer.parseInt(temp.getProperty("Piece"));
+                Port = Integer.parseInt(temp.getProperty("Piece"));
                 break;
             case 3:
-                _port = Integer.parseInt(temp.getProperty("Lubrifiant"));
+                Port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 break;
         }
-        _commandeSer = new NetworkBasicServer(_port, _messageEntrantCB);
+        CommandeSer = new NetworkBasicServer(Port, _messageEntrantCB);
         /*
         *Création des beans
         */
         initComponents();
-        _rb.addReceiveMessageListener(_sb);//Ajout du bean search en tant que lsitener du bean receivemessage
-        _sb.addSearchFoundListener(_pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
-        _pob.addInStockListener(_rb);
-        _rb.run(_commandeSer); //evidemment ca couille car while 1
+        Rb.addReceiveMessageListener(Sb);//Ajout du bean search en tant que lsitener du bean receivemessage
+        Sb.addSearchFoundListener(Pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
+        Pob.addInStockListener(Rb);
+        Rb.run(CommandeSer); //evidemment ca couille car while 1
     }
 
     /**
@@ -241,11 +242,13 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__verificationDispoBActionPerformed
-
+        Boolean etat = new Random().nextBoolean();
+        _disponibleRB.setSelected(etat);
+        _nonDispoRB.setSelected(!etat);
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
-        String message = _commandeSer.getMessage();
+        String message = CommandeSer.getMessage();
 
         //Ajout à la comboBox
         _commandeCoursCB.addItem(message);
@@ -270,7 +273,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         else
             return;
         //Et réenvoi le message pour que le client puisse determiner pour quel message il a recu une réponse
-        _commandeSer.sendMessage(reponse + ";" + _commandeCoursCB.getSelectedItem());
+        CommandeSer.sendMessage(reponse + ";" + _commandeCoursCB.getSelectedItem());
         //On enleve la commande à laquelle on a répondu de la combobox
         _commandeCoursCB.removeItem(_commandeCoursCB.getSelectedItem());
         //On clear la jtable
