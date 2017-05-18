@@ -7,21 +7,24 @@ package ApplicationGestion;
 
 import Tools.FilesOperations;
 import network.NetworkBasicClient;
+import network.NetworkBasicServer;
 
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class CommandePieces extends javax.swing.JDialog {
+public class CommandePieces extends javax.swing.JDialog implements Runnable {
 
     /**
      * Creates new form CommandePieces
      */
     private NetworkBasicClient _client;
+    private NetworkBasicServer _serveur;
     private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
     private String _ip;
     private int _port;
+    private String _messageEtat;
 
     /**
      * @param parent
@@ -54,8 +57,11 @@ public class CommandePieces extends javax.swing.JDialog {
                 break;
         }
         _client = new NetworkBasicClient(_ip, _port);
+        new Thread(this).start();
         initComponents();
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,6 +291,17 @@ public class CommandePieces extends javax.swing.JDialog {
         _normalRB.setSelected(false);
     }//GEN-LAST:event__nonPrioritaireRBActionPerformed
 
+    @Override
+    public void run() {
+        String message;
+
+        while (true) {
+            if ((message = _serveur.getMessage()).compareTo("RIEN") != 0) {
+                _messageEtat = message;
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -337,5 +354,6 @@ public class CommandePieces extends javax.swing.JDialog {
     private javax.swing.JTextField _typeTF;
     private javax.swing.JRadioButton _urgentRB;
     private javax.swing.JButton annulerButon;
+
     // End of variables declaration//GEN-END:variables
 }

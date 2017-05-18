@@ -342,7 +342,13 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     }//GEN-LAST:event__nonDispoRBActionPerformed
 
     private void _hsServeurRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__hsServeurRBActionPerformed
-        CommandeCli.sendStringWithoutWaiting("Serveur Hors service");
+        if(_hsServeurRB.isSelected()) {
+            CommandeCli.sendStringWithoutWaiting("Serveur en pause");
+        }
+        else
+        {
+                CommandeCli.sendStringWithoutWaiting("Serveur En ligne");
+        }
     }//GEN-LAST:event__hsServeurRBActionPerformed
 
     /**
