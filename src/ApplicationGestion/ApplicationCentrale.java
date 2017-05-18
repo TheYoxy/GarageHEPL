@@ -9,6 +9,7 @@ import Beans.PrepareOrderBean;
 import Beans.ReceivingBean;
 import Beans.SearchBean;
 import Tools.FilesOperations;
+import network.NetworkBasicClient;
 import network.NetworkBasicServer;
 
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,10 @@ import java.util.Vector;
  */
 public class ApplicationCentrale extends javax.swing.JFrame {
     private NetworkBasicServer CommandeSer;
+    private NetworkBasicClient CommandeCli;
     private int Port;
+    private int PortCli;
+    private String _ip;
     private ReceivingBean Rb;
     private SearchBean Sb;
     private PrepareOrderBean Pob;
@@ -41,6 +45,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
             e.printStackTrace();
             System.exit(-1);
         }
+
+        _ip = temp.getProperty("IP");
+        PortCli = Integer.parseInt(temp.getProperty("portClient"));
+
         switch(type)
         {
             case 1:
@@ -54,6 +62,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                 break;
         }
         CommandeSer = new NetworkBasicServer(Port, _messageEntrantCB);
+        CommandeCli = new NetworkBasicClient(_ip, PortCli);
         /*
         *Création des beans
         */
@@ -88,6 +97,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _disponibleRB = new javax.swing.JRadioButton();
         _nonDispoRB = new javax.swing.JRadioButton();
         _envoyerReponseB = new javax.swing.JButton();
+        _hsServeurRB = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,6 +178,13 @@ public class ApplicationCentrale extends javax.swing.JFrame {
             }
         });
 
+        _hsServeurRB.setText("Mise hors service serveur");
+        _hsServeurRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _hsServeurRBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,6 +192,11 @@ public class ApplicationCentrale extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_hsServeurRB)
+                        .addGap(98, 98, 98)
+                        .addComponent(_envoyerReponseB)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_verificationDispoB)
                         .addGap(85, 85, 85)
@@ -197,10 +219,6 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(263, 263, 263)
-                .addComponent(_envoyerReponseB)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,19 +234,21 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                             .addComponent(_lireButton)
                             .addComponent(_commandeCoursCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(32, 32, 32)
                         .addComponent(_imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_detailCommandeLabel)
                     .addComponent(_detailScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_verificationDispoB)
                     .addComponent(_disponibleRB)
                     .addComponent(_nonDispoRB))
                 .addGap(52, 52, 52)
-                .addComponent(_envoyerReponseB)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_envoyerReponseB)
+                    .addComponent(_hsServeurRB))
                 .addGap(23, 23, 23))
         );
 
@@ -321,6 +341,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         _disponibleRB.setSelected(false);
     }//GEN-LAST:event__nonDispoRBActionPerformed
 
+    private void _hsServeurRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__hsServeurRBActionPerformed
+        CommandeCli.sendStringWithoutWaiting("Serveur Hors service");
+    }//GEN-LAST:event__hsServeurRBActionPerformed
+
     /**
      * @param message
      */
@@ -388,6 +412,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private javax.swing.JTable _detailTable;
     private javax.swing.JRadioButton _disponibleRB;
     private javax.swing.JButton _envoyerReponseB;
+    private javax.swing.JRadioButton _hsServeurRB;
     private javax.swing.JLabel _imageLabel;
     private javax.swing.JButton _lireButton;
     private javax.swing.JCheckBox _messageEntrantCB;
