@@ -59,6 +59,11 @@ public class Date extends javax.swing.JDialog {
         _titreLabel.setToolTipText("");
 
         _okButton.setText("OK");
+        _okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _okButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +116,10 @@ public class Date extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void _okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__okButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__okButtonActionPerformed
 
     /**
      * @param args the command line arguments
