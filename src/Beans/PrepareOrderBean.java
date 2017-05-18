@@ -13,8 +13,8 @@ public class PrepareOrderBean implements SearchFoundListener{
 
     public void SearchDetected(SearchFoundEvent e)
     {
-        String message = e.getLibelle();
-        boolean etat = e.getEtatCommande();
+        String message = e.get_libelle();
+        boolean etat = e.get_etatCommande();
         //Calcul de la date d'expédition
         int date = 0;//Reste à 0 si la commande n'est plus disponible
         if(etat)

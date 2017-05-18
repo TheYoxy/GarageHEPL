@@ -28,9 +28,9 @@ public class ApplicationCentrale extends javax.swing.JFrame {
      */
     private NetworkBasicServer _commandeSer;
     private int _port;
-    private ReceivingBean rb = new ReceivingBean();
-    private SearchBean sb = new SearchBean();
-    private PrepareOrderBean pob = new PrepareOrderBean();
+    private ReceivingBean _rb = new ReceivingBean();
+    private SearchBean _sb = new SearchBean();
+    private PrepareOrderBean _pob = new PrepareOrderBean();
 
     private ApplicationCentrale(int type) {
 
@@ -58,10 +58,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         *Création des beans
         */
         initComponents();
-        rb.addReceiveMessageListener(sb);//Ajout du bean search en tant que lsitener du bean receivemessage
-        sb.addSearchFoundListener(pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
-        pob.addInStockListener(rb);
-        rb.run(_commandeSer); //evidemment ca couille car while 1
+        _rb.addReceiveMessageListener(_sb);//Ajout du bean search en tant que lsitener du bean receivemessage
+        _sb.addSearchFoundListener(_pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
+        _pob.addInStockListener(_rb);
+        _rb.run(_commandeSer); //evidemment ca couille car while 1
     }
 
     /**

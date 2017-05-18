@@ -4,5 +4,5 @@ import java.util.EventListener;
 
 public interface SearchFoundListener extends EventListener
 {
-    public void SearchDetected (SearchFoundEvent e);
+    void SearchDetected(SearchFoundEvent e);
 }

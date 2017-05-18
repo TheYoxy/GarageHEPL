@@ -4,22 +4,22 @@ import java.util.EventObject;
 
 public class SearchFoundEvent extends EventObject
 {
-    private String libelle;
-    private boolean etatCommande;
+    private String _libelle;
+    private boolean _etatCommande;
 
     public SearchFoundEvent(Object source, String lib, boolean etat)
     {
         super(source);
-        etatCommande = etat;
-        libelle = lib;
+        _etatCommande = etat;
+        _libelle = lib;
     }
 
-    public String getLibelle()
+    public String get_libelle()
     {
-        return libelle;
+        return _libelle;
     }
-    public boolean getEtatCommande()
+    public boolean get_etatCommande()
     {
-        return etatCommande;
+        return _etatCommande;
     }
 }

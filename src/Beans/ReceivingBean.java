@@ -7,13 +7,13 @@ import java.util.Vector;
 public class ReceivingBean implements InStockListener {
 
     private String _commande;
-    private Vector ReceivingMessageListeners;
+    private Vector<ReceiveMessageListener> _receivingMessageListeners;
     private NetworkBasicServer _ser;
 
     public ReceivingBean()
     {
         setCommande("");
-        ReceivingMessageListeners = new Vector();
+        _receivingMessageListeners = new Vector<ReceiveMessageListener>();
     }
 
     @Override
@@ -43,27 +43,27 @@ public class ReceivingBean implements InStockListener {
 
     public void addReceiveMessageListener(ReceiveMessageListener rml)/*Ici ce sera que le search bean normalement*/
     {
-       if(!ReceivingMessageListeners.contains(rml))
+       if(!_receivingMessageListeners.contains(rml))
        {
-           ReceivingMessageListeners.addElement(rml);
+           _receivingMessageListeners.addElement(rml);
        }
     }
     public void removeReceiveMessageListener(ReceiveMessageListener rml)
     {
-        if(ReceivingMessageListeners.contains(rml))
+        if(_receivingMessageListeners.contains(rml))
         {
-            ReceivingMessageListeners.removeElement(rml);
+            _receivingMessageListeners.removeElement(rml);
         }
     }
 
     protected void notifyReceiveMesageDetected()
     {
         ReceiveMessageEvent e = new ReceiveMessageEvent(this, _commande);
-        int n = ReceivingMessageListeners.size();
+        int n = _receivingMessageListeners.size();
         //On active la méthode MessageDetected pour chaque listener
         for(int i = 0; i<n; i++)
         {
-            ReceiveMessageListener obj = (ReceiveMessageListener)ReceivingMessageListeners.elementAt(i);
+            ReceiveMessageListener obj = _receivingMessageListeners.elementAt(i);
             obj.MessageDetected(e);
         }
     }
