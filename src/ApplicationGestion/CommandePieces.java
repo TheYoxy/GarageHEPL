@@ -32,7 +32,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
      * @param modal
      * @param type
      */
-    private CommandePieces(java.awt.Frame parent, boolean modal, int type) {
+    public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
         final Properties temp = new Properties();
         try {
@@ -268,6 +268,11 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         dlm = (DefaultListModel<String>)_commandesList.getModel();
         dlm.addElement(envoiMessage);
         _commandesList.setModel(dlm);
+
+        //Clear champs
+        _libelleTF.setText("");
+        _typeTF.setText("");
+        _quantitéTF.setText("");
 
         //Envoi d'un message avec attente bloquante de la réponse.
         reponse = _client.sendString(envoiMessage);

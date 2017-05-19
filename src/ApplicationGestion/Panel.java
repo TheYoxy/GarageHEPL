@@ -87,6 +87,7 @@ public class Panel extends javax.swing.JFrame {
     private JMenuItem PourDebute;
     private JMenuItem APropos;
     private AboutBox AboutBox;
+    private CommandePieces comPieces;
     private int Date;
     private int Time;
     private Locale LocaleDateTime;
@@ -723,20 +724,35 @@ public class Panel extends javax.swing.JFrame {
      * @param evt
      */
     private void _commandePiecesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePiecesItemActionPerformed
-        // TODO add your handling code here:
+        if(comPieces == null) {
+            comPieces = new CommandePieces(this, true, 2);
+            comPieces.setVisible(true);
+        }
+        else
+            comPieces.setVisible(true);
     }//GEN-LAST:event__commandePiecesItemActionPerformed
 
     /**
      ** @param evt
      */
     private void _commandePneusItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandePneusItemActionPerformed
-        // TODO add your handling code here:
+        if(comPieces == null) {
+            comPieces = new CommandePieces(this, true, 1);
+            comPieces.setVisible(true);
+        }
+        else
+            comPieces.setVisible(true);
     }//GEN-LAST:event__commandePneusItemActionPerformed
 
     /**
      * @param evt
      */
     private void _commandeLubrifiantItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__commandeLubrifiantItemActionPerformed
-        // TODO add your handling code here:
+        if(comPieces == null) {
+            comPieces = new CommandePieces(this, true, 3);
+            comPieces.setVisible(true);
+        }
+        else
+            comPieces.setVisible(true);
     }//GEN-LAST:event__commandeLubrifiantItemActionPerformed
 }

@@ -28,6 +28,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private NetworkBasicClient CommandeCli;
     private int Port;
     private int PortCli;
+    private boolean etatServeur = true;
     private String _ip;
     private ReceivingBean Rb;
     private SearchBean Sb;
@@ -53,12 +54,15 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         {
             case 1:
                 Port = Integer.parseInt(temp.getProperty("Pneus"));
+                _imageLabel.setText("PNEUS");
                 break;
             case 2:
                 Port = Integer.parseInt(temp.getProperty("Piece"));
+                _imageLabel.setText("PIECES");
                 break;
             case 3:
                 Port = Integer.parseInt(temp.getProperty("Lubrifiant"));
+                _imageLabel.setText("LUBRIFIANT");
                 break;
         }
         CommandeSer = new NetworkBasicServer(Port, _messageEntrantCB);
@@ -279,6 +283,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         //CommandeCli = new NetworkBasicClient(_ip, PortCli);
         /*FIN TEST*/
         String message = CommandeSer.getMessage();
+        if(!etatServeur)
+        {
+            message = "RIEN";
+        }
 
         //Ajout à la comboBox
         _commandeCoursCB.addItem(message);
@@ -298,10 +306,10 @@ public class ApplicationCentrale extends javax.swing.JFrame {
 
         if(_disponibleRB.isSelected())
         {
-            reponse = "Disponible";
+            reponse = "true";
         }
         else if (_nonDispoRB.isSelected()) {
-            reponse = "Indisponible";
+            reponse = "false";
         }
         else
             return;
@@ -346,10 +354,12 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private void _hsServeurRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__hsServeurRBActionPerformed
         if(_hsServeurRB.isSelected()) {
             CommandeCli.sendStringWithoutWaiting("Serveur en pause");
+            etatServeur = false;
         }
         else
         {
                 CommandeCli.sendStringWithoutWaiting("Serveur En ligne");
+                etatServeur = true;
         }
     }//GEN-LAST:event__hsServeurRBActionPerformed
 
