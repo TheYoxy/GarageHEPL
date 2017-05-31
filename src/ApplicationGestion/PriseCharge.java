@@ -5,7 +5,7 @@
  */
 package ApplicationGestion;
 
-import Activités.Travail;
+import Activites.Travail;
 import People.Client;
 
 import javax.swing.*;

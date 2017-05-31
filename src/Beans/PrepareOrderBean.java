@@ -4,9 +4,6 @@ import java.util.Vector;
 
 public class PrepareOrderBean implements SearchFoundListener{
 
-    /**
-     *
-     */
     private Vector InStockListeners;
 
     /**

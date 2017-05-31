@@ -1,4 +1,4 @@
-package Activités;
+package Activites;
 
 import People.Mecanicien;
 import Vehicules.Voiture;

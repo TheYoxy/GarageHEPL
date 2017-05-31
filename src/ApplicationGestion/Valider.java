@@ -5,7 +5,7 @@
  */
 package ApplicationGestion;
 
-import Activités.Travail;
+import Activites.Travail;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

@@ -5,9 +5,9 @@
  */
 package ApplicationGestion;
 
-import Activités.Entretien;
-import Activités.Reparation;
-import Activités.Travail;
+import Activites.Entretien;
+import Activites.Reparation;
+import Activites.Travail;
 import Authenticate.Identifiable;
 import People.*;
 import Tools.FilesOperations;
@@ -204,9 +204,6 @@ public class Panel extends javax.swing.JFrame {
         });
     }
 
-    /**
-     *
-     */
     private void AProposMouseClicked()
     {
         AboutBox.setVisible(true);
@@ -224,9 +221,6 @@ public class Panel extends javax.swing.JFrame {
         Time = time;
     }
 
-    /**
-     *
-     */
     private void setTime() {
         _dateHeureLabel.setText(DateFormat.getDateTimeInstance(Date,Time).format(Calendar.getInstance(LocaleDateTime).getTime()));
     }

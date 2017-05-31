@@ -4,13 +4,7 @@ import java.util.EventObject;
 
 public class SearchFoundEvent extends EventObject
 {
-    /**
-     *
-     */
     private String Libelle;
-    /**
-     *
-     */
     private boolean EtatCommande;
 
     /**

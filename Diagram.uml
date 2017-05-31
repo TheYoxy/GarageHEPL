@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>Activités</OriginalElement>
+  <OriginalElement>Activites</OriginalElement>
   <nodes>
     <node x="492.5104166666667" y="624.0">ApplicationGestion.Panel</node>
-    <node x="962.1466647104855" y="495.0">Activités.Entretien</node>
+    <node x="962.1466647104855" y="495.0">Activites.Entretien</node>
     <node x="1319.2754010172143" y="109.0">People.APersonne</node>
     <node x="704.0" y="777.0">Beans.SearchFoundEvent</node>
     <node x="335.3901515151515" y="856.0">Beans.FichierLogBean</node>
@@ -23,7 +23,7 @@
     <node x="730.1466647104855" y="495.0">ApplicationGestion.Valider</node>
     <node x="834.1466647104855" y="495.0">ApplicationGestion.TravauxFini</node>
     <node x="1305.083705007825" y="188.0">People.TechnicienExterieur</node>
-    <node x="673.3966647104855" y="386.0">Activités.Travail</node>
+    <node x="673.3966647104855" y="386.0">Activites.Travail</node>
     <node x="492.0104166666667" y="703.0">ApplicationGestion.Login</node>
     <node x="1098.1466647104855" y="297.0">People.Mecanicien</node>
     <node x="870.0" y="777.0">Beans.InStockEvent</node>
@@ -41,7 +41,7 @@
     <node x="1164.833705007825" y="495.0">Main.Main</node>
     <node x="135.27166471048554" y="386.0">test.TestVehicules</node>
     <node x="183.0" y="777.0">Beans.InStockListener</node>
-    <node x="605.1466647104855" y="495.0">Activités.Reparation</node>
+    <node x="605.1466647104855" y="495.0">Activites.Reparation</node>
   </nodes>
   <notes />
   <edges>
@@ -69,7 +69,7 @@
       <point x="296.5216647104855" y="59.0" />
       <point x="36.375" y="14.5" />
     </edge>
-    <edge source="Activités.Travail" target="Authenticate.Identifiable">
+    <edge source="Activites.Travail" target="Authenticate.Identifiable">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
@@ -87,7 +87,7 @@
       <point x="1406.7754010172143" y="163.0" />
       <point x="35.0" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.Panel" target="Activités.Reparation">
+    <edge source="ApplicationGestion.Panel" target="Activites.Reparation">
       <point x="8.25" y="-14.5" />
       <point x="539.2604166666667" y="554.0" />
       <point x="657.6466647104855" y="554.0" />
@@ -111,7 +111,7 @@
       <point x="777.0" y="836.0" />
       <point x="0.0" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.TravauxFini" target="Activités.Travail">
+    <edge source="ApplicationGestion.TravauxFini" target="Activites.Travail">
       <point x="0.0" y="-14.5" />
       <point x="888.1466647104855" y="465.0" />
       <point x="730.4591647104855" y="465.0" />
@@ -133,7 +133,7 @@
       <point x="422.3688869327077" y="277.0" />
       <point x="-8.777777777777771" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.PriseCharge" target="Activités.Travail">
+    <edge source="ApplicationGestion.PriseCharge" target="Activites.Travail">
       <point x="0.0" y="-14.5" />
       <point x="528.6466647104855" y="445.0" />
       <point x="678.5841647104855" y="445.0" />
@@ -163,7 +163,7 @@
       <point x="657.6666666666666" y="826.0" />
       <point x="52.66666666666663" y="14.5" />
     </edge>
-    <edge source="Activités.Travail" target="People.Mecanicien">
+    <edge source="Activites.Travail" target="People.Mecanicien">
       <point x="27.66666666666663" y="-14.5" />
       <point x="742.563331377152" y="366.0" />
       <point x="1116.3133313771523" y="366.0" />
@@ -197,7 +197,7 @@
       <point x="928.0" y="925.0" />
       <point x="36.0" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.Panel" target="Activités.Travail">
+    <edge source="ApplicationGestion.Panel" target="Activites.Travail">
       <point x="2.75" y="-14.5" />
       <point x="533.7604166666667" y="544.0" />
       <point x="594.6466647104855" y="544.0" />
@@ -205,7 +205,7 @@
       <point x="699.3341647104855" y="465.0" />
       <point x="-15.5625" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.Panel" target="Activités.Entretien">
+    <edge source="ApplicationGestion.Panel" target="Activites.Entretien">
       <point x="24.75" y="-14.5" />
       <point x="555.7604166666667" y="584.0" />
       <point x="1009.6466647104855" y="584.0" />
@@ -263,7 +263,7 @@
       <point x="413.59110915492994" y="267.0" />
       <point x="-17.555555555555543" y="14.5" />
     </edge>
-    <edge source="Activités.Travail" target="Vehicules.Voiture">
+    <edge source="Activites.Travail" target="Vehicules.Voiture">
       <point x="-27.66666666666663" y="-14.5" />
       <point x="687.2299980438188" y="346.0" />
       <point x="269.6733176838811" y="346.0" />
@@ -325,7 +325,7 @@
       <point x="1336.7754010172143" y="163.0" />
       <point x="-35.0" y="14.5" />
     </edge>
-    <edge source="ApplicationGestion.Valider" target="Activités.Travail">
+    <edge source="ApplicationGestion.Valider" target="Activites.Travail">
       <point x="0.0" y="-14.5" />
       <point x="772.1466647104855" y="475.0" />
       <point x="720.0841647104855" y="475.0" />
@@ -349,7 +349,7 @@
       <point x="212.33998435054775" y="366.0" />
       <point x="-28.666666666666657" y="14.5" />
     </edge>
-    <edge source="Activités.Entretien" target="Activités.Travail">
+    <edge source="Activites.Entretien" target="Activites.Travail">
       <point x="0.0" y="-14.5" />
       <point x="1009.6466647104855" y="455.0" />
       <point x="740.8341647104855" y="455.0" />
@@ -411,7 +411,7 @@
       <point x="215.0" y="836.0" />
       <point x="-32.0" y="14.5" />
     </edge>
-    <edge source="Activités.Reparation" target="Activités.Travail">
+    <edge source="Activites.Reparation" target="Activites.Travail">
       <point x="0.0" y="-14.5" />
       <point x="657.6466647104855" y="475.0" />
       <point x="709.7091647104855" y="475.0" />

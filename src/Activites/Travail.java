@@ -1,4 +1,4 @@
-package Activités;
+package Activites;
 
 import Authenticate.Identifiable;
 import People.Mecanicien;
@@ -8,25 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 
 public abstract class Travail implements Identifiable,Serializable{
-    /**
-     *
-     */
+
     private Voiture Car;
-    /**
-     *
-     */
     private Mecanicien Travailleur;
-    /**
-     *
-     */
     protected String Id;
-    /**
-     *
-     */
     private String Libelle;
-    /**
-     *
-     */
     private String Remarque;
 
     /**

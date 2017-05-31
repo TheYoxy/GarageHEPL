@@ -111,12 +111,12 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         _normalRB = new javax.swing.JRadioButton();
         _nonPrioritaireRB = new javax.swing.JRadioButton();
         _commandesLabel = new javax.swing.JLabel();
-        _libelléLabel = new javax.swing.JLabel();
+        _libelleLabel = new javax.swing.JLabel();
         _typeLabel = new javax.swing.JLabel();
         _quantiteLabel = new javax.swing.JLabel();
         _libelleTF = new javax.swing.JTextField();
         _typeTF = new javax.swing.JTextField();
-        _quantitéTF = new javax.swing.JTextField();
+        _quantiteTF = new javax.swing.JTextField();
         _envoyerButton = new javax.swing.JButton();
         annulerButon = new javax.swing.JButton();
         _scrollpanel = new javax.swing.JScrollPane();
@@ -154,7 +154,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
 
         _commandesLabel.setText("Commandes :");
 
-        _libelléLabel.setText("Libellé :");
+        _libelleLabel.setText("Libelle :");
 
         _typeLabel.setText("Type :");
 
@@ -205,14 +205,14 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                                 .addComponent(_nonPrioritaireRB))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_libelléLabel)
+                                    .addComponent(_libelleLabel)
                                     .addComponent(_typeLabel)
                                     .addComponent(_quantiteLabel))
                                 .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(_libelleTF)
                                     .addComponent(_typeTF)
-                                    .addComponent(_quantitéTF, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))))
+                                    .addComponent(_quantiteTF, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(_commandeLabel)))
@@ -246,7 +246,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_libelléLabel)
+                            .addComponent(_libelleLabel)
                             .addComponent(_libelleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,7 +255,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(_quantiteLabel)
-                            .addComponent(_quantitéTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(_quantiteTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_scrollpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -268,14 +268,14 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
 
         _commandeLabel.getAccessibleContext().setAccessibleName("CommandeLabel");
         _commandesLabel.getAccessibleContext().setAccessibleName("CommandesLabel");
-        _libelléLabel.getAccessibleContext().setAccessibleName("LibelléLabel");
+        _libelleLabel.getAccessibleContext().setAccessibleName("libelleLabel");
         _typeLabel.getAccessibleContext().setAccessibleName("TypeLabel");
         _quantiteLabel.getAccessibleContext().setAccessibleName("QuantitéLabel");
         _quantiteLabel.getAccessibleContext().setAccessibleDescription("");
         _libelleTF.getAccessibleContext().setAccessibleName("LibelleTF");
         _typeTF.getAccessibleContext().setAccessibleName("TypeTF");
-        _quantitéTF.getAccessibleContext().setAccessibleName("QuantiteTF");
-        _quantitéTF.getAccessibleContext().setAccessibleDescription("");
+        _quantiteTF.getAccessibleContext().setAccessibleName("QuantiteTF");
+        _quantiteTF.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,7 +289,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         String disponibilite;
         if (ServeurState)
         {
-            envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
+            envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantiteTF.getText();
             //On ajoute à la liste des commandes
             DefaultListModel<String> dlm = new DefaultListModel<>();
             if(!ExistModel)
@@ -301,10 +301,10 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
             dlm.addElement(envoiMessage);
             _commandesList.setModel(dlm);
 
-            //Clear champs
-            _libelleTF.setText("");
-            _typeTF.setText("");
-            _quantitéTF.setText("");
+        //Clear champs
+        _libelleTF.setText("");
+        _typeTF.setText("");
+        _quantiteTF.setText("");
 
             //Envoi d'un message avec attente bloquante de la réponse.
             reponse = Client.sendString(envoiMessage);
@@ -399,11 +399,11 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private javax.swing.JButton _envoyerButton;
     private javax.swing.JLabel _etatServeurLabel;
     private javax.swing.JTextField _libelleTF;
-    private javax.swing.JLabel _libelléLabel;
+    private javax.swing.JLabel _libelleLabel;
     private javax.swing.JRadioButton _nonPrioritaireRB;
     private javax.swing.JRadioButton _normalRB;
     private javax.swing.JLabel _quantiteLabel;
-    private javax.swing.JTextField _quantitéTF;
+    private javax.swing.JTextField _quantiteTF;
     private javax.swing.JScrollPane _scrollpanel;
     private javax.swing.JLabel _typeLabel;
     private javax.swing.JTextField _typeTF;
