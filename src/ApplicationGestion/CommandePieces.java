@@ -12,6 +12,7 @@ import network.NetworkBasicServer;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 public class CommandePieces extends javax.swing.JDialog implements Runnable {
@@ -26,7 +27,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private int _port;
     private int _portClient;
     private String _messageEtat;
-
+    private Thread ThLecture;
     /**
      * @param parent
      * @param modal
@@ -58,14 +59,17 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                 _port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 break;
         }
+        _serveur = new NetworkBasicServer(_portClient, null);
         _client = new NetworkBasicClient(_ip, _port);
-        //_serveur = new NetworkBasicServer(_port, null);
-        //new Thread(this).start();
-        initComponents();
+        String message = _client.sendString("Connexion;127.0.0.1;" + _portClient);
+        if (Objects.equals(message, "OK"))
+            initComponents();
+        else System.exit(0);
+        ThLecture = new Thread(() -> {
+
+        });
+        ThLecture.start();
     }
-
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

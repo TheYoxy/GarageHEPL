@@ -273,7 +273,7 @@
       <disabledExtension id="junit" />
     </inspection_tool>
     <inspection_tool class="WrongPackageStatement" enabled="true" level="Probable Bug" enabled_by_default="true" />
-    <inspection_tool class="unused" enabled="true" level="WEAK WARNING" enabled_by_default="true" method="private">
+    <inspection_tool class="unused" enabled="false" level="WEAK WARNING" enabled_by_default="false" method="private">
       <option name="LOCAL_VARIABLE" value="true" />
       <option name="FIELD" value="true" />
       <option name="METHOD" value="true" />

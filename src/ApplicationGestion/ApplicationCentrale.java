@@ -15,6 +15,7 @@ import network.NetworkBasicServer;
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Vector;
@@ -28,17 +29,17 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private NetworkBasicClient CommandeCli;
     private int Port;
     private int PortCli;
-    private boolean etatServeur = true;
-    private String _ip;
+    private String Ip;
     private ReceivingBean Rb;
     private SearchBean Sb;
     private PrepareOrderBean Pob;
-
-    /**
-     * @param type
-     */
+    private Thread ThLecture;
+    private String Buffer;
+    private static final int PNEUS = 1;
+    private static final int PIECES = 2;
+    private static final int LUBRIFIANT = 3;
     private ApplicationCentrale(int type) {
-
+        initComponents();
         final Properties temp = new Properties();
         try {
             temp.load(new FileInputStream(FilesOperations.PROPERTIES));
@@ -46,37 +47,48 @@ public class ApplicationCentrale extends javax.swing.JFrame {
             e.printStackTrace();
             System.exit(-1);
         }
-
-        _ip = temp.getProperty("IP");
-        PortCli = Integer.parseInt(temp.getProperty("portClient"));
-
+        Ip = temp.getProperty("IP");
         switch(type)
         {
-            case 1:
+            case PNEUS:
                 Port = Integer.parseInt(temp.getProperty("Pneus"));
                 _imageLabel.setText("PNEUS");
                 break;
-            case 2:
+            case PIECES:
                 Port = Integer.parseInt(temp.getProperty("Piece"));
                 _imageLabel.setText("PIECES");
                 break;
-            case 3:
+            case LUBRIFIANT:
                 Port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 _imageLabel.setText("LUBRIFIANT");
                 break;
         }
         CommandeSer = new NetworkBasicServer(Port, _messageEntrantCB);
-        /*
-        *Création des beans
-        */
-        initComponents();
-        /*Rb = new ReceivingBean();
-        Sb = new SearchBean();
-        Rb.addReceiveMessageListener(Sb);//Ajout du bean search en tant que lsitener du bean receivemessage
-        Pob = new PrepareOrderBean();
-        Sb.addSearchFoundListener(Pob);//Ajout du bean prepareOrder en temps que lsitener du bean SearchFound
-        Pob.addInStockListener(Rb);
-        Rb.run(CommandeSer); //evidemment ca couille car while 1*/
+        ThLecture = new Thread(() -> {
+            String message;
+            while (true)
+            {
+                if (Buffer != null || (message = CommandeSer.getMessage()).equals("RIEN")) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.err.println("ThLecture> Message reçu : " + message);
+                    if (message.contains("Connexion"))
+                    {
+                        String[] split = message.split(";");
+                        if (CommandeCli == null)
+                            CommandeCli = new NetworkBasicClient(split[1],Integer.parseInt(split[2]));
+                        CommandeSer.sendMessage("OK");
+                    }
+                    else
+                        Buffer = message;
+                }
+            }
+        });
+        ThLecture.start();
     }
 
     /**
@@ -266,53 +278,26 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param evt
-     */
     private void _verificationDispoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__verificationDispoBActionPerformed
         Boolean etat = new Random().nextBoolean();
         _disponibleRB.setSelected(etat);
         _nonDispoRB.setSelected(!etat);
     }//GEN-LAST:event__verificationDispoBActionPerformed
 
-    /**
-     * @param evt
-     */
     private void _lireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lireButtonActionPerformed
-        /*TEST*/
-        //CommandeCli = new NetworkBasicClient(_ip, PortCli);
-        /*FIN TEST*/
-        String message = CommandeSer.getMessage();
-        if(!etatServeur)
-        {
-            message = "RIEN";
-        }
-
-        //Ajout à la comboBox
-        _commandeCoursCB.addItem(message);
-
-        //Ajout à la jtable
-        ajoutJtable(message);
+        _commandeCoursCB.addItem(Buffer);
+        ajoutJtable(Buffer);
+        Buffer = null;
     }//GEN-LAST:event__lireButtonActionPerformed
 
-    /**
-     * @param evt
-     */
     private void _envoyerReponseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__envoyerReponseBActionPerformed
         /*
         *Envoi de la réponse au client
          */
         String reponse;
-
-        if(_disponibleRB.isSelected())
-        {
-            reponse = "true";
-        }
-        else if (_nonDispoRB.isSelected()) {
-            reponse = "false";
-        }
-        else
-            return;
+        if(_disponibleRB.isSelected()) reponse = "true";
+        else if (_nonDispoRB.isSelected()) reponse = "false";
+        else return;
         //Et réenvoi le message pour que le client puisse determiner pour quel message il a recu une réponse
         CommandeSer.sendMessage(reponse + ";" + _commandeCoursCB.getSelectedItem());
         //On enleve la commande à laquelle on a répondu de la combobox
@@ -320,70 +305,44 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         //On clear la jtable
         DefaultTableModel dtm;
         dtm = (DefaultTableModel)_detailTable.getModel();
-        dtm.removeRow(0);
-        dtm.removeRow(1);
-        dtm.removeRow(2);
+        while (dtm.getRowCount() > 0)
+            dtm.removeRow(0);
         _detailTable.setModel(dtm);
-
-
     }//GEN-LAST:event__envoyerReponseBActionPerformed
 
-    /**
-     * @param evt
-     */
     private void commandeCoursCBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commandeCoursCBMouseClicked
         String message = (String)_commandeCoursCB.getSelectedItem();
         ajoutJtable(message);
-
     }//GEN-LAST:event_commandeCoursCBMouseClicked
 
-    /**
-     * @param evt
-     */
     private void _disponibleRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__disponibleRBActionPerformed
         _nonDispoRB.setSelected(false);
     }//GEN-LAST:event__disponibleRBActionPerformed
 
-    /**
-     * @param evt
-     */
     private void _nonDispoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__nonDispoRBActionPerformed
         _disponibleRB.setSelected(false);
     }//GEN-LAST:event__nonDispoRBActionPerformed
 
     private void _hsServeurRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__hsServeurRBActionPerformed
-        if(_hsServeurRB.isSelected()) {
-            CommandeCli.sendStringWithoutWaiting("Serveur en pause");
-            etatServeur = false;
-        }
+        if(_hsServeurRB.isSelected())
+            CommandeCli.sendStringWithoutWaiting("Pause");
         else
-        {
-                CommandeCli.sendStringWithoutWaiting("Serveur En ligne");
-                etatServeur = true;
-        }
+            CommandeCli.sendStringWithoutWaiting("Ligne");
     }//GEN-LAST:event__hsServeurRBActionPerformed
 
-    /**
-     * @param message
-     */
     private void ajoutJtable(String message)
     {
         String[] split = message.split(";");
 
         DefaultTableModel dtm = new DefaultTableModel(){ @Override public boolean isCellEditable(int row, int column){return false;}};
-//        dtm.setColumnIdentifiers(new String[]{,"Valeur"});
         Vector<Object> vector = new Vector<>();
         vector.add("Libelle :");
         vector.add("Type :");
         vector.add("Quantité :");
         dtm.addColumn("Caractéristique",vector);
         vector.clear();
-
-        vector.add(split[0]);
-        vector.add(split[1]);
-        vector.add(split[2]);
+        vector.addAll(Arrays.asList(split));
         dtm.addColumn("Valeur",vector);
-
         _detailTable.setModel(dtm);
     }
 
@@ -403,23 +362,13 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ApplicationCentrale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ApplicationCentrale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ApplicationCentrale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(ApplicationCentrale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ApplicationCentrale(1).setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new ApplicationCentrale(PNEUS).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
