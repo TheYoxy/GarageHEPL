@@ -80,8 +80,12 @@ public class ApplicationCentrale extends javax.swing.JFrame {
                     {
                         String[] split = message.split(";");
                         if (CommandeCli == null)
+                        {
                             CommandeCli = new NetworkBasicClient(split[1],Integer.parseInt(split[2]));
-                        CommandeSer.sendMessage("OK");
+                            CommandeSer.sendMessage("OK");
+                        }
+                        else
+                            CommandeSer.sendMessage("KO");
                     }
                     else
                         Buffer = message;

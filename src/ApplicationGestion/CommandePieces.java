@@ -20,15 +20,15 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     /**
      * Creates new form CommandePieces
      */
-    private NetworkBasicClient _client;
-    private NetworkBasicServer _serveur;
-    private boolean _exist = false; // détermine si un model pour la jliste existe deja ou non
-    private String _ip;
-    private int _port;
-    private int _portClient;
-    private String _messageEtat;
+    private NetworkBasicClient Client;
+    private NetworkBasicServer Serveur;
+    private boolean ExistModel = false; // détermine si un model pour la jliste existe deja ou non
+    private String Ip;
+    private int Port;
+    private int PortClient;
+    private String MessageEtat;
     private Thread ThLecture;
-    private boolean Serveur;
+    private boolean ServeurState;
     /**
      * @param parent
      * @param modal
@@ -36,6 +36,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
      */
     public CommandePieces(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
+        initComponents();
         final Properties temp = new Properties();
         try {
             temp.load(new FileInputStream(FilesOperations.PROPERTIES));
@@ -43,37 +44,36 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
             e.printStackTrace();
             System.exit(-1);
         }
-        _ip = temp.getProperty("IP");
-        _portClient = Integer.parseInt(temp.getProperty("portClient"));
+        Ip = temp.getProperty("IP");
+        PortClient = Integer.parseInt(temp.getProperty("portClient"));
         switch(type)
         {
             //Si pneus
             case 1:
-                _port = Integer.parseInt(temp.getProperty("Pneus"));
+                Port = Integer.parseInt(temp.getProperty("Pneus"));
                 break;
             //Si pièces
             case 2:
-                _port = Integer.parseInt(temp.getProperty("Piece"));
+                Port = Integer.parseInt(temp.getProperty("Piece"));
                 break;
             //Si lubrifiant
             case 3:
-                _port = Integer.parseInt(temp.getProperty("Lubrifiant"));
+                Port = Integer.parseInt(temp.getProperty("Lubrifiant"));
                 break;
         }
-        _serveur = new NetworkBasicServer(_portClient, null);
+        Serveur = new NetworkBasicServer(PortClient, null);
         _etatServeurLabel.setText("Etat du serveur: On");
-        _client = new NetworkBasicClient(_ip, _port);
-        Serveur = true;
-        String message = String.format("Connexion;127.0.0.1;%d", _portClient);
-        message = _client.sendString(message);
-        if (Objects.equals(message, "OK"))
-            initComponents();
-        else System.exit(0);
+        Client = new NetworkBasicClient(Ip, Port);
+        ServeurState = true;
+        String message = String.format("Connexion;127.0.0.1;%d", PortClient);
+        message = Client.sendString(message);
+        if (!Objects.equals(message, "OK"))
+            System.exit(0);
         ThLecture = new Thread(() -> {
             String mess;
             while (true)
                 {
-                    if ((mess = _serveur.getMessage()).equals("RIEN")) {
+                    if ((mess = Serveur.getMessage()).equals("RIEN")) {
                         try {
                             Thread.sleep(1);
                         } catch (InterruptedException e) {
@@ -83,14 +83,15 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                         System.err.println("ThLecture> Message reçu : " + mess);
                         if (mess.contains("Pause"))
                         {
-                            Serveur = false;
-                            _etatServeurLabel.setText("Etat du serveur: On");
+                            ServeurState = false;
+                            _etatServeurLabel.setText("Etat du serveur: Off");
                         }
                         else if (mess.contains("Ligne"))
                         {
-                            Serveur = true;
-                            _etatServeurLabel.setText("Etat du serveur: Off");
+                            ServeurState = true;
+                            _etatServeurLabel.setText("Etat du serveur: On");
                         }
+                        this.repaint();
                     }
                 }
         });
@@ -286,15 +287,15 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         String reponse;
         String envoiMessage;
         String disponibilite;
-        if (Serveur)
+        if (ServeurState)
         {
             envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
             //On ajoute à la liste des commandes
             DefaultListModel<String> dlm = new DefaultListModel<>();
-            if(!_exist)
+            if(!ExistModel)
             {
                 _commandesList.setModel(dlm);
-                _exist = true;
+                ExistModel = true;
             }
             dlm = (DefaultListModel<String>)_commandesList.getModel();
             dlm.addElement(envoiMessage);
@@ -306,7 +307,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
             _quantitéTF.setText("");
 
             //Envoi d'un message avec attente bloquante de la réponse.
-            reponse = _client.sendString(envoiMessage);
+            reponse = Client.sendString(envoiMessage);
             //Envoi d'un message sans attente bloquante (simple notif)
             //client.sendStringWithoutWaiting(envoiMessage);
 
@@ -350,9 +351,9 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         String message;
 
         while (true) {
-            if ((message = _serveur.getMessage()).compareTo("RIEN") != 0) {
-                _messageEtat = message;
-                _etatServeurLabel.setText(_messageEtat);
+            if ((message = Serveur.getMessage()).compareTo("RIEN") != 0) {
+                MessageEtat = message;
+                _etatServeurLabel.setText(MessageEtat);
             }
         }
     }
