@@ -28,6 +28,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
     private int _portClient;
     private String _messageEtat;
     private Thread ThLecture;
+    private boolean Serveur;
     /**
      * @param parent
      * @param modal
@@ -61,12 +62,30 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         }
         _serveur = new NetworkBasicServer(_portClient, null);
         _client = new NetworkBasicClient(_ip, _port);
-        String message = _client.sendString("Connexion;127.0.0.1;" + _portClient);
+        Serveur = true;
+        String message = String.format("Connexion;127.0.0.1;%d", _portClient);
+        message = _client.sendString(message);
         if (Objects.equals(message, "OK"))
             initComponents();
         else System.exit(0);
         ThLecture = new Thread(() -> {
-
+            String mess;
+            while (true)
+                {
+                    if ((mess = _serveur.getMessage()).equals("RIEN")) {
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.err.println("ThLecture> Message reçu : " + mess);
+                        if (mess.contains("Pause"))
+                            Serveur = false;
+                        else if (mess.contains("Ligne"))
+                            Serveur = true;
+                    }
+                }
         });
         ThLecture.start();
     }
@@ -260,38 +279,41 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         String reponse;
         String envoiMessage;
         String disponibilite;
-
-        envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
-        //On ajoute à la liste des commandes
-        DefaultListModel<String> dlm = new DefaultListModel<>();
-        if(!_exist)
+        if (Serveur)
         {
+            envoiMessage = _libelleTF.getText() + ";" + _typeTF.getText() + ";" + _quantitéTF.getText();
+            //On ajoute à la liste des commandes
+            DefaultListModel<String> dlm = new DefaultListModel<>();
+            if(!_exist)
+            {
+                _commandesList.setModel(dlm);
+                _exist = true;
+            }
+            dlm = (DefaultListModel<String>)_commandesList.getModel();
+            dlm.addElement(envoiMessage);
             _commandesList.setModel(dlm);
-            _exist = true;
+
+            //Clear champs
+            _libelleTF.setText("");
+            _typeTF.setText("");
+            _quantitéTF.setText("");
+
+            //Envoi d'un message avec attente bloquante de la réponse.
+            reponse = _client.sendString(envoiMessage);
+            //Envoi d'un message sans attente bloquante (simple notif)
+            //client.sendStringWithoutWaiting(envoiMessage);
+
+            String[] parts = reponse.split(";");
+            disponibilite = parts[0];
+
+            if(disponibilite.compareTo("true") == 0)
+                JOptionPane.showMessageDialog(this, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
+
         }
-        dlm = (DefaultListModel<String>)_commandesList.getModel();
-        dlm.addElement(envoiMessage);
-        _commandesList.setModel(dlm);
-
-        //Clear champs
-        _libelleTF.setText("");
-        _typeTF.setText("");
-        _quantitéTF.setText("");
-
-        //Envoi d'un message avec attente bloquante de la réponse.
-        reponse = _client.sendString(envoiMessage);
-        //Envoi d'un message sans attente bloquante (simple notif)
-        //client.sendStringWithoutWaiting(envoiMessage);
-
-        String[] parts = reponse.split(";");
-        disponibilite = parts[0];
-
-        if(disponibilite.compareTo("true") == 0)
-            JOptionPane.showMessageDialog(null, "OK pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Information", JOptionPane.INFORMATION_MESSAGE);
         else
-            JOptionPane.showMessageDialog(null, "Plus de stock pour\n " + parts[1] + ", " + parts[2] + ", " + parts[3], "Attention", JOptionPane.WARNING_MESSAGE);
-
-
+            JOptionPane.showMessageDialog(this,"Le serveur ne reçoit plus de requêtes pour le moment.","Erreur",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event__envoyerButtonActionPerformed
 
     /**
@@ -350,17 +372,15 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CommandePieces dialog = new CommandePieces(new javax.swing.JFrame(), true, 1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            CommandePieces dialog = new CommandePieces(new JFrame(), true, 1);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
