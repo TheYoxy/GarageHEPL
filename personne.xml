@@ -32,12 +32,12 @@
      <string>bb</string>
     </void>
     <void property="nom">
-     <string>Simar</string>
+     <string>Bonemme</string>
     </void>
     <void property="numeroTelephone">
      <string></string>
     </void>
-    <void property="prenom">
+    <void property="Nicolas">
      <string>Floryan</string>
     </void>
    </object>
@@ -62,3 +62,4 @@
    </object>
   </void>
  </object>
+</java>

@@ -10,13 +10,8 @@ import java.io.IOException;
  */
 public class FichierLogBean implements ReceiveMessageListener,SearchFoundListener,InStockListener
 {
-    /**
-     *
-     */
+
     private String Filename;
-    /**
-     *
-     */
     private FileOutputStream File;
 
     /**

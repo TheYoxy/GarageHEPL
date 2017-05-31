@@ -4,9 +4,6 @@ import java.util.EventObject;
 
 public class ReceiveMessageEvent extends EventObject
 {
-    /**
-     *
-     */
     private String Commande;
 
     /**

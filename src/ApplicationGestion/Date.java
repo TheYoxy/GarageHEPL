@@ -14,6 +14,8 @@ import java.util.Locale;
 public class Date extends javax.swing.JDialog {
 
     /**
+     * @param parent
+     * @param modal
      * Creates new form Date
      */
     public Date(java.awt.Frame parent, boolean modal) {

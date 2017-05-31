@@ -312,6 +312,9 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         _normalRB.setSelected(false);
     }//GEN-LAST:event__nonPrioritaireRBActionPerformed
 
+    /**
+     **
+     */
     @Override
     public void run() {
         String message;

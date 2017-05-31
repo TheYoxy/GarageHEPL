@@ -7,12 +7,17 @@ public class SearchBean implements ReceiveMessageListener {
     private Vector<SearchFoundListener> SearchFoundListeners;
     private boolean EtatCommande;
 
+    /**
+     **
+     */
     public SearchBean()
     {
         SearchFoundListeners = new Vector<>();
         EtatCommande = false;
     }
-
+    /**
+     ** @param e
+     */
     public void MessageDetected(ReceiveMessageEvent e) {
         String message;
 
@@ -24,12 +29,18 @@ public class SearchBean implements ReceiveMessageListener {
 
     }
 
+    /**
+     ** @param sfl
+     */
     public void addSearchFoundListener(SearchFoundListener sfl)/*Ici ce sera que le prepareOrder bean normalement*/ {
         if (!SearchFoundListeners.contains(sfl)) {
             SearchFoundListeners.addElement(sfl);
         }
     }
 
+    /**
+     ** @param sfl
+     */
     public void removeSearchFoundListener(SearchFoundListener sfl) {
         if (SearchFoundListeners.contains(sfl)) {
             SearchFoundListeners.removeElement(sfl);

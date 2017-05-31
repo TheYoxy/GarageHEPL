@@ -40,6 +40,7 @@ public class ApplicationCentrale extends javax.swing.JFrame {
     private ApplicationCentrale(int type) {
 
         final Properties temp = new Properties();
+        initComponents();
         try {
             temp.load(new FileInputStream(FilesOperations.PROPERTIES));
         } catch (IOException e) {
@@ -69,7 +70,6 @@ public class ApplicationCentrale extends javax.swing.JFrame {
         /*
         *Création des beans
         */
-        initComponents();
         /*Rb = new ReceivingBean();
         Sb = new SearchBean();
         Rb.addReceiveMessageListener(Sb);//Ajout du bean search en tant que lsitener du bean receivemessage
