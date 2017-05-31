@@ -30,7 +30,7 @@ public class AboutBox extends javax.swing.JDialog {
   private void initComponents() {
 
     Application = new javax.swing.JLabel();
-    Réalisée = new javax.swing.JLabel();
+    realise = new javax.swing.JLabel();
     JaimeRadio = new javax.swing.JRadioButton();
     BofRadio = new javax.swing.JRadioButton();
     JeDetesteRadio = new javax.swing.JRadioButton();
@@ -43,7 +43,7 @@ public class AboutBox extends javax.swing.JDialog {
     Application.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
     Application.setText("Application \"GarageHEPL\"");
 
-    Réalisée.setText("Réalisée par Bonemme Nicolas et Simar Floryan 2225");
+    realise.setText("realise par Bonemme Nicolas et Simar Floryan 2225");
 
     JaimeRadio.setSelected(true);
     JaimeRadio.setText("J'aime");
@@ -89,7 +89,7 @@ public class AboutBox extends javax.swing.JDialog {
                                             .addComponent(JeDetesteRadio))
                                     .addComponent(OkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Application)
-                                    .addComponent(Réalisée))
+                                    .addComponent(realise))
                             .addContainerGap(54, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -98,7 +98,7 @@ public class AboutBox extends javax.swing.JDialog {
                             .addGap(50, 50, 50)
                             .addComponent(Application)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Réalisée)
+                            .addComponent(realise)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(JaimeRadio)
@@ -190,6 +190,6 @@ public class AboutBox extends javax.swing.JDialog {
   private javax.swing.JRadioButton JaimeRadio;
   private javax.swing.JRadioButton JeDetesteRadio;
   private javax.swing.JButton OkButton;
-  private javax.swing.JLabel Réalisée;
+  private javax.swing.JLabel realise;
   // End of variables declaration
 }

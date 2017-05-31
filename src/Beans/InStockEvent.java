@@ -24,7 +24,7 @@ public class InStockEvent extends EventObject
         return Libelle;
     }
     /**
-     ** @retun
+     ** @return
      */
     public boolean getEtatCommande()
     {

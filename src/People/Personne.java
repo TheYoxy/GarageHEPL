@@ -3,21 +3,10 @@ package People;
 import java.io.Serializable;
 
 public class Personne implements Serializable{
-    /**
-     *
-     */
+
     private String Nom;
-    /**
-     *
-     */
     private String Prenom;
-    /**
-     *
-     */
     private String Adresse;
-    /**
-     *
-     */
     private String NumeroTelephone;
 
     /**

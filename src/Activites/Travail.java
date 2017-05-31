@@ -1,4 +1,4 @@
-package Activités;
+package Activites;
 
 import Authenticate.Identifiable;
 import People.Mecanicien;

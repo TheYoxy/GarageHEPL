@@ -5,9 +5,9 @@
  */
 package ApplicationGestion;
 
-import Activités.Entretien;
-import Activités.Reparation;
-import Activités.Travail;
+import Activites.Entretien;
+import Activites.Reparation;
+import Activites.Travail;
 import Authenticate.Identifiable;
 import People.*;
 import Tools.FilesOperations;

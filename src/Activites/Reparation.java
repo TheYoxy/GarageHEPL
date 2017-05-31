@@ -1,16 +1,17 @@
-package Activités;
+package Activites;
 
 import People.Mecanicien;
 import Vehicules.Voiture;
 
-public class Entretien extends Travail {
+public class Reparation extends Travail {
+
     /**
      * @param car
      * @param travailleur
      * @param libelle
      * @param remarque
      */
-    public Entretien(Voiture car, Mecanicien travailleur, String libelle, String remarque) {
+    public Reparation(Voiture car, Mecanicien travailleur, String libelle, String remarque) {
         super(car, travailleur, libelle, remarque);
     }
 
