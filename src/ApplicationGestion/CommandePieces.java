@@ -61,6 +61,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                 break;
         }
         _serveur = new NetworkBasicServer(_portClient, null);
+        _etatServeurLabel.setText("Etat du serveur: On");
         _client = new NetworkBasicClient(_ip, _port);
         Serveur = true;
         String message = String.format("Connexion;127.0.0.1;%d", _portClient);
@@ -81,9 +82,15 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
                     } else {
                         System.err.println("ThLecture> Message reçu : " + mess);
                         if (mess.contains("Pause"))
+                        {
                             Serveur = false;
+                            _etatServeurLabel.setText("Etat du serveur: On");
+                        }
                         else if (mess.contains("Ligne"))
+                        {
                             Serveur = true;
+                            _etatServeurLabel.setText("Etat du serveur: Off");
+                        }
                     }
                 }
         });
@@ -172,7 +179,7 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
 
         _scrollpanel.setViewportView(_commandesList);
 
-        _etatServeurLabel.setText("Etat du serveur");
+        _etatServeurLabel.setText("Etat du serveur: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
