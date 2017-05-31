@@ -16,13 +16,22 @@ public class InStockEvent extends EventObject
         DateMois = mois;
     }
 
+    /**
+     ** @return
+     */
     public String getLibelle()
     {
         return Libelle;
     }
+    /**
+     ** @retun
+     */
     public boolean getEtatCommande()
     {
         return EtatCommande;
     }
+    /**
+     ** @return
+     */
     public int getDateMois(){return DateMois;}
 }
