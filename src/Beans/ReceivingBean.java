@@ -2,6 +2,9 @@ package Beans;
 
 import network.NetworkBasicServer;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Vector;
 
 public class ReceivingBean implements InStockListener {
@@ -59,10 +62,17 @@ public class ReceivingBean implements InStockListener {
         String message;
 
         while (true) {
-            if ((message = serveur.getMessage()).compareTo("RIEN") != 0) {
+            message = serveur.getMessage();
+            if (message.equals("Connexion"))
+            {
+                System.err.println("Connexion d'un nouveau client.");
+                Ser.sendMessage("OK");
+            }
+            else if (!message.equals("RIEN")) {
                 setCommande(message);
                 notifyReceiveMesageDetected();
             }
+
         }
     }
 
@@ -83,7 +93,22 @@ public class ReceivingBean implements InStockListener {
             ReceivingMessageListeners.removeElement(rml);
         }
     }
-
+    public static void main(String[] args)
+    {
+        Properties p = new Properties();
+        try {
+            p.load(new FileInputStream("config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ReceivingBean rb = new ReceivingBean();
+        SearchBean sb = new SearchBean();
+        PrepareOrderBean pob = new PrepareOrderBean();
+        rb.addReceiveMessageListener(sb);
+        sb.addSearchFoundListener(pob);
+        pob.addInStockListener(rb);
+        rb.run(new NetworkBasicServer(Integer.parseInt(p.getProperty("Pneus")),null));
+    }
     /**
      *
      */

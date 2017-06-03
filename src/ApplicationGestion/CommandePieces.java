@@ -12,7 +12,6 @@ import network.NetworkBasicServer;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Properties;
 
 public class CommandePieces extends javax.swing.JDialog implements Runnable {
@@ -66,9 +65,9 @@ public class CommandePieces extends javax.swing.JDialog implements Runnable {
         Client = new NetworkBasicClient(Ip, Port);
         ServeurState = true;
         String message = String.format("Connexion;127.0.0.1;%d", PortClient);
-        message = Client.sendString(message);
-        if (!Objects.equals(message, "OK"))
-            System.exit(0);
+        String recu = Client.sendString(message);
+        /*if (!recu.equals("OK"))
+            System.exit(-2);*/
         ThLecture = new Thread(() -> {
             String mess;
             while (true)
